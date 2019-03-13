@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+    <surname>Petrov</surname>
+    <name>Petr</name>
+    <dateOfBirth>23-05-2001</dateOfBirth>
+    <residence>
+        <city>Rivne</city>
+        <street>Franko</street>
+        <house>18</house>
+        <apartment>11</apartment>
+        <zip>53000</zip>
+    </residence>
+    <contact>
+        <phoneNumber>380661234567</phoneNumber>
+        <email>qwerty@gmail.com</email>
+    </contact>
+    <jobs>
+        <job>
+            <companyName>Global World</companyName>
+            <position>Engineer</position>
+            <workedFrom>11-05-2013</workedFrom>
+            <workedTill>23-07-2017</workedTill>
+        </job>
+    </jobs>
+    <skills>
+        <skill>C</skill>
+        <skill>Java</skill>
+        <skill>Python</skill>
+    </skills>
+    <specialization>
+        <spec>JAVA</spec>
+    </specialization>
+</root>

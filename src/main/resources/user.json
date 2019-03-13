@@ -1,0 +1,30 @@
+{
+  "surname": "Fedorovdfsgdfsgfsdgfgdfsgsdfgs",
+  "name": "Vadim",
+  "dateOfBirth": "11-03-1994",
+  "residence": {
+    "city": "Poltava",
+    "street": "Doroshenka",
+    "house": "11",
+    "apartment": "20",
+    "zip": "45000"
+  },
+  "contact": {
+    "phoneNumber": "380992389456",
+    "email": "gfjkjf@gmail.com"
+  },
+  "jobs": {
+    "companyName": "Test In",
+    "position": "QA",
+    "workedFrom": "14-07-2010",
+    "workedTill": "11-09-2018"
+  },
+  "skills": [
+    "C",
+    "Java",
+    "Ruby"
+  ],
+  "specialization": [
+    "Python"
+  ]
+}

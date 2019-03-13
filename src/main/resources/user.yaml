@@ -1,0 +1,29 @@
+---
+surname: "Sidorov"
+name: "Oleg"
+dateOfBirth: "05-01-1998"
+residence:
+  city: "Odessa"
+  street: "Shevchenko"
+  house: 14
+  apartment: 30
+  zip: 72000
+contact:
+  phoneNumber: 380662345678
+  email: "gfdhg@gmail.com"
+jobs:
+  - companyName: "Let's Prog"
+    position: "QA"
+    workedFrom: "18-07-2014"
+    workedTill: "11-09-2018"
+  - companyName: "Thinkers"
+    position: "QA"
+    workedFrom: "12-09-2018"
+    workedTill: "03-02-2019"
+skills:
+  - "HTML"
+  - "CSS"
+  - "JavaScript"
+  - "Joomla"
+specialization:
+  - "Python"
