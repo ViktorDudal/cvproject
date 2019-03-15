@@ -3,9 +3,8 @@ package com.gmail.viktordudal.model;
 public enum Specialization{
 
     Java,
-    C,
     Python,
+    DevOps,
     WebUI,
     Ruby
-
 }

@@ -1,9 +1,9 @@
 package com.gmail.viktordudal.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.gmail.viktordudal.model.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.xml.XmlMapper;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -11,37 +11,42 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ParseFile {
 
     private static ObjectMapper mapper;
     private static XmlMapper xmlMapper;
+    private static final Logger LOGGER = Logger.getLogger(ParseFile.class.getName());
 
-    public static char fileExtension(StringBuilder builder) {
-        return builder.charAt(0);
-    }
+    public static Person parseFile(String file) throws FileNotFoundException {
 
-    public static Person parseFile(char fileExtension, String file) {
         Person user = null;
         mapper = new ObjectMapper(new YAMLFactory());
         xmlMapper = new XmlMapper();
 
-        try {
-            if (fileExtension == '{') {
-                user = mapper.readValue(new File(file), Person.class);
+        Scanner scanner = new Scanner(new File(file));
+        while (scanner.hasNext()) {
+            String line = scanner.nextLine();
+            if (line.isEmpty()){
+            } else {
+                char firstChar = line.trim().charAt(0);
+                try {
+                    if (firstChar == '{' || firstChar == '-') {
+                        user = mapper.readValue(new File(file), Person.class);
+                        }
+                    if (firstChar == '<') {
+                        user = xmlMapper.readValue(new File(file), Person.class);
+                        }
+                    if (firstChar == 's'){
+                        user = readFromTXTFile(file);
+                        }
+                    } catch (IOException e) {
+                    LOGGER.log(Level.WARNING, "IOException: ", e);
+                    }
+                }
             }
-            if (fileExtension == '-' || fileExtension == '#') {
-                user = mapper.readValue(new File(file), Person.class);
-            }
-            if (fileExtension == '<') {
-                user = xmlMapper.readValue(new File(file), Person.class);
-            }
-            if (fileExtension=='s'){
-                user = readFromTXTFile(file);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         return user;
     }
 
@@ -49,7 +54,6 @@ public class ParseFile {
 
         Scanner scanner = new Scanner(new File(file));
         Person user = new Person();
-        Address address = new Address();
         Contact contact = new Contact();
         List<Company> jobs = new ArrayList<>();
         List<String> skills = new ArrayList<>();
@@ -60,74 +64,62 @@ public class ParseFile {
             if (readLine.contains(":") || readLine.isEmpty()){
                 continue;
             }
+            String readLineSubstring = readLine.substring(readLine.indexOf('=') + 1).trim();
             if (readLine.contains("surname =")) {
-                user.setSurname(readLine.substring(readLine.indexOf('=') + 1).trim());
+                user.setSurname(readLineSubstring);
                 continue;
             }
             if (readLine.contains("name =")) {
-                user.setName(readLine.substring(readLine.indexOf('=') + 1).trim());
+                user.setName(readLineSubstring);
                 continue;
             }
             if (readLine.contains("dateOfBirth =")) {
-                user.setDateOfBirth(LocalDate.parse(readLine.substring(readLine.indexOf('=') + 1).trim(), DateTimeFormatter.ofPattern("dd-MM-uuuu")));
+                user.setDateOfBirth(LocalDate.parse(readLineSubstring, DateTimeFormatter.ofPattern("dd-MM-uuuu")));
                 continue;
             }
             if (readLine.contains("city =")) {
-                address.setCity(readLine.substring(readLine.indexOf('=') + 1).trim());
+                contact.setCity(readLineSubstring);
                 continue;
             }
-            if (readLine.contains("street =")) {
-                address.setStreet(readLine.substring(readLine.indexOf('=') + 1).trim());
-                continue;
-            }
-            if (readLine.contains("house =")) {
-                address.setHouse(Integer.parseInt(readLine.substring(readLine.indexOf('=') + 1).trim()));
-                continue;
-            }
-            if (readLine.contains("apartment =")) {
-                address.setApartment(Integer.parseInt(readLine.substring(readLine.indexOf('=') + 1).trim()));
-                continue;
-            }
-            if (readLine.contains("zip =")) {
-                address.setZip(Integer.parseInt(readLine.substring(readLine.indexOf('=') + 1).trim()));
+            if (readLine.contains("address =")) {
+                contact.setAddress(readLineSubstring);
                 continue;
             }
             if (readLine.contains("phoneNumber =")) {
-                contact.setPhoneNumber(Long.parseLong(readLine.substring(readLine.indexOf('=') + 1).trim()));
+                contact.setPhoneNumber(readLineSubstring);
                 continue;
             }
             if (readLine.contains("email =")) {
-                contact.setEmail(readLine.substring(readLine.indexOf('=') + 1).trim());
+                contact.setEmail(readLineSubstring);
                 continue;
             }
             if (readLine.contains("companyName =")) {
                 jobs.add( new Company());
-                jobs.get(i).setCompanyName(readLine.substring(readLine.indexOf('=') + 1).trim());
+                jobs.get(i).setCompanyName(readLineSubstring);
                 continue;
             }
             if (readLine.contains("position =")) {
-                jobs.get(i).setPosition(readLine.substring(readLine.indexOf('=') + 1).trim());
+                jobs.get(i).setPosition(readLineSubstring);
                 continue;
             }
             if (readLine.contains("workedFrom =")) {
-                jobs.get(i).setWorkedFrom(LocalDate.parse(readLine.substring(readLine.indexOf('=') + 1).trim(), DateTimeFormatter.ofPattern("dd-MM-uuuu")));
+                jobs.get(i).setWorkedFrom(LocalDate.parse(readLineSubstring, DateTimeFormatter.ofPattern("dd-MM-uuuu")));
                 continue;
             }
             if (readLine.contains("workedTill =")) {
-                jobs.get(i).setWorkedTill(LocalDate.parse(readLine.substring(readLine.indexOf('=') + 1).trim(), DateTimeFormatter.ofPattern("dd-MM-uuuu")));
+                jobs.get(i).setWorkedTill(LocalDate.parse(readLineSubstring, DateTimeFormatter.ofPattern("dd-MM-uuuu")));
                 continue;
             }
             if (readLine.contains("skill =")) {
-                skills.add(readLine.substring(readLine.indexOf('=') + 1).trim());
+                skills.add(readLineSubstring);
                 continue;
             }
             if (readLine.contains("spec =")) {
-                specializations.add(Specialization.valueOf(readLine.substring(readLine.indexOf('=') + 1).trim()));
+                specializations.add(Specialization.valueOf(readLineSubstring));
             }
             i++;
             }
         scanner.close();
-        user.setResidence(address);
         user.setContact(contact);
         user.setJobs(jobs);
         user.setSkills(skills);

@@ -2,13 +2,9 @@
 surname: "Sidorov"
 name: "Oleg"
 dateOfBirth: "05-01-1998"
-residence:
-  city: "Odessa"
-  street: "Shevchenko"
-  house: 14
-  apartment: 30
-  zip: 72000
 contact:
+  city: "Odessa"
+  address: "Shevchenko 14, 30"
   phoneNumber: 380662345678
   email: "gfdhg@gmail.com"
 jobs:

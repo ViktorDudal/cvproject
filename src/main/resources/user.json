@@ -1,15 +1,10 @@
 {
-  "surname": "Fedorovdfsgdfsgfsdgfgdfsgsdfgs",
+  "surname": "Serov",
   "name": "Vadim",
-  "dateOfBirth": "11-03-1994",
-  "residence": {
-    "city": "Poltava",
-    "street": "Doroshenka",
-    "house": "11",
-    "apartment": "20",
-    "zip": "45000"
-  },
+  "dateOfBirth": "11-03-1995",
   "contact": {
+    "city": "Poltava",
+    "address": "Doroshenka 11, 20",
     "phoneNumber": "380992389456",
     "email": "gfjkjf@gmail.com"
   },

@@ -2,15 +2,10 @@
 <root>
     <surname>Petrov</surname>
     <name>Petr</name>
-    <dateOfBirth>23-05-2001</dateOfBirth>
-    <residence>
-        <city>Rivne</city>
-        <street>Franko</street>
-        <house>18</house>
-        <apartment>11</apartment>
-        <zip>53000</zip>
-    </residence>
+    <dateOfBirth>25-12-2001</dateOfBirth>
     <contact>
+        <city>Rivne</city>
+        <address>Franko 13, 19</address>
         <phoneNumber>380661234567</phoneNumber>
         <email>qwerty@gmail.com</email>
     </contact>
@@ -28,6 +23,6 @@
         <skill>Python</skill>
     </skills>
     <specialization>
-        <spec>JAVA</spec>
+        <spec>Java</spec>
     </specialization>
 </root>

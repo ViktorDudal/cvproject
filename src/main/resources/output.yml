@@ -1,24 +1,20 @@
 ---
-surname: "Fedorovdfsgdfsgfsdgfgdfsgsdfgs"
-name: "Vadim"
-dateOfBirth: "11-03-1994"
-residence:
-  city: "Poltava"
-  street: "Doroshenka"
-  house: 11
-  apartment: 20
-  zip: 45000
+surname: "Petrov"
+name: "Petr"
+dateOfBirth: "25-12-2001"
 contact:
-  phoneNumber: 380992389456
-  email: "gfjkjf@gmail.com"
+  city: "Rivne"
+  address: "Franko 13, 19"
+  phoneNumber: "380661234567"
+  email: "qwerty@gmail.com"
 jobs:
-- companyName: "Test In"
-  position: "QA"
-  workedFrom: "14-07-2010"
-  workedTill: "11-09-2018"
+- companyName: "Global World"
+  position: "Engineer"
+  workedFrom: "11-05-2013"
+  workedTill: "23-07-2017"
 skills:
 - "C"
 - "Java"
-- "Ruby"
-specialization:
 - "Python"
+specialization:
+- "Java"

@@ -5,24 +5,18 @@ import com.gmail.viktordudal.model.Person;
 import java.io.*;
 import java.util.logging.Logger;
 
-import static com.gmail.viktordudal.service.ParseFile.fileExtension;
 import static com.gmail.viktordudal.service.ParseFile.parseFile;
-import static com.gmail.viktordudal.service.ReadInput.readFromFile;
 import static com.gmail.viktordudal.service.WriteToYamlFile.writeToYamlFile;
 
 public class YamlTesting {
 
+    private static  final Logger LOGGER = Logger.getLogger(YamlTesting.class.getName());
+
     public static void main(String[] args) throws IOException {
 
-        Logger LOGGER = Logger.getLogger("vdud");
+        String inputFile = "src/main/resources/user.xml";
 
-        String inputFile = "src/main/resources/user.json";
-
-        StringBuilder builder = readFromFile(inputFile);
-
-        char ex = fileExtension(builder);
-
-        Person user = parseFile(ex, inputFile);
+        Person user = parseFile(inputFile);
 
         String outputFile = "src/main/resources/output.yml";
 
