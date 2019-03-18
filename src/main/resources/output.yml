@@ -1,20 +1,20 @@
 ---
-surname: "Petrov"
-name: "Petr"
-dateOfBirth: "25-12-2001"
+surname: "Serov"
+name: "Vadim"
+dateOfBirth: "11-03-1995"
 contact:
-  city: "Rivne"
-  address: "Franko 13, 19"
-  phoneNumber: "380661234567"
-  email: "qwerty@gmail.com"
+  city: "Poltava"
+  address: "Doroshenka 11, 20"
+  phoneNumber: "380992389456"
+  email: "gfjkjf@gmail.com"
 jobs:
-- companyName: "Global World"
-  position: "Engineer"
-  workedFrom: "11-05-2013"
-  workedTill: "23-07-2017"
+- companyName: "Test In"
+  position: "QA"
+  workedFrom: "14-07-2010"
+  workedTill: "11-09-2018"
 skills:
 - "C"
 - "Java"
-- "Python"
+- "Ruby"
 specialization:
-- "Java"
+- "Python"

@@ -14,6 +14,8 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static com.gmail.viktordudal.service.Validator.validator;
+
 public class ParseFile {
 
     private static ObjectMapper mapper;
@@ -29,25 +31,24 @@ public class ParseFile {
         Scanner scanner = new Scanner(new File(file));
         while (scanner.hasNext()) {
             String line = scanner.nextLine();
-            if (line.isEmpty()){
-            } else {
+            if (!line.isEmpty()){
                 char firstChar = line.trim().charAt(0);
                 try {
                     if (firstChar == '{' || firstChar == '-') {
                         user = mapper.readValue(new File(file), Person.class);
-                        }
+                    }
                     if (firstChar == '<') {
                         user = xmlMapper.readValue(new File(file), Person.class);
-                        }
+                    }
                     if (firstChar == 's'){
                         user = readFromTXTFile(file);
-                        }
-                    } catch (IOException e) {
-                    LOGGER.log(Level.WARNING, "IOException: ", e);
                     }
+                } catch (IOException e) {
+                    LOGGER.log(Level.WARNING, "IOException: ", e);
                 }
             }
-        return user;
+        }
+        return validator(user);
     }
 
     private static Person readFromTXTFile(String  file) throws FileNotFoundException {

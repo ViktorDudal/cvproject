@@ -4,4 +4,12 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <!--<servlet>-->
+    <!--<servlet-name>MainServlet</servlet-name>-->
+    <!--<servlet-class>com.gmail.viktordudal.controler.PersonController</servlet-class>-->
+  <!--</servlet>-->
+  <!--<servlet-mapping>-->
+    <!--<servlet-name>MainServlet</servlet-name>-->
+    <!--<url-pattern>/persons</url-pattern>-->
+  <!--</servlet-mapping>-->
 </web-app>

@@ -5,14 +5,13 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gmail.viktordudal.service.*;
 
-import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Person {
 
@@ -95,15 +94,13 @@ public class Person {
         this.specialization = specialization;
     }
 
-    /*public static class Builder {
+    public static class Builder {
         private Person newPerson;
 
         public Builder() {
             newPerson = new Person();
         }
 
-//        @NotNull(message = "Field 'surname' cannot be null")
-//        @Size(min = 2, max = 25, message = "Field 'surname' must be between 2 and 25 characters")
         public Builder withSurname(String surname) {
             newPerson.surname = surname;
             return this;
@@ -140,19 +137,39 @@ public class Person {
         }
 
         public Person build(){
-            return validator(newPerson);
+            return newPerson;
         }
-    }*/
+    }
 
-    @Override public String toString() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return Objects.equals(surname, person.surname) &&
+                Objects.equals(name, person.name) &&
+                Objects.equals(dateOfBirth, person.dateOfBirth) &&
+                Objects.equals(contact, person.contact) &&
+                Objects.equals(jobs, person.jobs) &&
+                Objects.equals(skills, person.skills) &&
+                Objects.equals(specialization, person.specialization);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(surname, name, dateOfBirth, contact, jobs, skills, specialization);
+    }
+
+    @Override
+    public String toString() {
         return "Person{" +
-            "surname='" + surname + '\'' +
-            ", name='" + name + '\'' +
-            ", dateOfBirth=" + dateOfBirth +
-            ", contact=" + contact +
-            ", jobs=" + jobs +
-            ", skills=" + skills +
-            ", specialization=" + specialization +
-            "}\n\r";
+                "surname='" + surname + '\'' +
+                ", name='" + name + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", contact=" + contact +
+                ", jobs=" + jobs +
+                ", skills=" + skills +
+                ", specialization=" + specialization +
+                '}';
     }
 }

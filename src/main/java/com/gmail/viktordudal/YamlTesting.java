@@ -1,8 +1,11 @@
 package com.gmail.viktordudal;
 
+import com.gmail.viktordudal.dao.PersonDao;
 import com.gmail.viktordudal.model.Person;
 
 import java.io.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import static com.gmail.viktordudal.service.ParseFile.parseFile;
@@ -14,7 +17,7 @@ public class YamlTesting {
 
     public static void main(String[] args) throws IOException {
 
-        String inputFile = "src/main/resources/user.xml";
+        String inputFile = "src/main/resources/user.json";
 
         Person user = parseFile(inputFile);
 
@@ -22,5 +25,14 @@ public class YamlTesting {
 
         writeToYamlFile(outputFile, user);
 
+        Person man1 = new Person(), man2 = new Person();
+        man1.setSurname("Petrov");
+        man1.setName("Fedir");
+
+        ArrayList<Person> newParsons = new ArrayList<>();
+        newParsons.add(man1);
+
+        PersonDao next = new PersonDao();
+        next.insertPersons(newParsons);
     }
 }

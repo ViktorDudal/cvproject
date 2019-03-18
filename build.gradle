@@ -16,7 +16,7 @@ repositories {
 dependencies {
     compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: '2.9.8'
     compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.3.0'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databindl', version: '2.2.3'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.2.3'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
     compile group: 'org.json', name: 'json', version: '20180130'
     compile group: 'org.testng', name: 'testng', version: '6.8'

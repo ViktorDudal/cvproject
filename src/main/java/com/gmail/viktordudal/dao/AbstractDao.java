@@ -1,5 +1,7 @@
 package com.gmail.viktordudal.dao;
 
+import com.gmail.viktordudal.model.Person;
+
 import java.util.List;
 
 public abstract class AbstractDao<E> {
@@ -8,9 +10,9 @@ public abstract class AbstractDao<E> {
 
     public abstract E getById(long id);
 
-    public abstract E update(E entity);
+    public abstract void insertPersons(List<Person> person);
 
-    public abstract E insert(E entity);
+    public abstract E update(E entity);
 
     public abstract boolean delete(E entity);
 

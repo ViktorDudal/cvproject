@@ -14,8 +14,8 @@ public class PersonService {
         return personDao.getAll();
     }
 
-    public PersonDao getById(long id) {
-        return personDao;
+    public Person getById(long id) {
+        return personDao.getById(id);
     }
 
 }
