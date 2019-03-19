@@ -1,5 +1,7 @@
 package com.gmail.viktordudal.model;
 
+import com.gmail.viktordudal.service.Validator;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -54,37 +56,48 @@ public class Contact {
         this.email = email;
     }
 
-   /* public static class Builder {
+   public static class ContactBuilder {
         private Contact newContact;
 
-        public Builder() {
+        public ContactBuilder() {
             newContact = new Contact();
         }
 
-        public Builder withCity(String city) {
+        public ContactBuilder city(String city) {
             newContact.city = city;
         return this;
         }
 
 
-        public Builder withAddress(String address) {
+        public ContactBuilder address(String address) {
             newContact.address = address;
             return this;
         }
 
-        public Builder withPhoneNumber(String phoneNumber) {
+        public ContactBuilder phoneNumber(String phoneNumber) {
             newContact.phoneNumber = phoneNumber;
         return this;
         }
 
 
-        public Builder withEmail(String email) {
+        public ContactBuilder email(String email) {
             newContact.email = email;
             return this;
         }
 
         public Contact build(){
+            (new Validator()).cvValidator(newContact);
             return newContact;
         }
-    }*/
+    }
+
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "city='" + city + '\'' +
+                ", address='" + address + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

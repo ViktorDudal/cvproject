@@ -3,6 +3,7 @@ package com.gmail.viktordudal.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.gmail.viktordudal.model.Contact.ContactBuilder;
 import com.gmail.viktordudal.service.*;
 
 import javax.validation.constraints.NotNull;
@@ -94,44 +95,48 @@ public class Person {
         this.specialization = specialization;
     }
 
-    public static class Builder {
+    public static class PersonBuilder {
         private Person newPerson;
 
-        public Builder() {
+        public PersonBuilder() {
             newPerson = new Person();
         }
 
-        public Builder withSurname(String surname) {
+        public PersonBuilder withSurname(String surname) {
             newPerson.surname = surname;
             return this;
         }
 
-        public Builder withName(String name){
+        public PersonBuilder withName(String name){
             newPerson.name = name;
             return this;
         }
 
-        public Builder withDateofBirth(LocalDate dateofBirth){
+        public PersonBuilder withDateofBirth(LocalDate dateofBirth){
             newPerson.dateOfBirth = dateofBirth;
             return this;
         }
 
-        public Builder withContact(Contact contact){
-            newPerson.contact = contact;
-            return this;
+//        public PersonBuilder withContact(Contact contact){
+//            newPerson.contact = contact;
+//            return this;
+//        }
+
+        public Contact ContactBuilder() {
+            return new Contact();
         }
 
-        public Builder withCompany(List<Company> jobs){
+        public PersonBuilder withCompany(List<Company> jobs){
             newPerson.jobs = jobs;
             return this;
         }
 
-        public Builder withSkills(List<String> skills){
+        public PersonBuilder withSkills(List<String> skills){
             newPerson.skills = skills;
             return this;
         }
 
-        public Builder withSpecialization(List<Specialization> specialization){
+        public PersonBuilder withSpecialization(List<Specialization> specialization){
             newPerson.specialization = specialization;
             return this;
         }

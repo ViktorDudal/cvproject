@@ -65,29 +65,29 @@ public class Company {
         this.workedTill = workedTill;
     }
 
-  /*  public static class Builder {
+    public static class CompanyBuilder {
         private Company newCompany;
 
-        public Builder() {
+        public CompanyBuilder() {
             newCompany = new Company();
         }
 
-        public Builder withCompanyName(String companyName) {
+        public CompanyBuilder companyName(String companyName) {
             newCompany.companyName = companyName;
             return this;
         }
 
-        public Builder withPosition(String position) {
+        public CompanyBuilder position(String position) {
             newCompany.position = position;
             return this;
         }
 
-        public Builder withWorkedFrom(LocalDate workedFrom){
+        public CompanyBuilder workedFrom(LocalDate workedFrom){
             newCompany.workedFrom = workedFrom;
             return this;
         }
 
-        public Builder withWorkedTill(LocalDate workedTill){
+        public CompanyBuilder workedTill(LocalDate workedTill){
             newCompany.workedTill = workedTill;
             return this;
         }
@@ -95,5 +95,15 @@ public class Company {
         public Company build(){
             return newCompany;
         }
-    }*/
+    }
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "companyName='" + companyName + '\'' +
+                ", position='" + position + '\'' +
+                ", workedFrom=" + workedFrom +
+                ", workedTill=" + workedTill +
+                '}';
+    }
 }

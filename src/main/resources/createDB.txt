@@ -44,3 +44,7 @@
 --insert into person_skills values ('1','{HTML, CSS, JavaScript, Joomla!}');
 
 
+--SELECT * FROM person INNER JOIN contact USING (id) INNER JOIN company USING (id) INNER JOIN person_skills USING (id) INNER JOIN specialization USING (id);
+--SELECT * FROM person INNER JOIN contact USING (id) INNER JOIN company USING (id) INNER JOIN person_skills USING (id) INNER JOIN specialization USING (id) WHERE id = '2' ;
+
+

@@ -17,7 +17,7 @@ public class YamlTesting {
 
     public static void main(String[] args) throws IOException {
 
-        String inputFile = "src/main/resources/user.json";
+        String inputFile = "src/main/resources/user.txt";
 
         Person user = parseFile(inputFile);
 
@@ -25,14 +25,14 @@ public class YamlTesting {
 
         writeToYamlFile(outputFile, user);
 
-        Person man1 = new Person(), man2 = new Person();
-        man1.setSurname("Petrov");
-        man1.setName("Fedir");
-
-        ArrayList<Person> newParsons = new ArrayList<>();
-        newParsons.add(man1);
-
-        PersonDao next = new PersonDao();
-        next.insertPersons(newParsons);
+//        Person man1 = new Person(), man2 = new Person();
+//        man1.setSurname("Petrov");
+//        man1.setName("Fedir");
+//
+//        ArrayList<Person> newParsons = new ArrayList<>();
+//        newParsons.add(man1);
+//
+//        PersonDao next = new PersonDao();
+//        next.insertPersons(newParsons);
     }
 }

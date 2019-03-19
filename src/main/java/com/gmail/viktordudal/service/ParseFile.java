@@ -14,8 +14,6 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static com.gmail.viktordudal.service.Validator.validator;
-
 public class ParseFile {
 
     private static ObjectMapper mapper;
@@ -48,7 +46,7 @@ public class ParseFile {
                 }
             }
         }
-        return validator(user);
+        return user;
     }
 
     private static Person readFromTXTFile(String  file) throws FileNotFoundException {
