@@ -1,20 +1,8 @@
 ---
-surname: "Petrov"
-name: "Petr"
-dateOfBirth: "23-05-2001"
-contact:
-  city: "Rivne"
-  address: "Franko 18, 11"
-  phoneNumber: "380661234567"
-  email: "qwerty@gmail.com"
-jobs:
-- companyName: "Global World"
-  position: "Engineer"
-  workedFrom: "11-05-2013"
-  workedTill: "23-07-2017"
-skills:
-- "C"
-- "Java"
-- "Python"
-specialization:
-- "Java"
+surname: null
+name: null
+dateOfBirth: null
+contact: null
+jobs: []
+skills: []
+specialization: []

@@ -39,7 +39,7 @@ public class ParseFile {
                         user = xmlMapper.readValue(new File(file), Person.class);
                     }
                     if (firstChar == 's'){
-                        user = readFromTXTFile(file);
+//                        user = readFromTXTFile(file);
                     }
                 } catch (IOException e) {
                     LOGGER.log(Level.WARNING, "IOException: ", e);
@@ -49,7 +49,7 @@ public class ParseFile {
         return user;
     }
 
-    private static Person readFromTXTFile(String  file) throws FileNotFoundException {
+    /*private static Person readFromTXTFile(String  file) throws FileNotFoundException {
 
         Scanner scanner = new Scanner(new File(file));
         Person user = new Person();
@@ -65,64 +65,80 @@ public class ParseFile {
             }
             String readLineSubstring = readLine.substring(readLine.indexOf('=') + 1).trim();
             if (readLine.contains("surname =")) {
-                user.setSurname(readLineSubstring);
+                user = Person.PersonBuilder.builder().surname(readLineSubstring).build();
+//                user.setSurname(readLineSubstring);
                 continue;
             }
             if (readLine.contains("name =")) {
-                user.setName(readLineSubstring);
+                user = Person.PersonBuilder.builder().name(readLineSubstring).build();
+//                user.setName(readLineSubstring);
                 continue;
             }
             if (readLine.contains("dateOfBirth =")) {
-                user.setDateOfBirth(LocalDate.parse(readLineSubstring, DateTimeFormatter.ofPattern("dd-MM-uuuu")));
+                user = Person.PersonBuilder.builder().dateofBirth(LocalDate.parse(readLineSubstring, DateTimeFormatter.ofPattern("dd-MM-uuuu"))).build();
+//                user.setDateOfBirth();
                 continue;
             }
             if (readLine.contains("city =")) {
-                contact.setCity(readLineSubstring);
+                user = Person.PersonBuilder.builder().contact(Contact.ContactBuilder.builder().city(readLineSubstring).build()).build();
+//                contact.setCity(readLineSubstring);
                 continue;
             }
             if (readLine.contains("address =")) {
-                contact.setAddress(readLineSubstring);
+                user = Person.PersonBuilder.builder().contact(Contact.ContactBuilder.builder().address(readLineSubstring).build()).build();
+//                contact.setAddress(readLineSubstring);
                 continue;
             }
             if (readLine.contains("phoneNumber =")) {
-                contact.setPhoneNumber(readLineSubstring);
+                user = Person.PersonBuilder.builder().contact(Contact.ContactBuilder.builder().phoneNumber(readLineSubstring).build()).build();
+//                contact.setPhoneNumber(readLineSubstring);
                 continue;
             }
             if (readLine.contains("email =")) {
-                contact.setEmail(readLineSubstring);
+                user = Person.PersonBuilder.builder().contact(Contact.ContactBuilder.builder().email(readLineSubstring).build()).build();
+//                contact.setEmail(readLineSubstring);
                 continue;
             }
             if (readLine.contains("companyName =")) {
-                jobs.add( new Company());
-                jobs.get(i).setCompanyName(readLineSubstring);
+//                Person.PersonBuilder.builder().company(jobs.get(i)).build();
+                Company.CompanyBuilder.builder().companyName(readLineSubstring).build();
+//                jobs.get(i).setCompanyName(readLineSubstring);
                 continue;
             }
             if (readLine.contains("position =")) {
-                jobs.get(i).setPosition(readLineSubstring);
+//                Person.PersonBuilder.builder().company(jobs.get(i));
+//                Company.CompanyBuilder.builder().position(readLineSubstring).build();
+//                jobs.get(i).setPosition(readLineSubstring);
                 continue;
             }
             if (readLine.contains("workedFrom =")) {
-                jobs.get(i).setWorkedFrom(LocalDate.parse(readLineSubstring, DateTimeFormatter.ofPattern("dd-MM-uuuu")));
+//                Person.PersonBuilder.builder().company(jobs.get(i));
+//                Company.CompanyBuilder.builder().workedFrom(LocalDate.parse(readLineSubstring, DateTimeFormatter.ofPattern("dd-MM-uuuu"))).build();
+//                jobs.get(i).setWorkedFrom(LocalDate.parse(readLineSubstring, DateTimeFormatter.ofPattern("dd-MM-uuuu")));
                 continue;
             }
             if (readLine.contains("workedTill =")) {
-                jobs.get(i).setWorkedTill(LocalDate.parse(readLineSubstring, DateTimeFormatter.ofPattern("dd-MM-uuuu")));
+//                Person.PersonBuilder.builder().company(jobs.get(i));
+//                Company.CompanyBuilder.builder().workedTill(LocalDate.parse(readLineSubstring, DateTimeFormatter.ofPattern("dd-MM-uuuu"))).build();
+//                jobs.get(i).setWorkedTill(LocalDate.parse(readLineSubstring, DateTimeFormatter.ofPattern("dd-MM-uuuu")));
                 continue;
             }
             if (readLine.contains("skill =")) {
-                skills.add(readLineSubstring);
+                Person.PersonBuilder.builder().skills(readLineSubstring);
+//                skills.add(readLineSubstring);
                 continue;
             }
             if (readLine.contains("spec =")) {
-                specializations.add(Specialization.valueOf(readLineSubstring));
+                Person.PersonBuilder.builder().specialization(Specialization.valueOf(readLineSubstring));
+//                specializations.add(Specialization.valueOf(readLineSubstring));
             }
             i++;
             }
         scanner.close();
-        user.setContact(contact);
-        user.setJobs(jobs);
-        user.setSkills(skills);
-        user.setSpecialization(specializations);
+//        user.;
+        user = jobs.add(Person.PersonBuilder.builder().company(jobs.get(i)).build());
+//        user.setSkills(skills);
+//        user.setSpecialization(specializations);
         return user;
-    }
+    }*/
 }

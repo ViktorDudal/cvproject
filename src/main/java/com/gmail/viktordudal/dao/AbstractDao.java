@@ -8,7 +8,7 @@ public abstract class AbstractDao<E> {
 
     public abstract List<E> getAll();
 
-//    public abstract List<E> getAllContact();
+    public abstract List<E> getAllContact();
 
     public abstract E getById(long id);
 

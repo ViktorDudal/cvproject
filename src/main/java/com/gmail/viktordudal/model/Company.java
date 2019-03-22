@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gmail.viktordudal.service.LocalDateDeserializer;
 import com.gmail.viktordudal.service.LocalDateSerializer;
+import com.gmail.viktordudal.service.ValidatorModel;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -13,11 +14,9 @@ import java.time.LocalDate;
 
 public class Company {
 
-    @NotNull(message = "Field 'companyName' cannot be null")
     @Size(min = 2, max = 25, message = "Field 'companyName' must be between 2 and 25 characters")
     private String companyName;
 
-    @NotNull(message = "Field 'position' cannot be null")
     @Size(min = 2, max = 15, message = "Field 'position' must be between 2 and 15 characters")
     private String position;
 
@@ -32,6 +31,10 @@ public class Company {
     @NotNull(message = "Field 'position' cannot be null")
     @PastOrPresent(message = "Wrong date")
     private LocalDate workedTill;
+
+    public static CompanyBuilder builder(){
+        return new CompanyBuilder();
+    }
 
     public String getCompanyName() {
         return companyName;
@@ -68,7 +71,7 @@ public class Company {
     public static class CompanyBuilder {
         private Company newCompany;
 
-        public CompanyBuilder() {
+        private CompanyBuilder() {
             newCompany = new Company();
         }
 
@@ -93,6 +96,7 @@ public class Company {
         }
 
         public Company build(){
+            new ValidatorModel().validate(newCompany);
             return newCompany;
         }
     }

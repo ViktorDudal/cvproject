@@ -1,28 +1,30 @@
 package com.gmail.viktordudal.model;
 
-import com.gmail.viktordudal.service.Validator;
+import com.gmail.viktordudal.service.ValidatorModel;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class Contact {
 
-    @NotNull(message = "Field 'city' cannot be null")
-    @Size(min = 2, max = 25, message = "Field 'city' must be between 2 and 15 characters")
+    @Size(min = 2, max = 25, message = "Field 'city' must be between 2 and 25 characters")
     private String city;
 
-    @NotNull(message = "Field 'address' cannot be null")
-    @Size(min = 2, max = 25, message = "Field 'address' must be between 2 and 35 characters")
+    @Size(min = 2, max = 25, message = "Field 'address' must be between 2 and 25 characters")
     private String address;
 
-    @NotNull(message = "Field 'phoneNumber' cannot be null")
     @Size(min = 10, max = 12, message = "Field 'phoneNumber' must be between 10 and 12 characters")
     private String phoneNumber;
 
-    @NotNull(message = "Field 'city' cannot be null")
+    @Size(min = 5, max = 45, message = "Field 'email' must be between 5 and 45 characters")
     @Email(message = "Wrong email address")
     private String email;
+
+    public static ContactBuilder builder(){
+        return new ContactBuilder();
+    }
+
+    private Contact(){}
 
     public String getCity() {
         return city;
@@ -59,7 +61,7 @@ public class Contact {
    public static class ContactBuilder {
         private Contact newContact;
 
-        public ContactBuilder() {
+        private ContactBuilder() {
             newContact = new Contact();
         }
 
@@ -86,7 +88,7 @@ public class Contact {
         }
 
         public Contact build(){
-            (new Validator()).cvValidator(newContact);
+            new ValidatorModel().validate(newContact);
             return newContact;
         }
     }

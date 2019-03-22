@@ -3,10 +3,8 @@ package com.gmail.viktordudal.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.gmail.viktordudal.model.Contact.ContactBuilder;
 import com.gmail.viktordudal.service.*;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
@@ -16,19 +14,16 @@ import java.util.Objects;
 
 public class Person {
 
+    private long id;
 
-
-    @NotNull(message = "Field 'surname' cannot be null")
     @Size(min = 2, max = 25, message = "Field 'surname' must be between 2 and 25 characters")
     private String surname;
 
-    @NotNull(message = "Field 'name' cannot be null")
     @Size(min = 2, max = 15, message = "Field 'name' must be between 2 and 15 characters")
     private String name;
 
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
-    @NotNull(message = "Field 'dateOfBirth' cannot be null")
     @Past(message = "Wrong date of Birth")
     private LocalDate dateOfBirth;
 
@@ -36,8 +31,23 @@ public class Person {
 
     @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     private List<Company> jobs = new ArrayList<>();
+
     private List<String> skills = new ArrayList<>();
-    private List<Specialization> specialization = new ArrayList<>();
+
+//    private Specialization specialization;
+    private String  specialization;
+
+    public static PersonBuilder builder(){
+        return new PersonBuilder();
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getSurname() {
         return surname;
@@ -75,73 +85,75 @@ public class Person {
         return jobs;
     }
 
-    public void setJobs(List<Company> jobs) {
-        this.jobs = jobs;
+    public void setJobs(Company job) {
+        this.jobs.add(job);
     }
 
     public List<String> getSkills() {
         return skills;
     }
 
-    public void setSkills(List<String> skills) {
-        this.skills = skills;
+    public void setSkills(String skill) {
+        this.skills.add(skill);
     }
 
-    public List<Specialization> getSpecialization() {
+    public String getSpecialization() {
         return specialization;
     }
 
-    public void setSpecialization(List<Specialization> specialization) {
+    public void setSpecialization(String specialization) {
         this.specialization = specialization;
     }
 
     public static class PersonBuilder {
         private Person newPerson;
 
-        public PersonBuilder() {
+        private PersonBuilder() {
             newPerson = new Person();
         }
 
-        public PersonBuilder withSurname(String surname) {
+        public PersonBuilder id(long id) {
+            newPerson.id = id;
+            return this;
+        }
+
+        public PersonBuilder surname(String surname) {
             newPerson.surname = surname;
             return this;
         }
 
-        public PersonBuilder withName(String name){
+        public PersonBuilder name(String name){
             newPerson.name = name;
             return this;
         }
 
-        public PersonBuilder withDateofBirth(LocalDate dateofBirth){
-            newPerson.dateOfBirth = dateofBirth;
+        public PersonBuilder dateOfBirth(LocalDate dateOfBirth){
+            newPerson.dateOfBirth = dateOfBirth;
             return this;
         }
 
-//        public PersonBuilder withContact(Contact contact){
-//            newPerson.contact = contact;
-//            return this;
-//        }
-
-        public Contact ContactBuilder() {
-            return new Contact();
-        }
-
-        public PersonBuilder withCompany(List<Company> jobs){
-            newPerson.jobs = jobs;
+        public PersonBuilder contact(Contact contact){
+            newPerson.setContact(contact);
             return this;
         }
 
-        public PersonBuilder withSkills(List<String> skills){
-            newPerson.skills = skills;
+        public PersonBuilder company(Company job){
+            newPerson.setJobs(job);
             return this;
         }
 
-        public PersonBuilder withSpecialization(List<Specialization> specialization){
-            newPerson.specialization = specialization;
+        public PersonBuilder skills(String skills){
+            newPerson.setSkills(skills);
+            return this;
+        }
+
+        public PersonBuilder specialization(String  specialization){
+            newPerson.setSpecialization(specialization);
             return this;
         }
 
         public Person build(){
+            new ValidatorModel().validate(newPerson);
             return newPerson;
         }
     }
@@ -151,7 +163,8 @@ public class Person {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        return Objects.equals(surname, person.surname) &&
+        return id == person.id &&
+                Objects.equals(surname, person.surname) &&
                 Objects.equals(name, person.name) &&
                 Objects.equals(dateOfBirth, person.dateOfBirth) &&
                 Objects.equals(contact, person.contact) &&
@@ -162,13 +175,14 @@ public class Person {
 
     @Override
     public int hashCode() {
-        return Objects.hash(surname, name, dateOfBirth, contact, jobs, skills, specialization);
+        return Objects.hash(id, surname, name, dateOfBirth, contact, jobs, skills, specialization);
     }
 
     @Override
     public String toString() {
         return "Person{" +
-                "surname='" + surname + '\'' +
+                "id=" + id +
+                ", surname='" + surname + '\'' +
                 ", name='" + name + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 ", contact=" + contact +

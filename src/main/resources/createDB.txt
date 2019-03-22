@@ -1,30 +1,52 @@
---create table contact(id serial, city varchar(50), address varchar(50), phone_number varchar(50), email varchar(50), PRIMARY KEY(id));
+--create table person(id serial, surname varchar(50), name varchar(50), date_of_birth date, specialization varchar(25), PRIMARY KEY(id));
 
---insert into contact (city, address, phone_number, email) values ('Kolomiya', 'Sichinskogo 12', '380660142900', 'viktordudal@gmail.com');
---insert into contact (city, address, phone_number, email) values ('Kolomiya', 'Sichinskogo 12', '380991234567', 'valentindudal@gmail.com');
---insert into contact (city, address, phone_number, email) values ('Chernivtsi', 'Holovna 25, 34', '380971258764', 'vladdanilov@ukr.net');
---insert into contact (city, address, phone_number, email) values ('Chernivtsi', 'Gagarina 15, 10', '380951456238', 'petrromanov@gmail.com');
---insert into contact (city, address, phone_number, email) values ('Chernivtsi', 'Holovna 234, 18', '380504875996', 'romangrigoriv@ukr.net');
-
-
-
---create table person(id serial, surname varchar(50), name varchar(50), date_of_birth date, contact_id integer references contact(id), PRIMARY KEY(id));
-
---insert into person (surname, name, date_of_birth, contact_id) values ('Dudal', 'Viktor', '03.10.1984', '1');
+--insert into person (id ,surname, name, date_of_birth, specialization) values ('1','Dudal','Viktor','03.10.1984','Java');
 --insert into person (surname, name, date_of_birth, contact_id) values ('Dudal', 'Valentin', '24.01.1987', '2');
 --insert into person (surname, name, date_of_birth, contact_id) values ('Danilov', 'Vladimir', '11.09.1978', '3');
 --insert into person (surname, name, date_of_birth, contact_id) values ('Romanov', 'Petr', '07.11.1986', '4');
 --insert into person (surname, name, date_of_birth, contact_id) values ('Grigoriv', 'Roman', '14.02.1982', '5');
 
 
+--create table contact(id serial, city varchar(50), address varchar(50), phone_number varchar(50), email varchar(50));
 
---create table specialization(id serial, name varchar(50), PRIMARY KEY(id));
+--insert into contact (id, city, address, phone_number, email) values ('1','Kolomiya','Sichinskogo 12','380660142900','viktordudal@gmail.com');
+--insert into contact (city, address, phone_number, email) values ('Kolomiya', 'Sichinskogo 12', '380991234567', 'valentindudal@gmail.com');
+--insert into contact (city, address, phone_number, email) values ('Chernivtsi', 'Holovna 25, 34', '380971258764', 'vladdanilov@ukr.net');
+--insert into contact (city, address, phone_number, email) values ('Chernivtsi', 'Gagarina 15, 10', '380951456238', 'petrromanov@gmail.com');
+--insert into contact (city, address, phone_number, email) values ('Chernivtsi', 'Holovna 234, 18', '380504875996', 'romangrigoriv@ukr.net');
 
---insert into specialization (name) values ('Java');
---insert into specialization (name) values ('Python');
---insert into specialization (name) values ('DevOps');
---insert into specialization (name) values ('WebUI);
---insert into specialization (name) values ('Ruby');
+
+--create table company(id serial, company_name varchar(50));
+
+--insert into company (id, company_name) values ('1','ITE NAS & MES');
+--insert into company (id, company_name) values ('1','SoftServe');
+
+
+--create table skills(id serial, skill varchar(25));
+
+--insert into skills (id, skill) values ('1','HTML');
+--insert into skills (id, skill) values ('2','CSS');
+--insert into skills (id, skill) values ('3','JavaScript');
+--insert into skills (id, skill) values ('4','Java');
+--insert into skills (id, skill) values ('5','Ruby');
+
+
+--create table person_skills(id serial, person_id integer, skill_id integer);
+
+--insert into person_skills (id, person_id, skill_id) values ('1','1','1');
+--insert into person_skills (id, person_id, skill_id) values ('1','1','2');
+--insert into person_skills (id, person_id, skill_id) values ('1','1','3');
+
+
+
+--ALTER TABLE contact ADD CONSTRAINT to_person FOREIGN KEY (id) REFERENCES person (id);
+--ALTER TABLE company ADD CONSTRAINT to_person FOREIGN KEY (id) REFERENCES person (id);
+
+
+
+
+
+
 
 
 
@@ -37,11 +59,6 @@
 --insert into company (name, position, worked_from, worked_till) values ('Techno', 'Logic', '27.04.2007', '04.12.2018');
 
 
-
-
---create table person_skills (id serial, skills varchar[](30), PRIMARY KEY(id));
-
---insert into person_skills values ('1','{HTML, CSS, JavaScript, Joomla!}');
 
 
 --SELECT * FROM person INNER JOIN contact USING (id) INNER JOIN company USING (id) INNER JOIN person_skills USING (id) INNER JOIN specialization USING (id);

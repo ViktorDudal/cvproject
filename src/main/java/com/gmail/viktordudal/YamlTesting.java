@@ -1,15 +1,15 @@
 package com.gmail.viktordudal;
 
-import com.gmail.viktordudal.dao.PersonDao;
+//import com.gmail.viktordudal.dao.PersonDao;
+import com.gmail.viktordudal.model.Company;
+import com.gmail.viktordudal.model.Contact;
 import com.gmail.viktordudal.model.Person;
+import com.gmail.viktordudal.model.Specialization;
 
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Logger;
-
-import static com.gmail.viktordudal.service.ParseFile.parseFile;
-import static com.gmail.viktordudal.service.WriteToYamlFile.writeToYamlFile;
 
 public class YamlTesting {
 
@@ -17,22 +17,41 @@ public class YamlTesting {
 
     public static void main(String[] args) throws IOException {
 
-        String inputFile = "src/main/resources/user.txt";
-
-        Person user = parseFile(inputFile);
-
-        String outputFile = "src/main/resources/output.yml";
-
-        writeToYamlFile(outputFile, user);
-
-//        Person man1 = new Person(), man2 = new Person();
-//        man1.setSurname("Petrov");
-//        man1.setName("Fedir");
+//        String inputFile = "src/main/resources/user.txt";
 //
-//        ArrayList<Person> newParsons = new ArrayList<>();
-//        newParsons.add(man1);
+//        Person user = parseFile(inputFile);
 //
-//        PersonDao next = new PersonDao();
-//        next.insertPersons(newParsons);
+//        String outputFile = "src/main/resources/output.yml";
+//
+//        writeToYamlFile(outputFile, user);
+
+        Person pers = Person.builder()
+                .id(1)
+                .surname("Dudal")
+                .name("Viktor")
+                .dateOfBirth(LocalDate.of(1984,10,03))
+                .contact(Contact.builder()
+                        .city("Rivne")
+                        .address("Street")
+                        .phoneNumber("0660142900")
+                        .email("vit@fdfg.com")
+                        .build())
+                .company(Company.builder()
+                                .companyName("SoftServe")
+                                .position("Junior Developer")
+                                .workedFrom(LocalDate.of(2008,10,15))
+                                .workedTill(LocalDate.of(2012,1,7))
+                                .build())
+                .company(Company.builder()
+                                .companyName("SoftServe")
+                                .position("Junior Developer")
+                                .workedFrom(LocalDate.of(2008,10,15))
+                                .workedTill(LocalDate.of(2012,1,7))
+                                .build())
+                .skills("HTML")
+                .skills("CSS")
+                .specialization(Specialization.JAVA.getName())
+                .build();
+        LOGGER.severe(pers.toString());
     }
 }

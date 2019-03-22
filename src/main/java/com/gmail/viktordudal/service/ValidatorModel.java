@@ -6,11 +6,11 @@ import javax.validation.ValidatorFactory;
 import java.util.Set;
 import java.util.logging.Logger;
 
-public class Validator {
+public class ValidatorModel {
 
-    private static final Logger LOGGER = Logger.getLogger(Validator.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ValidatorModel.class.getName());
 
-    public void cvValidator(Object object){
+    public void validate(Object object){
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Set<ConstraintViolation<Object>> personViolations = factory.getValidator().validate(object);
         for (ConstraintViolation<Object> personViolation : personViolations) {
