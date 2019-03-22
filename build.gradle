@@ -33,5 +33,5 @@ dependencies {
 }
 
 war {
-    archiveName = 'myfirstproject.war'
+    archiveName = 'cvproject.war'
 }

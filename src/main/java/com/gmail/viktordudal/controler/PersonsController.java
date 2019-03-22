@@ -19,14 +19,14 @@ public class PersonsController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        String specId = req.getParameter("specId");
-        List<Person> people;
-        if (specId != null){
-            people = personService.getBySpec(specId);
-        } else {
-            people = personService.getAll();
-        }
-        req.setAttribute("persons", people);
+//        String specId = req.getParameter("specId");
+//        List<Person> people;
+//        if (specId != null){
+//            people = personService.getBySpec(specId);
+//        } else {
+//            people = personService.getAll();
+//        }
+        req.setAttribute("persons", personService.getAll());
         req.getRequestDispatcher("/WEB-INF/pages/all_persons.jsp").forward(req, resp);
     }
 }

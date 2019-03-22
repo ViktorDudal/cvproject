@@ -53,6 +53,35 @@
     </tr>
     </tbody>
 </table>
+    <h3 align="center">Jobs</h3>
+<table class="table table-striped table-bordered table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Company</th>
+            <th scope="col">Position</th>
+            <th scope="col">From</th>
+            <th scope="col">To</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>${person_info.companies[0].companyName}</td>
+            <td>${person_info.companies[0].position}</td>
+            <td>${person_info.companies[0].workedFrom}</td>
+            <td>${person_info.companies[0].workedTill}</td>
+        </tr>
+        </tbody>
+</table>
+<h3 align="center">Professional skills</h3>
+<table class="table table-striped table-bordered table-hover">
+    <tbody>
+    <tr>
+        <td>${person_info.skills[0]}</td>
+        <td>${person_info.skills[1]}</td>
+    </tr>
+    </tbody>
+</table>
+
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

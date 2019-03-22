@@ -30,7 +30,7 @@ public class Person {
     private Contact contact;
 
     @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
-    private List<Company> jobs = new ArrayList<>();
+    private List<Company> companies = new ArrayList<>();
 
     private List<String> skills = new ArrayList<>();
 
@@ -81,12 +81,12 @@ public class Person {
         this.contact = contact;
     }
 
-    public List<Company> getJobs() {
-        return jobs;
+    public List<Company> getCompanies() {
+        return companies;
     }
 
-    public void setJobs(Company job) {
-        this.jobs.add(job);
+    public void setCompanies(Company job) {
+        this.companies.add(job);
     }
 
     public List<String> getSkills() {
@@ -138,7 +138,7 @@ public class Person {
         }
 
         public PersonBuilder company(Company job){
-            newPerson.setJobs(job);
+            newPerson.setCompanies(job);
             return this;
         }
 
@@ -168,14 +168,14 @@ public class Person {
                 Objects.equals(name, person.name) &&
                 Objects.equals(dateOfBirth, person.dateOfBirth) &&
                 Objects.equals(contact, person.contact) &&
-                Objects.equals(jobs, person.jobs) &&
+                Objects.equals(companies, person.companies) &&
                 Objects.equals(skills, person.skills) &&
                 Objects.equals(specialization, person.specialization);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, surname, name, dateOfBirth, contact, jobs, skills, specialization);
+        return Objects.hash(id, surname, name, dateOfBirth, contact, companies, skills, specialization);
     }
 
     @Override
@@ -186,7 +186,7 @@ public class Person {
                 ", name='" + name + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 ", contact=" + contact +
-                ", jobs=" + jobs +
+                ", companies=" + companies +
                 ", skills=" + skills +
                 ", specialization=" + specialization +
                 '}';

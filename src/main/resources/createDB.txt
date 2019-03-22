@@ -22,6 +22,10 @@
 --insert into company (id, company_name) values ('1','SoftServe');
 
 
+--create table company_person (id serial, company_id integer, position varchar(30), worked_from date, worked_till date, person_id integer);
+--insert into company_person (id, company_id, position, worked_from, worked_till, person_id) values ('1', '1','Junior reseacher','15.06.2007','26.07.2017','1');
+
+
 --create table skills(id serial, skill varchar(25));
 
 --insert into skills (id, skill) values ('1','HTML');
@@ -63,5 +67,6 @@
 
 --SELECT * FROM person INNER JOIN contact USING (id) INNER JOIN company USING (id) INNER JOIN person_skills USING (id) INNER JOIN specialization USING (id);
 --SELECT * FROM person INNER JOIN contact USING (id) INNER JOIN company USING (id) INNER JOIN person_skills USING (id) INNER JOIN specialization USING (id) WHERE id = '2' ;
+--SELECT * FROM person INNER JOIN contact USING (id) INNER JOIN company USING (id) INNER JOIN company_person USING (id) INNER JOIN skills USING (id)
 
 
