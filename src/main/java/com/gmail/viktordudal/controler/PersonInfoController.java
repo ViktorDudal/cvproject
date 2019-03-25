@@ -17,17 +17,9 @@ public class PersonInfoController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String personId = req.getParameter("personId");
-        if (Integer.parseInt(personId) == 1){
-            req.setAttribute("person_info", personService.getById(1));
-            req.getRequestDispatcher("/WEB-INF/pages/person_info.jsp").forward(req, resp);
+        if (personId != null){
+            req.setAttribute("person_info", personService.getById(Long.parseLong(personId)));
         }
-        if (Integer.parseInt(personId) == 2){
-            req.setAttribute("person_info", personService.getById(2));
-            req.getRequestDispatcher("/WEB-INF/pages/person_info.jsp").forward(req, resp);
-        }
-//        if (Integer.parseInt(personId) == 3){
-//            req.setAttribute("person_info", personService.getById(3));
-//            req.getRequestDispatcher("/WEB-INF/pages/person_info.jsp").forward(req, resp);
-//        }
+        req.getRequestDispatcher("/WEB-INF/pages/person_info.jsp").forward(req, resp);
     }
 }

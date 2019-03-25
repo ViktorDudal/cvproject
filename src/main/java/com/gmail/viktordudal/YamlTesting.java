@@ -50,7 +50,7 @@ public class YamlTesting {
                                 .build())
                 .skills("HTML")
                 .skills("CSS")
-                .specialization(Specialization.JAVA.getName())
+                .specialization(Specialization.JAVA)
                 .build();
         LOGGER.severe(pers.toString());
     }

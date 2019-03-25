@@ -30,132 +30,139 @@
 </head>
 <body>
 <h3 align="center">Create new CV</h3>
-<table class="table table-striped table-bordered table-hover">
-    <thead class="thead-dark">
-    <tr>
-        <th scope="col">Surname</th>
-        <th scope="col">Name</th>
-        <th scope="col">Date of birth</th>
-        <th scope="col">Specialization</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Surname user" aria-label="Surname user" aria-describedby="basic-addon1">
-            </div>
-        </td>
-        <td>
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Name user" aria-label="Name user" aria-describedby="basic-addon1">
-            </div>
-        </td>
-        <td>
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Date of birth user" aria-label="Date of birth user" aria-describedby="basic-addon1">
-            </div>
-        </td>
-        <td>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect01">Options</label>
+
+<form method="post" action="/new_person_cv">
+    <c:if test="${person!=null}">
+        <input type="number" hidden name="id" value="${person.id}">
+    </c:if>
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Surname</th>
+            <th scope="col">Name</th>
+            <th scope="col">Date of birth</th>
+            <th scope="col">Specialization</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <div class="input-group mb-3">
+                    <input  value="${person.name}" type="text" name="surname" id="surname" class="form-control" placeholder="Surname user" aria-label="Surname user" aria-describedby="basic-addon1">
                 </div>
-                <select class="custom-select" id="inputGroupSelect01">
-                    <option selected>Choose...</option>
-                    <option value="1">Java</option>
-                    <option value="2">Python</option>
-                    <option value="3">DevOps</option>
-                    <option value="4">WebUI</option>
-                    <option value="5">Ruby</option>
-                </select>
-            </div>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<h3 align="center">Contacts</h3>
-<table class="table table-striped table-bordered table-hover">
-    <thead class="thead-dark">
-    <tr>
-        <th scope="col">City</th>
-        <th scope="col">Address</th>
-        <th scope="col">Phone number</th>
-        <th scope="col">e-mail</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="City user" aria-label="City user" aria-describedby="basic-addon1">
-            </div>
-        </td>
-        <td>
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Address user" aria-label="Address user" aria-describedby="basic-addon1">
-            </div>
-        </td>
-        <td>
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Phone number user" aria-label="Phone number user" aria-describedby="basic-addon1">
-            </div>
-        </td>
-        <td>
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="E-mail user" aria-label="E-mail user" aria-describedby="basic-addon1">
-            </div>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<h3 align="center">Jobs</h3>
-<table class="table table-striped table-bordered table-hover">
-    <thead class="thead-dark">
-    <tr>
-        <th scope="col">Company</th>
-        <th scope="col">Position</th>
-        <th scope="col">From</th>
-        <th scope="col">To</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Company user" aria-label="Company user" aria-describedby="basic-addon1">
-            </div>
-        </td>
-        <td>
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Position user" aria-label="Position user" aria-describedby="basic-addon1">
-            </div>
-        </td>
-        <td>
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="From user" aria-label="From user" aria-describedby="basic-addon1">
-            </div>
-        </td>
-        <td>
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="To user" aria-label="To user" aria-describedby="basic-addon1">
-            </div>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<h3 align="center">Professional skills</h3>
-<table class="table table-striped table-bordered table-hover">
-    <tbody>
-    <tr>
-        <td>
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Skills user" aria-label="Skills user" aria-describedby="basic-addon1">
-            </div>
-        </td>
-    </tr>
-    </tbody>
-</table>
+            </td>
+            <td>
+                <div class="input-group mb-3">
+                    <input type="text"  name="name" id="name" class="form-control" placeholder="Name user" aria-label="Name user" aria-describedby="basic-addon1">
+                </div>
+            </td>
+            <td>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Date of birth user" aria-label="Date of birth user" aria-describedby="basic-addon1">
+                </div>
+            </td>
+            <td>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Options</label>
+                    </div>
+                    <select class="custom-select" id="inputGroupSelect01">
+                        <option selected>Choose...</option>
+                        <option value="1">Java</option>
+                        <option value="2">Python</option>
+                        <option value="3">DevOps</option>
+                        <option value="4">WebUI</option>
+                        <option value="5">Ruby</option>
+                    </select>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <h3 align="center">Contacts</h3>
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">City</th>
+            <th scope="col">Address</th>
+            <th scope="col">Phone number</th>
+            <th scope="col">e-mail</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="City user" aria-label="City user" aria-describedby="basic-addon1">
+                </div>
+            </td>
+            <td>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Address user" aria-label="Address user" aria-describedby="basic-addon1">
+                </div>
+            </td>
+            <td>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Phone number user" aria-label="Phone number user" aria-describedby="basic-addon1">
+                </div>
+            </td>
+            <td>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="E-mail user" aria-label="E-mail user" aria-describedby="basic-addon1">
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <h3 align="center">Jobs</h3>
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Company</th>
+            <th scope="col">Position</th>
+            <th scope="col">From</th>
+            <th scope="col">To</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Company user" aria-label="Company user" aria-describedby="basic-addon1">
+                </div>
+            </td>
+            <td>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Position user" aria-label="Position user" aria-describedby="basic-addon1">
+                </div>
+            </td>
+            <td>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="From user" aria-label="From user" aria-describedby="basic-addon1">
+                </div>
+            </td>
+            <td>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="To user" aria-label="To user" aria-describedby="basic-addon1">
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <h3 align="center">Professional skills</h3>
+    <table class="table table-striped table-bordered table-hover">
+        <tbody>
+        <tr>
+            <td>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Skills user" aria-label="Skills user" aria-describedby="basic-addon1">
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <input type="submit" name="submit" value="Submit" class="btn btn-info">
+</form>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

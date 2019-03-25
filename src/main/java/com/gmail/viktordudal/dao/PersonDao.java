@@ -8,6 +8,7 @@ import java.util.List;
 import com.gmail.viktordudal.model.Company;
 import com.gmail.viktordudal.model.Contact;
 import com.gmail.viktordudal.model.Person;
+import com.gmail.viktordudal.model.Specialization;
 
 public class PersonDao extends AbstractDao<Person> {
 
@@ -38,25 +39,25 @@ public class PersonDao extends AbstractDao<Person> {
 
     private Person parsePerson(ResultSet resultSet) throws SQLException {
         return Person.builder()
-                     .id(resultSet.getLong("id"))
-                     .surname(resultSet.getString("surname"))
-                     .name(resultSet.getString("name"))
-                     .dateOfBirth(LocalDate.parse(resultSet.getString("date_of_birth")))
-                     .contact(Contact.builder()
-                                     .city(resultSet.getString("city"))
-                                     .address(resultSet.getString("address"))
-                                     .phoneNumber(resultSet.getString("phone_number"))
-                                     .email(resultSet.getString("email"))
-                                     .build())
-                     .company(Company.builder()
-                                     .companyName(resultSet.getString("company_name"))
-                                     .position(resultSet.getString("position"))
-                                     .workedFrom(LocalDate.parse(resultSet.getString("worked_from")))
-                                     .workedTill(LocalDate.parse(resultSet.getString("worked_till")))
-                                     .build())
-                     .skills(resultSet.getString("skill"))
-                     .specialization(resultSet.getString("specialization"))
-                     .build();
+                .id(resultSet.getLong("id"))
+                .surname(resultSet.getString("surname"))
+                .name(resultSet.getString("name"))
+                .dateOfBirth(LocalDate.parse(resultSet.getString("date_of_birth")))
+                .contact(Contact.builder()
+                        .city(resultSet.getString("city"))
+                        .address(resultSet.getString("address"))
+                        .phoneNumber(resultSet.getString("phone_number"))
+                        .email(resultSet.getString("email"))
+                        .build())
+                .company(Company.builder()
+                        .companyName(resultSet.getString("company_name"))
+                        .position(resultSet.getString("position"))
+                        .workedFrom(LocalDate.parse(resultSet.getString("worked_from")))
+                        .workedTill(LocalDate.parse(resultSet.getString("worked_till")))
+                        .build())
+                .skills(resultSet.getString("skill"))
+                .specialization(Specialization.valueOf(resultSet.getString("specialization")))
+                .build();
 //        Person person = new Person();
 //        int i = 1;
 //        person.bu

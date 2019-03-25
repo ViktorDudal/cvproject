@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.gmail.viktordudal.model.Person;
+import com.gmail.viktordudal.model.Specialization;
 import com.gmail.viktordudal.service.PersonService;
 
 @WebServlet(urlPatterns = "/")
@@ -19,14 +20,24 @@ public class PersonsController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        List<Person> persons;
         String specId = req.getParameter("specId");
-        List<Person> people;
-        if (specId != null){
-            people = personService.getBySpec(specId);
+        Specialization specialization = Specialization.getByName(specId);
+        if (specialization != null){
+            persons = personService.getBySpec(specialization);
         } else {
-            people = personService.getAll();
+            persons = personService.getAll();
         }
-        req.setAttribute("persons", personService.getAll());
+        if (persons != null && !persons.isEmpty()) {
+            req.setAttribute("persons", persons);
+        } else {
+            if (specialization != null) {
+                req.setAttribute("message", "There are no CV for " + specialization.getName());
+            } else {
+                req.setAttribute("message", "There are no CV in DB");
+            }
+        }
+        req.setAttribute("specializations", Specialization.values());
         req.getRequestDispatcher("/WEB-INF/pages/all_persons.jsp").forward(req, resp);
     }
 }

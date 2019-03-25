@@ -15,8 +15,9 @@
 
     <style>
         body {
-            width: 1400px;
+            width: 100%;
             margin: auto;
+            max-width: 1400px;
         }
         h3 {
             display: block;
@@ -57,6 +58,9 @@
         <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
     </div>
 </div>
+<c:if test="${message!=null}">
+    <div class="alert alert-danger" id = "message">${message}</div>
+</c:if>
 <table class="table table-striped table-bordered table-hover">
     <thead class="thead-dark">
     <tr>
@@ -67,12 +71,10 @@
         <th scope="col">Specialization
                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Filter by</button>
                 <ul class="dropdown-menu">
-                    <input class="form-control" id="myInput" type="text" placeholder="Search..">
-                    <li><a href="/persons?specId=Java">Java</a></li>
-                    <li><a href="/persons?specId=Python">Python</a></li>
-                    <li><a href="/persons?specId=DevOps">DevOps</a></li>
-                    <li><a href="/persons?specId=WebUI">WebUI</a></li>
-                    <li><a href="/persons?specId=Ruby">Ruby</a></li>
+                    <li><a href="/persons">All</a></li>
+                    <c:forEach var="specialization" items="${specializations}">
+                        <li><a href="/persons?specId=${specialization.name}">${specialization.name}</a></li>
+                    </c:forEach>
                 </ul>
         </th>
         <th scope="col" colspan="3" align="center" width="fit-content">Actions</th>
@@ -87,8 +89,13 @@
         <td>${person.dateOfBirth}</td>
         <td>${person.specialization}</td>
         <td><a class="btn btn-info" href="${pageContext.request.contextPath}/person_info?personId=${person.id}" role="button">Full resume</a></td>
-        <td><a class="btn btn-primary" href="#" role="button">Edit </a></td>
-        <td><button class="btn btn-danger" type="submit">Delete</button></td>
+        <td><a class="btn btn-primary" href="/new_person_cv?personId=${person.id}" role="button">Edit </a></td>
+        <td>
+            <form method="post" action="/deletePerson">
+                <input type="number" hidden name="personId" value="${person.id}">
+                <input type="submit" name="submit" value="Delete" class="btn btn-danger">
+            </form>
+        </td>
     </tr>
     </c:forEach>
     </tbody>

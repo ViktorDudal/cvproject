@@ -34,8 +34,7 @@ public class Person {
 
     private List<String> skills = new ArrayList<>();
 
-//    private Specialization specialization;
-    private String  specialization;
+    private Specialization specialization;
 
     public static PersonBuilder builder(){
         return new PersonBuilder();
@@ -97,11 +96,11 @@ public class Person {
         this.skills.add(skill);
     }
 
-    public String getSpecialization() {
+    public Specialization getSpecialization() {
         return specialization;
     }
 
-    public void setSpecialization(String specialization) {
+    public void setSpecialization(Specialization specialization) {
         this.specialization = specialization;
     }
 
@@ -147,7 +146,7 @@ public class Person {
             return this;
         }
 
-        public PersonBuilder specialization(String  specialization){
+        public PersonBuilder specialization(Specialization  specialization){
             newPerson.setSpecialization(specialization);
             return this;
         }
