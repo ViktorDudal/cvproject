@@ -14,6 +14,10 @@
     <title>CV</title>
 
     <style>
+        body {
+            width: 1400px;
+            margin: auto;
+        }
         h3 {
             display: block;
             background-color: yellow;
@@ -23,17 +27,36 @@
         }
         table {
             counter-reset: rowNumber;
+            width: fit-content;
         }
 
         table tr td:first-child::before {
             counter-increment: rowNumber;
             content: counter(rowNumber);
         }
+        .inner {
+            width: 700px;
+        }
+        span {
+            margin-left: 40px;
+            margin-right: 40px;
+        }
     </style>
 
 </head>
 <body>
-<h3 align="center">Resume in Database</h3>
+<h3 align="center">CV in Database</h3>
+<div class="input-group mb-3">
+    <a class="btn btn-info" href="${pageContext.request.contextPath}/new_person_cv" role="button">Create new CV</a>
+    <%--<span></span>--%>
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroupFileAddon01">Upload file CV</span>
+    </div>
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+    </div>
+</div>
 <table class="table table-striped table-bordered table-hover">
     <thead class="thead-dark">
     <tr>
@@ -71,6 +94,9 @@
     </tbody>
 
     <script>
+        $(function() {
+            bs_input_file();
+        });
         $(document).ready(function(){
             $("#myInput").on("keyup", function() {
                 var value = $(this).val().toLowerCase();

@@ -11,6 +11,20 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+    <style>
+        body {
+            width: 1400px;
+            margin: auto;
+        }
+        h3 {
+            display: block;
+            background-color: darkgray;
+            padding-top: 25px;
+            padding-bottom: 25px;
+            height: fit-content;
+        }
+    </style>
+
     <title>Person CV</title>
 
 </head>
@@ -77,7 +91,6 @@
     <tbody>
     <tr>
         <td>${person_info.skills[0]}</td>
-        <td>${person_info.skills[1]}</td>
     </tr>
     </tbody>
 </table>
