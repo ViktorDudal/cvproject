@@ -87,7 +87,7 @@
         <td>${person.surname}</td>
         <td>${person.name}</td>
         <td>${person.dateOfBirth}</td>
-        <td>${person.specialization}</td>
+        <td>${person.specialization.name}</td>
         <td><a class="btn btn-info" href="${pageContext.request.contextPath}/person_info?personId=${person.id}" role="button">Full resume</a></td>
         <td><a class="btn btn-primary" href="/new_person_cv?personId=${person.id}" role="button">Edit </a></td>
         <td>

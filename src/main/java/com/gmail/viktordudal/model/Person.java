@@ -32,7 +32,7 @@ public class Person {
     @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     private List<Company> companies = new ArrayList<>();
 
-    private List<String> skills = new ArrayList<>();
+    private List<List<String>> skills = new ArrayList<List<String>>();
 
     private Specialization specialization;
 
@@ -84,15 +84,19 @@ public class Person {
         return companies;
     }
 
-    public void setCompanies(Company job) {
-        this.companies.add(job);
+    public void setCompanies(List<Company> companies) {
+        this.companies = companies;
     }
 
-    public List<String> getSkills() {
+    public void addCompany(Company company) {
+        this.companies.add(company);
+    }
+
+    public List<List<String>> getSkills() {
         return skills;
     }
 
-    public void setSkills(String skill) {
+    public void setSkills(List<String> skill) {
         this.skills.add(skill);
     }
 
@@ -137,11 +141,11 @@ public class Person {
         }
 
         public PersonBuilder company(Company job){
-            newPerson.setCompanies(job);
+            newPerson.addCompany(job);
             return this;
         }
 
-        public PersonBuilder skills(String skills){
+        public PersonBuilder skills(List<String> skills){
             newPerson.setSkills(skills);
             return this;
         }
