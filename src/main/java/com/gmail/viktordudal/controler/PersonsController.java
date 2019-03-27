@@ -2,6 +2,7 @@ package com.gmail.viktordudal.controler;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.gmail.viktordudal.model.Company;
 import com.gmail.viktordudal.model.Person;
 import com.gmail.viktordudal.model.Specialization;
 import com.gmail.viktordudal.service.PersonService;
@@ -18,12 +20,13 @@ public class PersonsController extends HttpServlet {
 
     private static PersonService personService = new PersonService();
 
+    List<Person> persons;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        List<Person> persons;
         String specId = req.getParameter("specId");
         Specialization specialization = Specialization.getByName(specId);
-        if (specialization != null){
+        if (specialization != null) {
             persons = personService.getBySpec(specialization);
         } else {
             persons = personService.getAll();

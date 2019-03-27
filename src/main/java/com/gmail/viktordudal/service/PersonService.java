@@ -14,9 +14,9 @@ import com.gmail.viktordudal.model.Specialization;
 
 public class PersonService {
 
-//    private PersonDao personDao = new PersonDao();
+    private PersonDao personDao = new PersonDao();
 
-    private static long counter = 0;
+    private static long counter = 1;
 
     private static List<Person> persons = new ArrayList<>();
 
@@ -85,8 +85,15 @@ public class PersonService {
                         .workedFrom(LocalDate.of(2008,10,15))
                         .workedTill(LocalDate.of(2012,1,7))
                         .build())
+                .company(Company.builder()
+                        .companyName("ITE NAS & MES")
+                        .position("Engineer")
+                        .workedFrom(LocalDate.of(2008,10,15))
+                        .workedTill(LocalDate.of(2012,1,7))
+                        .build())
                 .skill("HTML")
                 .skill("CSS")
+                .skill("JS")
                 .specialization(spec)
                 .build();
     }

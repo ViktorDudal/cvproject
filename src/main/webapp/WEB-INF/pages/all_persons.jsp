@@ -8,6 +8,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -48,7 +52,7 @@
 <body>
 <h3 align="center">CV in Database</h3>
 <div class="input-group mb-3">
-    <a class="btn btn-info" href="${pageContext.request.contextPath}/new_person_cv" role="button">Create new CV</a>
+    <a class="btn btn-info" href="${pageContext.request.contextPath}/person?action=create" role="button">Create new CV</a>
     <%--<span></span>--%>
     <div class="input-group-prepend">
         <span class="input-group-text" id="inputGroupFileAddon01">Upload file CV</span>
@@ -88,37 +92,70 @@
         <td>${person.name}</td>
         <td>${person.dateOfBirth}</td>
         <td>${person.specialization.name}</td>
-        <td><a class="btn btn-info" href="${pageContext.request.contextPath}/person_info?personId=${person.id}" role="button">Full resume</a></td>
-        <td><a class="btn btn-primary" href="/new_person_cv?personId=${person.id}" role="button">Edit </a></td>
+        <td><a class="btn btn-info" href="${pageContext.request.contextPath}/person?personId=${person.id}" role="button">Full resume</a></td>
+        <td><a class="btn btn-primary" href="${pageContext.request.contextPath}/person?action=update&personId=${person.id}" role="button">Edit </a></td>
         <td>
-            <form method="post" action="/deletePerson">
-                <input type="number" hidden name="personId" value="${person.id}">
-                <input type="submit" name="submit" value="Delete" class="btn btn-danger">
-            </form>
+            <button data-id="${person.id}" class="open-DeleteModal delete btn btn-danger" data-toggle="modal">Delete</button>
         </td>
     </tr>
     </c:forEach>
+    <div id="deleteEmployeeModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content delete-content">
+                <input id="userId" type="hidden">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete CV</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete these CV?</p>
+                    <p class="text-warning"><small>This action cannot be undone.</small></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id = "confirmButton">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
     </tbody>
-
-    <script>
-        $(function() {
-            bs_input_file();
-        });
-        $(document).ready(function(){
-            $("#myInput").on("keyup", function() {
-                var value = $(this).val().toLowerCase();
-                $(".dropdown-menu li").filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-            });
-        });
-    </script>
-
 </table>
+<script>
+    $(".open-DeleteModal").click(function () {
+        var id = $(this).data('id');
+        $(".modal-content #userId").val(id);
+        $('#deleteEmployeeModal').modal('show');
+    });
+
+    $("#confirmButton").click(function () {
+        var id = $(".modal-content #userId").val();
+        var form = '<form action="/" method="POST"><input type="hidden" name="id" value="' + id + '"/></form>';
+        $(form).appendTo($(document.body)).submit();
+
+        $.ajax({
+            type : "DELETE", // http method
+            url : "/person", // the endpoint
+            data : {
+                id : id
+            },
+
+            success : function(json) {
+
+                console.log(json);
+                console.log("success");
+                if(json.result == "true"){
+                    // method to show success message
+                    // method to remove deleted user
+                } else{
+                    //method to show error message
+                }
+            }
+        });
+    });
+
+</script>
+
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>

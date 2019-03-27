@@ -56,17 +56,17 @@
         <tr>
             <td>
                 <div class="input-group mb-3">
-                    <input  value="${person.name}" type="text" name="surname" id="surname" class="form-control" placeholder="Surname user" aria-label="Surname user" aria-describedby="basic-addon1">
+                    <input  value="${person.surname}" type="text" name="surname" id="surname" class="form-control" placeholder="Surname user" aria-label="Surname user" aria-describedby="basic-addon1">
                 </div>
             </td>
             <td>
                 <div class="input-group mb-3">
-                    <input type="text"  name="name" id="name" class="form-control" placeholder="Name user" aria-label="Name user" aria-describedby="basic-addon1">
+                    <input value="${person.name}" type="text"  name="name" id="name" class="form-control" placeholder="Name user" aria-label="Name user" aria-describedby="basic-addon1">
                 </div>
             </td>
             <td>
                 <div class="input-group mb-3">
-                    <input type="text" name = "dateOfBirth" class="form-control" placeholder="dd-MM-uuuu" aria-label="Date of birth user" aria-describedby="basic-addon1">
+                    <input value="${person.dateOfBirth}" type="text" name = "dateOfBirth" class="form-control" placeholder="dd-MM-uuuu" aria-label="Date of birth user" aria-describedby="basic-addon1">
                 </div>
             </td>
             <td>
@@ -99,22 +99,22 @@
         <tr>
             <td>
                 <div class="input-group mb-3">
-                    <input type="text" name ="city" class="form-control" placeholder="City user" aria-label="City user" aria-describedby="basic-addon1">
+                    <input value="${person.contact.city}" type="text" name ="city" class="form-control" placeholder="City user" aria-label="City user" aria-describedby="basic-addon1">
                 </div>
             </td>
             <td>
                 <div class="input-group mb-3">
-                    <input type="text" name ="address" class="form-control" placeholder="Address user" aria-label="Address user" aria-describedby="basic-addon1">
+                    <input value="${person.contact.address}" type="text" name ="address" class="form-control" placeholder="Address user" aria-label="Address user" aria-describedby="basic-addon1">
                 </div>
             </td>
             <td>
                 <div class="input-group mb-3">
-                    <input type="text" name ="phoneNumber" class="form-control" placeholder="Phone number user" aria-label="Phone number user" aria-describedby="basic-addon1">
+                    <input value="${person.contact.phoneNumber}" type="text" name ="phoneNumber" class="form-control" placeholder="Phone number user" aria-label="Phone number user" aria-describedby="basic-addon1">
                 </div>
             </td>
             <td>
                 <div class="input-group mb-3">
-                    <input type="text" name ="email" class="form-control" placeholder="E-mail user" aria-label="E-mail user" aria-describedby="basic-addon1">
+                    <input value="${person.contact.email}" type="text" name ="email" class="form-control" placeholder="E-mail user" aria-label="E-mail user" aria-describedby="basic-addon1">
                 </div>
             </td>
         </tr>
@@ -130,42 +130,46 @@
             <th scope="col">To</th>
         </tr>
         </thead>
-        <div class="btn btn-info btn-sm" id="addNewJobs">Add more jobs</div>
+        <div class="btn btn-info btn-sm" id="addNewJobs">Add job</div>
         <tbody id="jobTable">
+        <c:forEach var="company" items="${person.companies}">
         <tr id="newJob_1">
             <td>
                 <div class="input-group mb-3">
-                    <input type="text" name = "companyName1" class="form-control" placeholder="Company user" aria-label="Company user" aria-describedby="basic-addon1">
+                    <input value="${company.companyName}" type="text" name = "companyName1" class="form-control" placeholder="Company user" aria-label="Company user" aria-describedby="basic-addon1">
                 </div>
             </td>
             <td>
                 <div class="input-group mb-3">
-                    <input type="text" name ="position1" class="form-control" placeholder="Position user" aria-label="Position user" aria-describedby="basic-addon1">
+                    <input value="${company.position}" type="text" name ="position1" class="form-control" placeholder="Position user" aria-label="Position user" aria-describedby="basic-addon1">
                 </div>
             </td>
             <td>
                 <div class="input-group mb-3">
-                    <input type="text" name ="workedFrom1" class="form-control" placeholder="From user" aria-label="From user" aria-describedby="basic-addon1">
+                    <input value="${company.workedFrom}" type="text" name ="workedFrom1" class="form-control" placeholder="From user" aria-label="From user" aria-describedby="basic-addon1">
                 </div>
             </td>
             <td>
                 <div class="input-group mb-3">
-                    <input type="text" name ="workedTill1" class="form-control" placeholder="To user" aria-label="To user" aria-describedby="basic-addon1">
+                    <input value="${company.workedTill}" type="text" name ="workedTill1" class="form-control" placeholder="To user" aria-label="To user" aria-describedby="basic-addon1">
                 </div>
             </td>
         </tr>
+        </c:forEach>
         </tbody>
     </table>
     <h3 align="center">Professional skills</h3>
     <table class="table table-striped table-bordered table-hover">
-        <div class="btn btn-info btn-sm" id="addNewSkill">Add more skill</div>
+        <div class="btn btn-info btn-sm" id="addNewSkill">Add skill</div>
         <tbody id="skillTable">
         <tr>
+        <c:forEach var="skill" items="${person.skills}">
             <td>
-                <div class="input-group mb-3">
-                    <input type="text" name="skill1" class="form-control" placeholder="Skills user" aria-label="Skills user" aria-describedby="basic-addon1">
+                <div class="input-group mb-1">
+                    <input value="${skill}"type="text" name="skill1" class="form-control" placeholder="Skills user" aria-label="Skills user" aria-describedby="basic-addon1">
                 </div>
             </td>
+        </c:forEach>
         </tr>
         </tbody>
     </table>
@@ -204,7 +208,7 @@
         var trNode = document.createElement('TR');
         trNode.id = "rowSkill" + skill_index;
         var divNode = document.createElement("div");
-        divNode.className = "input-group mb-3";
+        divNode.className = "input-group mb-1";
         var tdNode = document.createElement('TD');
         var input = document.createElement("input");
         var closeButton = document.createElement("button");

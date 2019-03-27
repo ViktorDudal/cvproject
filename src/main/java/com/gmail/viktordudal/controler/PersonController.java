@@ -12,27 +12,48 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
-@WebServlet(urlPatterns = "/new_person_cv")
-public class NewPersonCVController extends HttpServlet {
+@WebServlet(urlPatterns = "/person")
+public class PersonController extends HttpServlet {
 
-    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-uuuu");
-    private PersonService personService = new PersonService();
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-uuuu");
+    private static final String CREATE = "create";
+    private static final String UPDATE = "update";
+
+    private static PersonService personService = new PersonService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String personId = req.getParameter("personId");
+        String action = req.getParameter("action");
+        req.setAttribute("specializations", Specialization.values());
+        if (CREATE.equals(action)){
+            req.getRequestDispatcher("/WEB-INF/pages/new_person_cv.jsp").forward(req, resp);
+            return;
+        }
         if (personId != null){
             req.setAttribute("person", personService.getById(Long.parseLong(personId)));
+            if (UPDATE.equals(action)){
+                req.getRequestDispatcher("/WEB-INF/pages/new_person_cv.jsp").forward(req, resp);
+            } else {
+                req.getRequestDispatcher("/WEB-INF/pages/person_info.jsp").forward(req, resp);
+            }
+            return;
         }
-        req.setAttribute("specializations", Specialization.values());
-        req.getRequestDispatcher("/WEB-INF/pages/new_person_cv.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+
+//        req.setAttribute("specializations", Specialization.values());
+//        req.setAttribute("persons", persons);
+
+        req.getRequestDispatcher("/WEB-INF/pages/all_persons.jsp").forward(req, resp);
     }
 
     @Override
