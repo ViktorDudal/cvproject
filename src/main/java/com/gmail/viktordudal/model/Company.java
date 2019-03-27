@@ -87,7 +87,7 @@ public class Company {
 
         public CompanyBuilder workedFrom(LocalDate workedFrom){
             newCompany.workedFrom = workedFrom;
-            // fkahsdf;ldhas;ldashfn
+            System.out.println("test");
             return this;
         }
 
