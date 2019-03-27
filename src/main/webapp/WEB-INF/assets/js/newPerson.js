@@ -4,14 +4,14 @@
 window.addEventListener("load", init, false);
 
 var isFile = false;
-var i = 0;
+var i = 2;
 
 
 function init () {
 
     console.log('init');
     fileId.addEventListener("change", validationFile, false);
-    option.addEventListener("click", show, false);
+    addNewSkill.addEventListener("click", addSkill, false);
     fType.addEventListener("change", createLink, false);
 
 }
@@ -46,22 +46,8 @@ function validationFile() {
 
 
 
-function show () {
-
-    document.getElementById('moreOption').style.display = (document.getElementById('moreOption').style.display == 'none') ? '' : 'none';
-
-    // document.getElementById("option").src = "/assets/img/arrow-205-xxl.png";
-
-    if (i%2 == 0)
-    {
-        document.getElementById("option").src = "assets/img/arrow_up.png";
-
-        i++;
-    }
-    else
-    {
-        document.getElementById("option").src = "assets/img/arrow_down.png";
-        i++;
-    }
+function addSkill () {
+    console.log("show/hide")
+    document.getElementById('newSkill_2').style.display ='';
 }
 

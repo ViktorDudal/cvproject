@@ -24,7 +24,7 @@ public class Contact {
         return new ContactBuilder();
     }
 
-    private Contact(){}
+    public Contact(){}
 
     public String getCity() {
         return city;

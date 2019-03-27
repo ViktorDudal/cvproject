@@ -8,9 +8,7 @@ import com.gmail.viktordudal.service.*;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Person {
 
@@ -30,9 +28,9 @@ public class Person {
     private Contact contact;
 
     @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
-    private List<Company> companies = new ArrayList<>();
+    private Set<Company> companies = new HashSet<>();
 
-    private List<List<String>> skills = new ArrayList<List<String>>();
+    private Set<String> skills = new HashSet<>();
 
     private Specialization specialization;
 
@@ -80,11 +78,11 @@ public class Person {
         this.contact = contact;
     }
 
-    public List<Company> getCompanies() {
+    public Set<Company> getCompanies() {
         return companies;
     }
 
-    public void setCompanies(List<Company> companies) {
+    public void setCompanies(Set<Company> companies) {
         this.companies = companies;
     }
 
@@ -92,12 +90,12 @@ public class Person {
         this.companies.add(company);
     }
 
-    public List<List<String>> getSkills() {
+    public Set<String> getSkills() {
         return skills;
     }
 
-    public void setSkills(List<String> skill) {
-        this.skills.add(skill);
+    public void setSkills(Set<String> skills) {
+        this.skills=skills;
     }
 
     public Specialization getSpecialization() {
@@ -110,6 +108,8 @@ public class Person {
 
     public static class PersonBuilder {
         private Person newPerson;
+
+        private Set<String> newSkils = new HashSet<>();
 
         private PersonBuilder() {
             newPerson = new Person();
@@ -145,8 +145,13 @@ public class Person {
             return this;
         }
 
-        public PersonBuilder skills(List<String> skills){
-            newPerson.setSkills(skills);
+        public PersonBuilder skills(Set<String> skills){
+            newSkils.addAll(skills);
+            return this;
+        }
+
+        public PersonBuilder skill(String skill){
+            newSkils.add(skill);
             return this;
         }
 
@@ -156,6 +161,7 @@ public class Person {
         }
 
         public Person build(){
+            newPerson.setSkills(newSkils);
             new ValidatorModel().validate(newPerson);
             return newPerson;
         }

@@ -13,8 +13,9 @@
 
     <style>
         body {
-            width: 1400px;
+            width: 100%;
             margin: auto;
+            max-width: 1400px;
         }
         h3 {
             display: block;
@@ -29,7 +30,14 @@
 
 </head>
 <body>
-<h3 align="center">Create new CV</h3>
+<c:choose>
+    <c:when test="${person!=null}">
+        <h3 align="center">Update CV</h3>
+    </c:when>
+    <c:otherwise>
+        <h3 align="center">Create new CV</h3>
+    </c:otherwise>
+</c:choose>
 
 <form method="post" action="/new_person_cv">
     <c:if test="${person!=null}">
@@ -58,7 +66,7 @@
             </td>
             <td>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Date of birth user" aria-label="Date of birth user" aria-describedby="basic-addon1">
+                    <input type="text" name = "dateOfBirth" class="form-control" placeholder="dd-MM-uuuu" aria-label="Date of birth user" aria-describedby="basic-addon1">
                 </div>
             </td>
             <td>
@@ -66,13 +74,11 @@
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="inputGroupSelect01">Options</label>
                     </div>
-                    <select class="custom-select" id="inputGroupSelect01">
+                    <select name = "specializ" class="custom-select" id="inputGroupSelect01">
                         <option selected>Choose...</option>
-                        <option value="1">Java</option>
-                        <option value="2">Python</option>
-                        <option value="3">DevOps</option>
-                        <option value="4">WebUI</option>
-                        <option value="5">Ruby</option>
+                        <c:forEach var="specialization" items="${specializations}">
+                            <option value="${specialization.name}">${specialization.name}</option>
+                        </c:forEach>
                     </select>
                 </div>
             </td>
@@ -93,22 +99,22 @@
         <tr>
             <td>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="City user" aria-label="City user" aria-describedby="basic-addon1">
+                    <input type="text" name ="city" class="form-control" placeholder="City user" aria-label="City user" aria-describedby="basic-addon1">
                 </div>
             </td>
             <td>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Address user" aria-label="Address user" aria-describedby="basic-addon1">
+                    <input type="text" name ="address" class="form-control" placeholder="Address user" aria-label="Address user" aria-describedby="basic-addon1">
                 </div>
             </td>
             <td>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Phone number user" aria-label="Phone number user" aria-describedby="basic-addon1">
+                    <input type="text" name ="phoneNumber" class="form-control" placeholder="Phone number user" aria-label="Phone number user" aria-describedby="basic-addon1">
                 </div>
             </td>
             <td>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="E-mail user" aria-label="E-mail user" aria-describedby="basic-addon1">
+                    <input type="text" name ="email" class="form-control" placeholder="E-mail user" aria-label="E-mail user" aria-describedby="basic-addon1">
                 </div>
             </td>
         </tr>
@@ -124,26 +130,27 @@
             <th scope="col">To</th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
+        <div class="btn btn-info btn-sm" id="addNewJobs">Add more jobs</div>
+        <tbody id="jobTable">
+        <tr id="newJob_1">
             <td>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Company user" aria-label="Company user" aria-describedby="basic-addon1">
+                    <input type="text" name = "companyName1" class="form-control" placeholder="Company user" aria-label="Company user" aria-describedby="basic-addon1">
                 </div>
             </td>
             <td>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Position user" aria-label="Position user" aria-describedby="basic-addon1">
+                    <input type="text" name ="position1" class="form-control" placeholder="Position user" aria-label="Position user" aria-describedby="basic-addon1">
                 </div>
             </td>
             <td>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="From user" aria-label="From user" aria-describedby="basic-addon1">
+                    <input type="text" name ="workedFrom1" class="form-control" placeholder="From user" aria-label="From user" aria-describedby="basic-addon1">
                 </div>
             </td>
             <td>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="To user" aria-label="To user" aria-describedby="basic-addon1">
+                    <input type="text" name ="workedTill1" class="form-control" placeholder="To user" aria-label="To user" aria-describedby="basic-addon1">
                 </div>
             </td>
         </tr>
@@ -151,17 +158,21 @@
     </table>
     <h3 align="center">Professional skills</h3>
     <table class="table table-striped table-bordered table-hover">
-        <tbody>
+        <div class="btn btn-info btn-sm" id="addNewSkill">Add more skill</div>
+        <tbody id="skillTable">
         <tr>
             <td>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Skills user" aria-label="Skills user" aria-describedby="basic-addon1">
+                    <input type="text" name="skill1" class="form-control" placeholder="Skills user" aria-label="Skills user" aria-describedby="basic-addon1">
                 </div>
             </td>
         </tr>
         </tbody>
     </table>
-    <input type="submit" name="submit" value="Submit" class="btn btn-info">
+    <div>
+        <input type="submit" name="submit" value="Submit" class="btn btn-info">
+    </div>
+
 </form>
 
 <!-- Optional JavaScript -->
@@ -169,5 +180,119 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script>
+    window.addEventListener("load", init, false);
+    var skill_index = 2;
+    var job_index = 2;
+    function init () {
+        console.log('init');console.log('init');
+        addNewSkill.addEventListener("click", addSkill, false);
+        addNewJobs.addEventListener("click", addJob, false);
+        // closeRowSkill.addEventListener("click", closeSkill, false);
+
+    }
+
+    function closeSkill(elementIdToRemove) {
+        console.log('closeSkill() init');
+        document.getElementById(elementIdToRemove).remove();
+    }
+
+    function addSkill () {
+
+        console.log("add new skill table row");
+
+        var trNode = document.createElement('TR');
+        trNode.id = "rowSkill" + skill_index;
+        var divNode = document.createElement("div");
+        divNode.className = "input-group mb-3";
+        var tdNode = document.createElement('TD');
+        var input = document.createElement("input");
+        var closeButton = document.createElement("button");
+        closeButton.className = "close";
+        closeButton.type = "button";
+        closeButton.setAttribute("onclick", "document.getElementById('rowSkill" + skill_index + "' ).remove()");
+
+        var closeText = document.createTextNode("x");
+        closeButton.appendChild(closeText);
+
+        input.type = "text";
+        input.className = "form-control";
+        input.name = "skill" + skill_index;
+        input.placeholder = "Skills user";
+
+        skill_index++;
+        divNode.appendChild(input);
+        tdNode.appendChild(divNode);
+        tdNode.appendChild(closeButton);
+        trNode.appendChild(tdNode);
+        document.getElementById("skillTable").appendChild(trNode);
+    }
+
+    // <button type="button" id="closeRowSkill" class="close" aria-label="Close" >
+    //     <span>&times;</span>
+    // </button>
+
+
+
+
+    function addJob () {
+
+        console.log("add new job table row");
+
+        var trNode = document.createElement('TR');
+
+        var tdNode = document.createElement('TD');
+        var divNode = document.createElement("div");
+        divNode.className = "input-group mb-3";
+        var input = document.createElement("input");
+        input.type = "text";
+        input.className = "form-control";
+        input.name = "companyName" + job_index;
+        input.placeholder = "Company user";
+
+        var tdNode2 = document.createElement('TD');
+        var divNode2 = document.createElement("div");
+        divNode2.className = "input-group mb-3";
+        var input2 = document.createElement("input");
+        input2.type = "text";
+        input2.className = "form-control";
+        input2.name = "position" + job_index;
+        input2.placeholder = "Position user";
+
+        var tdNode3 = document.createElement('TD');
+        var divNode3 = document.createElement("div");
+        divNode3.className = "input-group mb-3";
+        var input3 = document.createElement("input");
+        input3.type = "text";
+        input3.className = "form-control";
+        input3.name = "workedFrom" + job_index;
+        input3.placeholder = "From user";
+
+        var tdNode4 = document.createElement('TD');
+        var divNode4 = document.createElement("div");
+        divNode4.className = "input-group mb-3";
+        var input4 = document.createElement("input");
+        input4.type = "text";
+        input4.className = "form-control";
+        input4.name = "workedTill" + job_index;
+        input4.placeholder = "To user";
+
+        job_index++;
+
+        divNode4.appendChild(input4);
+        tdNode4.appendChild(divNode4);
+        divNode3.appendChild(input3);
+        tdNode3.appendChild(divNode3);
+        divNode2.appendChild(input2);
+        tdNode2.appendChild(divNode2);
+        divNode.appendChild(input);
+        tdNode.appendChild(divNode);
+        trNode.appendChild(tdNode);
+        trNode.appendChild(tdNode2);
+        trNode.appendChild(tdNode3);
+        trNode.appendChild(tdNode4);
+        document.getElementById("jobTable").appendChild(trNode);
+    }
+</script>
 </body>
 </html>

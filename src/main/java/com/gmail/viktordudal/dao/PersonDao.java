@@ -8,7 +8,9 @@ import com.gmail.viktordudal.model.Specialization;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PersonDao extends AbstractDao<Person> {
 
@@ -45,8 +47,8 @@ public class PersonDao extends AbstractDao<Person> {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(String.format(SELECT_BY_ID, id));
 
-            List<Company> companies = new ArrayList<>();
-            List<String> skills = new ArrayList<>();
+            Set<Company> companies = new HashSet<>();
+            Set<String> skills = new HashSet<>();
             while (resultSet.next()){
                 if (person == null) {
                     person = parsePerson(resultSet);
