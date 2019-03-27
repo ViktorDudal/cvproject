@@ -41,10 +41,10 @@
     </thead>
     <tbody>
     <tr>
-        <td>${person_info.surname}</td>
-        <td>${person_info.name}</td>
-        <td>${person_info.dateOfBirth}</td>
-        <td>${person_info.specialization.name}</td>
+        <td>${person.surname}</td>
+        <td>${person.name}</td>
+        <td>${person.dateOfBirth}</td>
+        <td>${person.specialization.name}</td>
     </tr>
     </tbody>
 </table>
@@ -60,10 +60,10 @@
     </thead>
     <tbody>
     <tr>
-        <td>${person_info.contact.city}</td>
-        <td>${person_info.contact.address}</td>
-        <td>${person_info.contact.phoneNumber}</td>
-        <td>${person_info.contact.email}</td>
+        <td>${person.contact.city}</td>
+        <td>${person.contact.address}</td>
+        <td>${person.contact.phoneNumber}</td>
+        <td>${person.contact.email}</td>
     </tr>
     </tbody>
 </table>
@@ -78,7 +78,7 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach var="company" items="${person_info.companies}">
+    <c:forEach var="company" items="${person.companies}">
         <tr>
             <td>${company.companyName}</td>
             <td>${company.position}</td>
@@ -92,7 +92,7 @@
 <table class="table table-striped table-bordered table-hover">
     <tbody>
     <tr>
-        <c:forEach var="skill" items="${person_info.skills}">
+        <c:forEach var="skill" items="${person.skills}">
             <td>${skill}</td>
         </c:forEach>
     </tr>
