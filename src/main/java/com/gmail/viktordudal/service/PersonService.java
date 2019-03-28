@@ -119,4 +119,9 @@ public class PersonService {
         persons.add(idToUpdate, newPerson);
 
     }
+
+    public boolean addPersonFromFile(String absolutePath) {
+        //use parser to parse file and add to DB
+        return true;
+    }
 }

@@ -50,18 +50,18 @@ public class PersonController extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String personId = req.getParameter("personId");
         Map<String, String> data = new HashMap<>();
-        if(personId != null){
-            if(personService.deleteById(Long.parseLong(personId))){
-                data.put("result", "true");
-                data.put("message", "Person has deleted successfully");
-            } else  {
-                data.put("result", "false");
-                data.put("message", "Error while deleting person");
-            }
-        } else {
-            data.put("result", "false");
-            data.put("message", "No person to delete");
-        }
+//        if (personId != null){
+//            if(personService.deleteById(Long.parseLong(personId))){
+                data.put("result","true");
+                data.put("message", "Person has been deleted successfully!");
+//            } else {
+//                data.put("result", "false");
+//                data.put("message", "Person didn't delete!");
+//            }
+//        } else {
+//            data.put("result", "false");
+//            data.put("message", "Error!");
+//        }
         ObjectMapper mapper = new ObjectMapper();
         String jsonInString = mapper.writeValueAsString(data);
 

@@ -57,14 +57,23 @@
     <div class="input-group-prepend">
         <span class="input-group-text" id="inputGroupFileAddon01">Upload file CV</span>
     </div>
-    <div class="custom-file">
-        <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-    </div>
+    <form action="upload" method="post" enctype="multipart/form-data" class="form-inline">
+        <div class="col-md-4">
+            <input type="file" class="custom-file-input" name="file" accept="text/xml, text/plain, application/json" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+        </div>
+        <div class="col-md-4">
+            <input type="submit" value=" Add to DB"  class="input-group-prepend" id = "addFile"/>
+        </div>
+    </form>
 </div>
 <c:if test="${message!=null}">
-    <div class="alert alert-danger" id = "message">${message}</div>
+    <div class="alert alert-success" id = "message">${message}</div>
 </c:if>
+<c:if test="${errorMessage!=null}">
+    <div class="alert alert-danger" id = "message">${errorMessage}</div>
+</c:if>
+<div style="display: none" id = "ajaxMessage"></div>
 <table class="table table-striped table-bordered table-hover">
     <thead class="thead-dark">
     <tr>
@@ -73,31 +82,31 @@
         <th scope="col">Name</th>
         <th scope="col">Date of birth</th>
         <th scope="col">Specialization
-                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Filter by</button>
-                <ul class="dropdown-menu">
-                    <li><a href="/persons">All</a></li>
-                    <c:forEach var="specialization" items="${specializations}">
-                        <li><a href="/persons?specId=${specialization.name}">${specialization.name}</a></li>
-                    </c:forEach>
-                </ul>
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Filter by</button>
+            <ul class="dropdown-menu">
+                <li><a href="/persons">All</a></li>
+                <c:forEach var="specialization" items="${specializations}">
+                    <li><a href="/persons?specId=${specialization.name}">${specialization.name}</a></li>
+                </c:forEach>
+            </ul>
         </th>
         <th scope="col" colspan="3" align="center" width="fit-content">Actions</th>
     </tr>
     </thead>
     <tbody>
     <c:forEach var="person" items="${persons}">
-    <tr>
-        <td ></td>
-        <td>${person.surname}</td>
-        <td>${person.name}</td>
-        <td>${person.dateOfBirth}</td>
-        <td>${person.specialization.name}</td>
-        <td><a class="btn btn-info" href="${pageContext.request.contextPath}/person?personId=${person.id}" role="button">Full resume</a></td>
-        <td><a class="btn btn-primary" href="${pageContext.request.contextPath}/person?action=update&personId=${person.id}" role="button">Edit </a></td>
-        <td>
-            <button data-id="${person.id}" class="open-DeleteModal delete btn btn-danger" data-toggle="modal">Delete</button>
-        </td>
-    </tr>
+        <tr id="personRow${person.id}">
+            <td ></td>
+            <td>${person.surname}</td>
+            <td>${person.name}</td>
+            <td>${person.dateOfBirth}</td>
+            <td>${person.specialization.name}</td>
+            <td><a class="btn btn-info" href="${pageContext.request.contextPath}/person?personId=${person.id}" role="button">Full resume</a></td>
+            <td><a class="btn btn-primary" href="${pageContext.request.contextPath}/person?action=update&personId=${person.id}" role="button">Edit </a></td>
+            <td>
+                <button data-id="${person.id}" class="open-DeleteModal delete btn btn-danger" data-toggle="modal">Delete</button>
+            </td>
+        </tr>
     </c:forEach>
     <div id="deleteEmployeeModal" class="modal fade">
         <div class="modal-dialog">
@@ -123,35 +132,60 @@
 <script>
     $(".open-DeleteModal").click(function () {
         var id = $(this).data('id');
-        $(".modal-content #userId").val(id);
+        console.log(id);
+        $("#userId").val(id);
+        console.log($("#userId").val());
         $('#deleteEmployeeModal').modal('show');
     });
 
     $("#confirmButton").click(function () {
-        var id = $(".modal-content #userId").val();
 
+        var id = $("#userId").val();
+        console.log($("#userId").val());
+
+        var userData = {personId: 666};
+        console.log(userData);
+        $('#deleteEmployeeModal').modal('hide');
         $.ajax({
             type : "DELETE", // http method
             url : "/person", // the endpoint
-            data : {
-                id : id
-            },
+            contentType: 'application/json',
+            data : userData,
 
             success : function(json) {
 
                 console.log(json);
-
+                // method to show success message
+                var message = $("#ajaxMessage");
                 if(json.result == "true"){
-                    console.log(json)
-                    // method to show success message
-                    // method to remove deleted user
-                } else{
-                    //method to show error message
+                    $("#personRow" + id).remove();
+                    message.addClass("alert alert-success");
+                } else {
+                    message.addClass("alert alert-danger");
                 }
+                message.html(json.message);
+                message.show();
+                $('#ajaxMessage').delay(5000).fadeOut();
             }
         });
     });
+    $(function() {
+        // setTimeout() function will be fired after page is loaded
+        // it will wait for 5 sec. and then will fire
+        // $("#successMessage").hide() function
+        setTimeout(function() {
+            $(".alert-success").fadeOut('fast');
+        }, 5000);
+    });
 
+    $(function() {
+        // setTimeout() function will be fired after page is loaded
+        // it will wait for 5 sec. and then will fire
+        // $("#successMessage").hide() function
+        setTimeout(function() {
+            $(".alert-danger").fadeOut('fast');
+        }, 5000);
+    });
 </script>
 
 <!-- Optional JavaScript -->
