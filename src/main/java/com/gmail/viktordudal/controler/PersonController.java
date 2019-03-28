@@ -52,15 +52,15 @@ public class PersonController extends HttpServlet {
         Map<String, String> data = new HashMap<>();
 //        if (personId != null){
 //            if(personService.deleteById(Long.parseLong(personId))){
-                data.put("result","true");
-                data.put("message", "Person has been deleted successfully!");
+//                data.put("result","true");
+//                data.put("message", "Person has been deleted successfully!");
 //            } else {
 //                data.put("result", "false");
 //                data.put("message", "Person didn't delete!");
 //            }
 //        } else {
-//            data.put("result", "false");
-//            data.put("message", "Error!");
+            data.put("result", "false");
+            data.put("message", "Error!");
 //        }
         ObjectMapper mapper = new ObjectMapper();
         String jsonInString = mapper.writeValueAsString(data);
@@ -85,12 +85,12 @@ public class PersonController extends HttpServlet {
         Set<String> skills = getSkills(req);
         newPerson.setSkills(skills);
 
-        if (personId != null){
-            newPerson.setId(Long.parseLong(personId));
-            personService.updatePerson(newPerson);
-        } else {
-            personService.addNewPerson(newPerson);
-        }
+//        if (personId != null){
+//            newPerson.setId(Long.parseLong(personId));
+//            personService.updatePerson(newPerson);
+//        } else {
+//            personService.addNewPerson(newPerson);
+//        }
 
 
 

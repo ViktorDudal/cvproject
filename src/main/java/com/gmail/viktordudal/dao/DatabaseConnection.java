@@ -5,7 +5,7 @@ import java.sql.*;
 public class DatabaseConnection {
 
     private static Connection connection;
-    private static final String DATABASE_URL = "jdbc:postgresql://localhost:5432/cv_database";
+    private static final String DATABASE_URL = "jdbc:postgresql://localhost:5432/cv_database_vdudal";
     private static final String USER = "postgres";
     private static final String PASSWORD = "postgres";
 

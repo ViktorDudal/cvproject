@@ -85,8 +85,7 @@
 --insert into person_skills (id, person_id, skill_id) values ('9','9','6');
 --insert into person_skills (id, person_id, skill_id) values ('9','9','9');
 
-
-
+createDB.txt
 --ALTER TABLE contact ADD CONSTRAINT to_person FOREIGN KEY (id) REFERENCES person (id);
 --ALTER TABLE company ADD CONSTRAINT to_person FOREIGN KEY (id) REFERENCES person (id);
 
@@ -97,6 +96,7 @@
 
 
 select * from person p join person_company pc on pc.person_id = p.id join company c on c.id = pc.company_id where p.id = 2
+select * from person p inner join contact using(id) join person_company pc on pc.person_id = p.id join company c on c.id = pc.company_id join person_skills ps on ps.person_id = p.id join skills s on ps.skill_id where p.id = ?
 
 --ALTER TABLE person_company ADD COLUMN position varchar(50)
 --delete from person_company where id = 1

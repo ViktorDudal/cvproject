@@ -15,7 +15,7 @@ import java.util.Set;
 public class PersonDao extends AbstractDao<Person> {
 
     private static final String SELECT_ALL = "SELECT * FROM person;";
-    private static final String SELECT_BY_ID = "select * from person p inner join contact using(id) join person_company pc on pc.person_id = p.id join company c on c.id = pc.company_id join person_skills ps on ps.person_id = p.id join skills s on s.id = ps.skill_id where p.id = %d";
+    private static final String SELECT_BY_ID = "select * from person p inner join contact using (id) join jobs j on p.id = j.person_id join person_skills ps on ps.person_id = p.id join skills s on s.id = ps.skill_id where p.id = ?;";
     private static final String SQL = "INSERT INTO person (surname, name) VALUES(?,?)";
 
     @Override
@@ -44,8 +44,9 @@ public class PersonDao extends AbstractDao<Person> {
         Person person = null;
         try {
             Connection connection = DatabaseConnection.getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(String.format(SELECT_BY_ID, id));
+            PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID);
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
 
             Set<Company> companies = new HashSet<>();
             Set<String> skills = new HashSet<>();

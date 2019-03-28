@@ -143,14 +143,11 @@
         var id = $("#userId").val();
         console.log($("#userId").val());
 
-        var userData = {personId: 666};
-        console.log(userData);
         $('#deleteEmployeeModal').modal('hide');
         $.ajax({
             type : "DELETE", // http method
-            url : "/person", // the endpoint
+            url : "/person?personId=" + id, // the endpoint
             contentType: 'application/json',
-            data : userData,
 
             success : function(json) {
 

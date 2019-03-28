@@ -11,6 +11,7 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Company {
 
@@ -109,5 +110,21 @@ public class Company {
                 ", workedFrom=" + workedFrom +
                 ", workedTill=" + workedTill +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Company company = (Company) o;
+        return Objects.equals(companyName, company.companyName) &&
+                Objects.equals(position, company.position) &&
+                Objects.equals(workedFrom, company.workedFrom) &&
+                Objects.equals(workedTill, company.workedTill);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(companyName, position, workedFrom, workedTill);
     }
 }
