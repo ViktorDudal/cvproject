@@ -77,7 +77,7 @@
                     <select name = "specializ" class="custom-select" id="inputGroupSelect01">
                         <option selected>Choose...</option>
                         <c:forEach var="specialization" items="${specializations}">
-                            <option value="${specialization.name}">${specialization.name}</option>
+                            <option value="${specialization.name}" <c:if test="${person.specialization == specialization}">selected</c:if>>${specialization.name}</option>
                         </c:forEach>
                     </select>
                 </div>
@@ -243,6 +243,7 @@
         var divNode = document.createElement("div");
         divNode.className = "input-group mb-1";
         var tdNode = document.createElement('TD');
+        var tdNode1 = document.createElement('TD');
         var input = document.createElement("input");
         var closeButton = document.createElement("button");
         closeButton.className = "close";
@@ -256,12 +257,14 @@
         input.className = "form-control";
         input.name = "skill" + skill_index;
         input.placeholder = "Skills user";
+        input.style.width = "800px";
 
         skill_index++;
         divNode.appendChild(input);
         tdNode.appendChild(divNode);
-        tdNode.appendChild(closeButton);
+        tdNode1.appendChild(closeButton);
         trNode.appendChild(tdNode);
+        trNode.appendChild(tdNode1);
         document.getElementById("skillTable").appendChild(trNode);
     }
 
