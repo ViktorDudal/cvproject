@@ -14,6 +14,6 @@ public abstract class AbstractDao<E> {
 
     public abstract E update(E entity);
 
-    public abstract boolean delete(E entity);
+    public abstract boolean deleteById(Long id);
 
 }

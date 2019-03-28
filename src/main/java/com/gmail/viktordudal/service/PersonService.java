@@ -1,14 +1,9 @@
 package com.gmail.viktordudal.service;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.gmail.viktordudal.dao.PersonDao;
-import com.gmail.viktordudal.model.Company;
-import com.gmail.viktordudal.model.Contact;
 import com.gmail.viktordudal.model.Person;
 import com.gmail.viktordudal.model.Specialization;
 
@@ -38,9 +33,9 @@ public class PersonService {
 //        persons.add(newPerson);
 //    }
 //
-//    public boolean deleteById(long id) {
-//        return persons.remove(personToDelete);
-//    }
+    public boolean deleteById(long id) {
+        return personDao.deleteById(id);
+    }
 //
 //    public void updatePerson(Person newPerson) {
 //        int idToUpdate = 0;

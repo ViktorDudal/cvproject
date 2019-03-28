@@ -17,6 +17,10 @@ public class PersonDao extends AbstractDao<Person> {
     private static final String SELECT_ALL = "SELECT * FROM person;";
     private static final String SELECT_BY_ID = "select * from person p inner join contact using (id) join jobs j on p.id = j.person_id join person_skills ps on ps.person_id = p.id join skills s on s.id = ps.skill_id where p.id = ?;";
     private static final String SQL = "INSERT INTO person (surname, name) VALUES(?,?)";
+    private static final String DELETE_CONTACT_BY_ID = "DELETE FROM contact WHERE person_id = ?;";
+    private static final String DELETE_JOB_BY_ID = "DELETE FROM jobs WHERE person_id = ?;";
+    private static final String DELETE_PERSON_SKILLS_BY_ID = "DELETE FROM person_skills WHERE person_id = ?;";
+    private static final String DELETE_PERSON_BY_ID = "DELETE from person where id = ?;";
 
     @Override
     public List<Person> getAll() {
@@ -96,8 +100,68 @@ public class PersonDao extends AbstractDao<Person> {
         return null;
     }
 
-    @Override public boolean delete(Person entity) {
-        return false;
+    @Override
+    public boolean deleteById(Long id) {
+        deleteByIdByContact(id);
+        deleteByIdByJob(id);
+        deleteByIdByPersoSkill(id);
+        deleteByIdByPerson(id);
+        return true;
+    }
+
+    private boolean deleteByIdByContact(Long id) {
+        try {
+            Connection connection = DatabaseConnection.getConnection();
+            PreparedStatement statementContact = connection.prepareStatement(DELETE_CONTACT_BY_ID);
+            statementContact.setLong(1, id);
+            statementContact.executeUpdate();
+            System.out.println("" + statementContact.executeUpdate());
+            statementContact.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    private boolean deleteByIdByJob(Long id) {
+        try {
+            Connection connection = DatabaseConnection.getConnection();
+            PreparedStatement statementJobs = connection.prepareStatement(DELETE_JOB_BY_ID);
+            statementJobs.setLong(1, id);
+            statementJobs.executeQuery();
+            statementJobs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    private boolean deleteByIdByPersoSkill(Long id) {
+        try {
+            Connection connection = DatabaseConnection.getConnection();
+            PreparedStatement statementSkills = connection.prepareStatement(DELETE_PERSON_SKILLS_BY_ID);
+            statementSkills.setLong(1, id);
+            statementSkills.executeQuery();
+            statementSkills.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean deleteByIdByPerson(Long id){
+        try {
+            Connection connection = DatabaseConnection.getConnection();
+            PreparedStatement statementPerson = connection.prepareStatement(DELETE_PERSON_BY_ID);
+            statementPerson.setLong(1, id);
+            statementPerson.executeQuery();
+            statementPerson.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     private String parsSkills(ResultSet resultSet) throws SQLException {
