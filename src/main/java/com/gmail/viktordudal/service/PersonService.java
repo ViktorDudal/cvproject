@@ -103,8 +103,20 @@ public class PersonService {
         persons.add(newPerson);
     }
 
-    public void deleteById(long id) {
+    public boolean deleteById(long id) {
         Person personToDelete = persons.stream().filter(person -> id == person.getId()).findFirst().orElse(null);
-        persons.remove(personToDelete);
+        return persons.remove(personToDelete);
+    }
+
+    public void updatePerson(Person newPerson) {
+        int idToUpdate = 0;
+        for (int i = 0; i < persons.size(); i++) {
+            if (persons.get(i).getId() == newPerson.getId()){
+                idToUpdate = i;
+            }
+        }
+        persons.remove(persons.get(idToUpdate));
+        persons.add(idToUpdate, newPerson);
+
     }
 }

@@ -39,9 +39,9 @@
     </c:otherwise>
 </c:choose>
 
-<form method="post" action="/new_person_cv">
+<form method="post" action="/person">
     <c:if test="${person!=null}">
-        <input type="number" hidden name="id" value="${person.id}">
+        <input type="number" hidden name="personId" value="${person.id}">
     </c:if>
     <table class="table table-striped table-bordered table-hover">
         <thead class="thead-dark">
@@ -66,7 +66,7 @@
             </td>
             <td>
                 <div class="input-group mb-3">
-                    <input value="${person.dateOfBirth}" type="text" name = "dateOfBirth" class="form-control" placeholder="dd-MM-uuuu" aria-label="Date of birth user" aria-describedby="basic-addon1">
+                    <input value="${person.dateOfBirth}" type="text" name = "dateOfBirth" class="form-control" placeholder="uuuu-MM-dd" aria-label="Date of birth user" aria-describedby="basic-addon1">
                 </div>
             </td>
             <td>
@@ -132,26 +132,50 @@
         </thead>
         <div class="btn btn-info btn-sm" id="addNewJobs">Add job</div>
         <tbody id="jobTable">
-        <c:forEach var="company" items="${person.companies}">
+        <c:if test="${empty person.companies}">
+            <tr id="newJob_1">
+                <td>
+                    <div class="input-group mb-3">
+                        <input value="${company.companyName}" type="text" name = "companyName0" class="form-control" placeholder="Company user" aria-label="Company user" aria-describedby="basic-addon1">
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group mb-3">
+                        <input value="${company.position}" type="text" name ="position0" class="form-control" placeholder="Position user" aria-label="Position user" aria-describedby="basic-addon1">
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group mb-3">
+                        <input value="${company.workedFrom}" type="text" name ="workedFrom0" class="form-control" placeholder="uuuu-MM-dd" aria-label="From user" aria-describedby="basic-addon1">
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group mb-3">
+                        <input value="${company.workedTill}" type="text" name ="workedTill0" class="form-control" placeholder="uuuu-MM-dd" aria-label="To user" aria-describedby="basic-addon1">
+                    </div>
+                </td>
+            </tr>
+        </c:if>
+        <c:forEach var="company" items="${person.companies}" varStatus="loop">
         <tr id="newJob_1">
             <td>
                 <div class="input-group mb-3">
-                    <input value="${company.companyName}" type="text" name = "companyName1" class="form-control" placeholder="Company user" aria-label="Company user" aria-describedby="basic-addon1">
+                    <input value="${company.companyName}" type="text" name = "companyName${loop.index}" class="form-control" placeholder="Company user" aria-label="Company user" aria-describedby="basic-addon1">
                 </div>
             </td>
             <td>
                 <div class="input-group mb-3">
-                    <input value="${company.position}" type="text" name ="position1" class="form-control" placeholder="Position user" aria-label="Position user" aria-describedby="basic-addon1">
+                    <input value="${company.position}" type="text" name ="position${loop.index}" class="form-control" placeholder="Position user" aria-label="Position user" aria-describedby="basic-addon1">
                 </div>
             </td>
             <td>
                 <div class="input-group mb-3">
-                    <input value="${company.workedFrom}" type="text" name ="workedFrom1" class="form-control" placeholder="From user" aria-label="From user" aria-describedby="basic-addon1">
+                    <input value="${company.workedFrom}" type="text" name ="workedFrom${loop.index}" class="form-control" placeholder="uuuu-MM-dd" aria-label="From user" aria-describedby="basic-addon1">
                 </div>
             </td>
             <td>
                 <div class="input-group mb-3">
-                    <input value="${company.workedTill}" type="text" name ="workedTill1" class="form-control" placeholder="To user" aria-label="To user" aria-describedby="basic-addon1">
+                    <input value="${company.workedTill}" type="text" name ="workedTill${loop.index}" class="form-control" placeholder="uuuu-MM-dd" aria-label="To user" aria-describedby="basic-addon1">
                 </div>
             </td>
         </tr>
@@ -162,16 +186,25 @@
     <table class="table table-striped table-bordered table-hover">
         <div class="btn btn-info btn-sm" id="addNewSkill">Add skill</div>
         <tbody id="skillTable">
-        <tr>
-        <c:forEach var="skill" items="${person.skills}">
+        <c:if test="${empty person.skills}">
+            <tr>
+                <td>
+                    <div class="input-group mb-1">
+                        <input value="${skill}"type="text" name="skill" class="form-control" placeholder="Skills user" aria-label="Skills user" aria-describedby="basic-addon1">
+                    </div>
+                </td>
+            </tr>
+        </c:if>
+        <c:forEach var="skill" items="${person.skills}" varStatus="loop">
+    <tr>
             <td>
                 <div class="input-group mb-1">
-                    <input value="${skill}"type="text" name="skill1" class="form-control" placeholder="Skills user" aria-label="Skills user" aria-describedby="basic-addon1">
+                    <input value="${skill}"type="text" name="skill${loop.index}" class="form-control" placeholder="Skills user" aria-label="Skills user" aria-describedby="basic-addon1">
                 </div>
             </td>
-        </c:forEach>
         </tr>
-        </tbody>
+    </c:forEach>
+    </tbody>
     </table>
     <div>
         <input type="submit" name="submit" value="Submit" class="btn btn-info">

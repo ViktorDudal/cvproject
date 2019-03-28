@@ -17,7 +17,7 @@ public class Company {
     @Size(min = 2, max = 25, message = "Field 'companyName' must be between 2 and 25 characters")
     private String companyName;
 
-    @Size(min = 2, max = 15, message = "Field 'position' must be between 2 and 15 characters")
+//    @Size(min = 2, max = 15, message = "Field 'position' must be between 2 and 15 characters")
     private String position;
 
     @JsonDeserialize(using = LocalDateDeserializer.class)

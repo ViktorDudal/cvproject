@@ -1,5 +1,6 @@
 package com.gmail.viktordudal.controler;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmail.viktordudal.model.Company;
 import com.gmail.viktordudal.model.Contact;
 import com.gmail.viktordudal.model.Person;
@@ -14,14 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 @WebServlet(urlPatterns = "/person")
 public class PersonController extends HttpServlet {
 
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-uuuu");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("uuuu-MM-dd");
     private static final String CREATE = "create";
     private static final String UPDATE = "update";
 
@@ -49,15 +48,33 @@ public class PersonController extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        String personId = req.getParameter("personId");
+        Map<String, String> data = new HashMap<>();
+        if(personId != null){
+            if(personService.deleteById(Long.parseLong(personId))){
+                data.put("result", "true");
+                data.put("message", "Person has deleted successfully");
+            } else  {
+                data.put("result", "false");
+                data.put("message", "Error while deleting person");
+            }
+        } else {
+            data.put("result", "false");
+            data.put("message", "No person to delete");
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonInString = mapper.writeValueAsString(data);
 
-//        req.setAttribute("specializations", Specialization.values());
-//        req.setAttribute("persons", persons);
+        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("application/json");
+        resp.getWriter().write(jsonInString);
 
-        req.getRequestDispatcher("/WEB-INF/pages/all_persons.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+
+        String personId = req.getParameter("personId");
         Person newPerson = createPerson(req);
 
         newPerson.setContact(getContact(req));
@@ -68,7 +85,14 @@ public class PersonController extends HttpServlet {
         Set<String> skills = getSkills(req);
         newPerson.setSkills(skills);
 
-        personService.addNewPerson(newPerson);
+        if (personId != null){
+            newPerson.setId(Long.parseLong(personId));
+            personService.updatePerson(newPerson);
+        } else {
+            personService.addNewPerson(newPerson);
+        }
+
+
 
         req.setAttribute("specializations", Specialization.values());
         req.setAttribute("persons", personService.getAll());
@@ -78,7 +102,7 @@ public class PersonController extends HttpServlet {
 
     private Set<Company> getCompanies(HttpServletRequest req) {
         Set<Company> companies = new HashSet<>();
-        int index = 1;
+        int index = 0;
         String companyName = req.getParameter("companyName" + index);
         while (companyName != null && !companyName.isEmpty()){
             companies.add(Company.builder()
@@ -103,11 +127,13 @@ public class PersonController extends HttpServlet {
 
     private Set<String> getSkills(HttpServletRequest req) {
         Set<String> skills = new TreeSet<>();
-        int index = 1;
-        String skillValue = req.getParameter("skill" + index);
-        while (skillValue != null){
-            skills.add(skillValue);
-            skillValue = req.getParameter("skill" + ++index);
+        int index = 0;
+        String[] skillValues = req.getParameterValues("skill" + index);
+        while (skillValues != null && skillValues.length != 0){
+            for (String skill: skillValues) {
+                skills.add(skill);
+            }
+            skillValues = req.getParameterValues("skill" + ++index);
         }
         return skills;
     }

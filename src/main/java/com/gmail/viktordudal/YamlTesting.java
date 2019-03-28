@@ -11,19 +11,22 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import static com.gmail.viktordudal.service.ParseFile.parseFile;
+import static com.gmail.viktordudal.service.WriteToYamlFile.writeToYamlFile;
+
 public class YamlTesting {
 
     private static  final Logger LOGGER = Logger.getLogger(YamlTesting.class.getName());
 
     public static void main(String[] args) throws IOException {
 
-//        String inputFile = "src/main/resources/user.txt";
-//
-//        Person user = parseFile(inputFile);
-//
-//        String outputFile = "src/main/resources/output.yml";
-//
-//        writeToYamlFile(outputFile, user);
+        String inputFile = "src/main/resources/user.xml";
+
+        Person user = parseFile(inputFile);
+
+        String outputFile = "src/main/resources/output.yml";
+
+        writeToYamlFile(outputFile, user);
 
 //        Person pers = Person.builder()
 //                .id(1)

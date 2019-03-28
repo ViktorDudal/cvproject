@@ -129,8 +129,6 @@
 
     $("#confirmButton").click(function () {
         var id = $(".modal-content #userId").val();
-        var form = '<form action="/" method="POST"><input type="hidden" name="id" value="' + id + '"/></form>';
-        $(form).appendTo($(document.body)).submit();
 
         $.ajax({
             type : "DELETE", // http method
@@ -142,8 +140,9 @@
             success : function(json) {
 
                 console.log(json);
-                console.log("success");
+
                 if(json.result == "true"){
+                    console.log(json)
                     // method to show success message
                     // method to remove deleted user
                 } else{
