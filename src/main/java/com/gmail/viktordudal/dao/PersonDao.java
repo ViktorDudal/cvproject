@@ -15,12 +15,17 @@ import java.util.Set;
 public class PersonDao extends AbstractDao<Person> {
 
     private static final String SELECT_ALL = "SELECT * FROM person;";
-    private static final String SELECT_BY_ID = "select * from person p inner join contact using (id) join jobs j on p.id = j.person_id join person_skills ps on ps.person_id = p.id join skills s on s.id = ps.skill_id where p.id = ?;";
-    private static final String SQL = "INSERT INTO person (surname, name) VALUES(?,?)";
+    private static final String SELECT_PERSON_BY_ID = "select * from person where p.id = ?;";
+    private static final String SELECT_CONTACT_BY_ID = "select * from contact where person_id = ?";
+    private static final String SELECT_JOB_BY_ID = "select * from jobs where person_id = ?";
+    private static final String SELECT_SKILLS_BY_ID = "select * from person_skills ps join skills s on s.id = ps.skill_id where ps.person_id = 6;";
     private static final String DELETE_CONTACT_BY_ID = "DELETE FROM contact WHERE person_id = ?;";
     private static final String DELETE_JOB_BY_ID = "DELETE FROM jobs WHERE person_id = ?;";
     private static final String DELETE_PERSON_SKILLS_BY_ID = "DELETE FROM person_skills WHERE person_id = ?;";
     private static final String DELETE_PERSON_BY_ID = "DELETE from person where id = ?;";
+    private static final String INSERT_NEW_PERSON = "insert into person (surname, name, date_of_birth, specialization) values (?,?,?,?);";
+    private static final String INSERT_NEW_CONTACT = "insert into contact (city, address, phone_number, email, person_id) values (?,?,?,?,?);";
+    private static final String CREATE_NEW_JOB = "insert into jobs (person_id, company_name, position, worked_from, worked_till) values (?,?,?,?,?);";
 
     @Override
     public List<Person> getAll() {
@@ -48,7 +53,7 @@ public class PersonDao extends AbstractDao<Person> {
         Person person = null;
         try {
             Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID);
+            PreparedStatement statement = connection.prepareStatement("select * from person p join contact ct on p.id = ct.person_id join jobs j on p.id = j.person_id join person_skills ps on ps.person_id = p.id join skills s on s.id = ps.skill_id where p.id = ?;");
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
 
@@ -72,51 +77,151 @@ public class PersonDao extends AbstractDao<Person> {
         return person;
     }
 
+//    private Contact getContactById(long id){
+//        Contact contact = null;
+//        try (Connection connection = DatabaseConnection.getConnection();
+//             PreparedStatement statement = connection.prepareStatement(SELECT_CONTACT_BY_ID);) {
+//
+//            statement.setLong(1, id);
+//            ResultSet resultSet = statement.executeQuery();
+//
+//            while (resultSet.next()){
+//                    Contact.builder()
+//                            .city(resultSet.getString("city"))
+//                            .address(resultSet.getString("address"))
+//                            .phoneNumber(resultSet.getString("phone_number"))
+//                            .email(resultSet.getString("email"))
+//                            .build();
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return contact;
+//    }
+//
+//    private Company getCompanyById(long id) {
+//        Company company = null;
+//        try (Connection connection = DatabaseConnection.getConnection();
+//             PreparedStatement statement = connection.prepareStatement(SELECT_JOB_BY_ID);) {
+//
+//            statement.setLong(1, id);
+//            ResultSet resultSet = statement.executeQuery();
+//
+//            while (resultSet.next()){
+//                Company.builder()
+//                        .companyName(resultSet.getString("company_name"))
+//                        .position(resultSet.getString("position"))
+//                        .workedFrom(LocalDate.parse(resultSet.getString("worked_from")))
+//                        .workedTill(LocalDate.parse(resultSet.getString("worked_till")))
+//                        .build();
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return company;
+//    }
+//
+//    private String getSkillsById(long id) {
+//        String skill = null;
+//        try (Connection connection = DatabaseConnection.getConnection();
+//             PreparedStatement statement = connection.prepareStatement(SELECT_SKILLS_BY_ID);) {
+//
+//            statement.setLong(1, id);
+//            ResultSet resultSet = statement.executeQuery();
+//
+//            while (resultSet.next()){
+//                skill = resultSet.getString("skill");
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return skill;
+//    }
+
+
     @Override
-    public void insertPersons(List<Person> persons) {
+    public void insert(Person person) {
 
-        try (
-                Connection connection = DatabaseConnection.getConnection();
-                PreparedStatement statement = connection.prepareStatement(SQL);) {
-            int count = 0;
+        long id = 0;
 
-            for (Person person : persons) {
-                statement.setString(1, person.getSurname());
-                statement.setString(2, person.getName());
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(INSERT_NEW_PERSON/*, Statement.RETURN_GENERATED_KEYS*/)) {
 
-                statement.addBatch();
-                count++;
-                // execute every 100 rows or less
-                if (count % 100 == 0 || count == persons.size()) {
-                    statement.executeBatch();
-                }
-            }
+                pstmt.setString(1, person.getSurname());
+                pstmt.setString(2, person.getName());
+                pstmt.setDate(3, Date.valueOf(person.getDateOfBirth()));
+                pstmt.setString(4, person.getSpecialization().getName());
+
+            /*int affectedRows = */pstmt.executeUpdate();
+             //check the affected rows
+//            if (affectedRows > 0) {
+//                // get the ID back
+//                try (ResultSet rs = pstmt.getGeneratedKeys()) {
+//                    if (rs.next()) {
+//                        id = rs.getLong(1);
+//                    }
+//                } catch (SQLException ex) {
+//                    System.out.println(ex.getMessage());
+//                }
+//            }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+//        System.out.println("The ID is" + id);
+//        return person;
     }
+
+
+//    public Person createNewPerson() throws SQLException {
+//        Person person = null;
+//        try (
+//                Connection connection = DatabaseConnection.getConnection();
+//                PreparedStatement statement = connection.prepareStatement(CREATE_NEW_PERSON/*, Statement.RETURN_GENERATED_KEYS*/);
+//        ) {
+//            statement.setString(1, person.getSurname());
+//            statement.setString(2, person.getName());
+//            statement.setDate(3, Date.valueOf(person.getDateOfBirth()));
+//            statement.setString(4, person.getSpecialization().getName());
+//
+//            int affectedRows = statement.executeUpdate();
+//
+//            if (affectedRows == 0) {
+//                throw new SQLException("Creating user failed, no rows affected.");
+//            }
+//
+//            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+//                if (generatedKeys.next()) {
+//                    person.setId(generatedKeys.getLong(1));
+//                }
+//                else {
+//                    throw new SQLException("Creating user failed, no ID obtained.");
+//                }
+//            }
+//        }
+//        return person;
+//    }
 
     @Override public Person update(Person entity) {
         return null;
     }
 
+
+
+
     @Override
     public boolean deleteById(Long id) {
-        deleteByIdByContact(id);
-        deleteByIdByJob(id);
-        deleteByIdByPersoSkill(id);
-        deleteByIdByPerson(id);
-        return true;
+        boolean isContactDeleted = deleteContactByUserId(id);
+        boolean isJobDeleted = deleteByIdByJob(id);
+        boolean isSkillsDeleted = deleteByIdByPersonSkill(id);
+        boolean isPersonDeleted = deletePersonById(id);
+        return isContactDeleted && isJobDeleted && isSkillsDeleted && isPersonDeleted;
     }
 
-    private boolean deleteByIdByContact(Long id) {
-        try {
-            Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement statementContact = connection.prepareStatement(DELETE_CONTACT_BY_ID);
+    private boolean deleteContactByUserId(Long id) {
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statementContact = connection.prepareStatement(DELETE_CONTACT_BY_ID);) {
             statementContact.setLong(1, id);
-            statementContact.executeUpdate();
-            System.out.println("" + statementContact.executeUpdate());
-            statementContact.close();
+            return statementContact.executeUpdate() != 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -124,44 +229,36 @@ public class PersonDao extends AbstractDao<Person> {
     }
 
     private boolean deleteByIdByJob(Long id) {
-        try {
-            Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement statementJobs = connection.prepareStatement(DELETE_JOB_BY_ID);
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statementJobs = connection.prepareStatement(DELETE_JOB_BY_ID);) {
             statementJobs.setLong(1, id);
-            statementJobs.executeQuery();
-            statementJobs.close();
+            return statementJobs.executeUpdate() != 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return true;
+        return false;
     }
 
-    private boolean deleteByIdByPersoSkill(Long id) {
-        try {
-            Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement statementSkills = connection.prepareStatement(DELETE_PERSON_SKILLS_BY_ID);
+    private boolean deleteByIdByPersonSkill(Long id) {
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statementSkills = connection.prepareStatement(DELETE_PERSON_SKILLS_BY_ID);) {
             statementSkills.setLong(1, id);
-            statementSkills.executeQuery();
-            statementSkills.close();
+            return statementSkills.executeUpdate() != 0;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
-        return true;
+        return false;
     }
 
-    private boolean deleteByIdByPerson(Long id){
-        try {
-            Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement statementPerson = connection.prepareStatement(DELETE_PERSON_BY_ID);
+    private boolean deletePersonById(Long id){
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statementPerson = connection.prepareStatement(DELETE_PERSON_BY_ID);) {
             statementPerson.setLong(1, id);
-            statementPerson.executeQuery();
-            statementPerson.close();
+            return statementPerson.executeUpdate() != 0;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
-        return true;
+        return false;
     }
 
     private String parsSkills(ResultSet resultSet) throws SQLException {

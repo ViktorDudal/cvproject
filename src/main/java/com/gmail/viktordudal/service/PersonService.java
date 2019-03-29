@@ -28,10 +28,10 @@ public class PersonService {
     }
 
 
-//    public void addNewPerson(Person newPerson) {
-//        newPerson.setId(counter++);
-//        persons.add(newPerson);
-//    }
+    public void insertNewPerson(Person newPerson) {
+//        newPersonwPerson.setId(counter++);
+        personDao.insert(newPerson);
+    }
 //
     public boolean deleteById(long id) {
         return personDao.deleteById(id);
@@ -48,9 +48,9 @@ public class PersonService {
 //        persons.add(idToUpdate, newPerson);
 //    }
 
-//    public void addNewPerson(Person newPerson) {
-//        newPerson.setId(counter++);
-//        persons.add(newPerson);
+//    public void createNewPerson() throws SQLException {
+////        newPerson.setId(counter++);
+//       personDao.createPerson();
 //    }
 
 //    public boolean deleteById(long id) {

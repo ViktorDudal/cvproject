@@ -1,6 +1,7 @@
 package com.gmail.viktordudal.controler;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
 
@@ -26,6 +27,13 @@ public class PersonsController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String specId = req.getParameter("specId");
         Specialization specialization = Specialization.getByName(specId);
+//        try {
+//            if (personService.createPerson() != null){
+//                persons.add(personService.createPerson());
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
         if (specialization != null) {
             persons = personService.getBySpec(specialization);
         } else {

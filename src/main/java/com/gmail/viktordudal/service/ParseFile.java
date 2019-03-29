@@ -8,9 +8,7 @@ import com.gmail.viktordudal.model.*;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -49,96 +47,80 @@ public class ParseFile {
         return user;
     }
 
-    /*private static Person readFromTXTFile(String  file) throws FileNotFoundException {
-
-        Scanner scanner = new Scanner(new File(file));
-        Person user = new Person();
-        Contact contact = new Contact();
-        List<Company> jobs = new ArrayList<>();
-        List<String> skills = new ArrayList<>();
-        List<Specialization> specializations = new ArrayList<>();
-        int i = 0;
-        while (scanner.hasNext()) {
-            String readLine = scanner.nextLine().trim();
-            if (readLine.contains(":") || readLine.isEmpty()){
-                continue;
-            }
-            String readLineSubstring = readLine.substring(readLine.indexOf('=') + 1).trim();
-            if (readLine.contains("surname =")) {
-                user = Person.PersonBuilder.builder().surname(readLineSubstring).build();
-//                user.setSurname(readLineSubstring);
-                continue;
-            }
-            if (readLine.contains("name =")) {
-                user = Person.PersonBuilder.builder().name(readLineSubstring).build();
-//                user.setName(readLineSubstring);
-                continue;
-            }
-            if (readLine.contains("dateOfBirth =")) {
-                user = Person.PersonBuilder.builder().dateofBirth(LocalDate.parse(readLineSubstring, DateTimeFormatter.ofPattern("dd-MM-uuuu"))).build();
-//                user.setDateOfBirth();
-                continue;
-            }
-            if (readLine.contains("city =")) {
-                user = Person.PersonBuilder.builder().contact(Contact.ContactBuilder.builder().city(readLineSubstring).build()).build();
-//                contact.setCity(readLineSubstring);
-                continue;
-            }
-            if (readLine.contains("address =")) {
-                user = Person.PersonBuilder.builder().contact(Contact.ContactBuilder.builder().address(readLineSubstring).build()).build();
-//                contact.setAddress(readLineSubstring);
-                continue;
-            }
-            if (readLine.contains("phoneNumber =")) {
-                user = Person.PersonBuilder.builder().contact(Contact.ContactBuilder.builder().phoneNumber(readLineSubstring).build()).build();
-//                contact.setPhoneNumber(readLineSubstring);
-                continue;
-            }
-            if (readLine.contains("email =")) {
-                user = Person.PersonBuilder.builder().contact(Contact.ContactBuilder.builder().email(readLineSubstring).build()).build();
-//                contact.setEmail(readLineSubstring);
-                continue;
-            }
-            if (readLine.contains("companyName =")) {
-//                Person.PersonBuilder.builder().company(jobs.get(i)).build();
-                Company.CompanyBuilder.builder().companyName(readLineSubstring).build();
-//                jobs.get(i).setCompanyName(readLineSubstring);
-                continue;
-            }
-            if (readLine.contains("position =")) {
-//                Person.PersonBuilder.builder().company(jobs.get(i));
-//                Company.CompanyBuilder.builder().position(readLineSubstring).build();
-//                jobs.get(i).setPosition(readLineSubstring);
-                continue;
-            }
-            if (readLine.contains("workedFrom =")) {
-//                Person.PersonBuilder.builder().company(jobs.get(i));
-//                Company.CompanyBuilder.builder().workedFrom(LocalDate.parse(readLineSubstring, DateTimeFormatter.ofPattern("dd-MM-uuuu"))).build();
-//                jobs.get(i).setWorkedFrom(LocalDate.parse(readLineSubstring, DateTimeFormatter.ofPattern("dd-MM-uuuu")));
-                continue;
-            }
-            if (readLine.contains("workedTill =")) {
-//                Person.PersonBuilder.builder().company(jobs.get(i));
-//                Company.CompanyBuilder.builder().workedTill(LocalDate.parse(readLineSubstring, DateTimeFormatter.ofPattern("dd-MM-uuuu"))).build();
-//                jobs.get(i).setWorkedTill(LocalDate.parse(readLineSubstring, DateTimeFormatter.ofPattern("dd-MM-uuuu")));
-                continue;
-            }
-            if (readLine.contains("skill =")) {
-                Person.PersonBuilder.builder().skills(readLineSubstring);
-//                skills.add(readLineSubstring);
-                continue;
-            }
-            if (readLine.contains("spec =")) {
-                Person.PersonBuilder.builder().specialization(Specialization.valueOf(readLineSubstring));
-//                specializations.add(Specialization.valueOf(readLineSubstring));
-            }
-            i++;
-            }
-        scanner.close();
-//        user.;
-        user = jobs.add(Person.PersonBuilder.builder().company(jobs.get(i)).build());
+//    private static Person readFromTXTFile(String  file) throws FileNotFoundException {
+//
+//        Scanner scanner = new Scanner(new File(file));
+//        Person user = new Person();
+//        Contact contact = new Contact();
+//        Set<Company> companies = new HashSet<>();
+//        Set<String> skills = new HashSet<>();
+//        Specialization specializations = null;
+//        int i = 0;
+//        while (scanner.hasNext()) {
+//            String readLine = scanner.nextLine().trim();
+//            if (readLine.contains(":") || readLine.isEmpty()){
+//                continue;
+//            }
+//            if (readLine.contains("surname =")) {
+//                user.setSurname(readLine.substring(readLine.indexOf('=') + 1).trim());
+//                continue;
+//            }
+//            if (readLine.contains("name =")) {
+//                user.setName(readLine.substring(readLine.indexOf('=') + 1).trim());
+//                continue;
+//            }
+//            if (readLine.contains("dateOfBirth =")) {
+//                user.setDateOfBirth(LocalDate.parse(readLine.substring(readLine.indexOf('=') + 1).trim(), DateTimeFormatter.ofPattern("dd-MM-uuuu")));
+//                continue;
+//            }
+//            if (readLine.contains("city =")) {
+//                contact.setCity(readLine.substring(readLine.indexOf('=') + 1).trim());
+//                continue;
+//            }
+//            if (readLine.contains("address =")) {
+//                contact.setAddress(readLine.substring(readLine.indexOf('=') + 1).trim());
+//                continue;
+//            }
+//            if (readLine.contains("phoneNumber =")) {
+//                contact.setPhoneNumber(readLine.substring(readLine.indexOf('=') + 1).trim());
+//                continue;
+//            }
+//            if (readLine.contains("email =")) {
+//                contact.setEmail(readLine.substring(readLine.indexOf('=') + 1).trim());
+//                continue;
+//            }
+//            if (readLine.contains("companyName =")) {
+//                companies.add( new Company());
+//                companies.get(i).setCompanyName(readLine.substring(readLine.indexOf('=') + 1).trim());
+//                continue;
+//            }
+//            if (readLine.contains("position =")) {
+//                jobs.get(i).setPosition(readLine.substring(readLine.indexOf('=') + 1).trim());
+//                continue;
+//            }
+//            if (readLine.contains("workedFrom =")) {
+//                jobs.get(i).setWorkedFrom(LocalDate.parse(readLine.substring(readLine.indexOf('=') + 1).trim(), DateTimeFormatter.ofPattern("dd-MM-uuuu")));
+//                continue;
+//            }
+//            if (readLine.contains("workedTill =")) {
+//                jobs.get(i).setWorkedTill(LocalDate.parse(readLine.substring(readLine.indexOf('=') + 1).trim(), DateTimeFormatter.ofPattern("dd-MM-uuuu")));
+//                continue;
+//            }
+//            if (readLine.contains("skill =")) {
+//                skills.add(readLine.substring(readLine.indexOf('=') + 1).trim());
+//                continue;
+//            }
+//            if (readLine.contains("spec =")) {
+//                specializations.add(Specialization.valueOf(readLine.substring(readLine.indexOf('=') + 1).trim()));
+//            }
+//            i++;
+//        }
+//        scanner.close();
+//        user.setResidence(address);
+//        user.setContact(contact);
+//        user.setJobs(jobs);
 //        user.setSkills(skills);
 //        user.setSpecialization(specializations);
-        return user;
-    }*/
+//        return user;
+//    }
 }

@@ -132,16 +132,16 @@
 <script>
     $(".open-DeleteModal").click(function () {
         var id = $(this).data('id');
-        console.log(id);
+        // console.log(id);
         $("#userId").val(id);
-        console.log($("#userId").val());
+        // console.log($("#userId").val());
         $('#deleteEmployeeModal').modal('show');
     });
 
     $("#confirmButton").click(function () {
 
         var id = $("#userId").val();
-        console.log($("#userId").val());
+        // console.log($("#userId").val());
 
         $('#deleteEmployeeModal').modal('hide');
         $.ajax({
