@@ -1,0 +1,3 @@
+DATABASE_URL = "jdbc:postgresql://localhost:5432/cv_database_vdudal";
+USER = "postgres";
+PASSWORD = "postgres";

@@ -84,6 +84,7 @@ public class PersonController extends HttpServlet {
             } else {
                 Person person = new Person();
                 Contact contact = new Contact();
+                Set<Company> companies = new HashSet<>();
                 Set<String> skills = new TreeSet<>();
                 person.setSurname(req.getParameter("surname"));
                 person.setName(req.getParameter("name"));
@@ -93,6 +94,18 @@ public class PersonController extends HttpServlet {
                 contact.setAddress(req.getParameter("address"));
                 contact.setPhoneNumber(req.getParameter("phoneNumber"));
                 contact.setEmail(req.getParameter("email"));
+
+                int index_company = 1;
+                String companyName = req.getParameter("companyName" + index_company);
+                while (companyName != null && !companyName.isEmpty()){
+                    companies.add(Company.builder()
+                            .companyName(companyName)
+                            .position(req.getParameter("position" + index_company))
+                            .workedFrom(LocalDate.parse(req.getParameter("workedFrom" + index_company)))
+                            .workedTill(LocalDate.parse(req.getParameter("workedTill" + index_company)))
+                            .build());
+                    companyName = req.getParameter("companyName" + ++index_company);
+                person.setCompanies(companies);
 
                 int index = 1;
                 String[] skillValues = req.getParameterValues("skill" + index);
@@ -114,16 +127,16 @@ public class PersonController extends HttpServlet {
     }
 
 
-    //    private Set<Company> getCompanies(HttpServletRequest req) {
+//        private Set<Company> getCompanies(HttpServletRequest req) {
 //        Set<Company> companies = new HashSet<>();
-//        int index = 0;
+//        int index = 1;
 //        String companyName = req.getParameter("companyName" + index);
 //        while (companyName != null && !companyName.isEmpty()){
 //            companies.add(Company.builder()
 //                    .companyName(companyName)
 //                    .position(req.getParameter("position" + index))
-//                    .workedFrom(getLocalDate(req.getParameter("workedFrom" + index)))
-//                    .workedTill(getLocalDate(req.getParameter("workedTill" + index)))
+//                    .workedFrom(LocalDate.parse(req.getParameter("workedFrom" + index)))
+//                    .workedTill(LocalDate.parse(req.getParameter("workedTill" + index)))
 //                    .build());
 //            companyName = req.getParameter("companyName" + ++index);
 //        }
@@ -159,5 +172,5 @@ public class PersonController extends HttpServlet {
 //            person.setDateOfBirth(LocalDate.parse(req.getParameter("dateOfBirth"), DATE_TIME_FORMATTER));
 //        }
 //        return person;
-//    }
+    }
 }
