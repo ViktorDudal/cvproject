@@ -229,10 +229,10 @@
 
     }
 
-    function closeSkill(elementIdToRemove) {
-        console.log('closeSkill() init');
-        document.getElementById(elementIdToRemove).remove();
-    }
+    // function closeSkill(elementIdToRemove) {
+    //     console.log('closeSkill() init');
+    //     document.getElementById(elementIdToRemove).remove();
+    // }
 
     function addSkill () {
 

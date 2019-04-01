@@ -1,5 +1,6 @@
 package com.gmail.viktordudal.dao;
 
+import com.gmail.viktordudal.model.Contact;
 import com.gmail.viktordudal.model.Person;
 
 import java.sql.SQLException;
@@ -11,7 +12,9 @@ public abstract class AbstractDao<E> {
 
     public abstract E getById(long id);
 
-    public abstract void insert(E entity);
+//    public abstract E insertPerson(E entity);
+
+    public abstract Person insertPerson(Person person, Contact contact);
 
     public abstract E update(E entity);
 

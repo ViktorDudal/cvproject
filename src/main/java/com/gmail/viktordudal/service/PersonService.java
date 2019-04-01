@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.gmail.viktordudal.dao.PersonDao;
+import com.gmail.viktordudal.model.Contact;
 import com.gmail.viktordudal.model.Person;
 import com.gmail.viktordudal.model.Specialization;
 
@@ -28,35 +29,13 @@ public class PersonService {
     }
 
 
-    public void insertNewPerson(Person newPerson) {
-//        newPersonwPerson.setId(counter++);
-        personDao.insert(newPerson);
+    public Person insertNewPerson(Person newPerson, Contact newContact) {
+        return personDao.insertPerson(newPerson, newContact);
     }
 //
     public boolean deleteById(long id) {
         return personDao.deleteById(id);
     }
-//
-//    public void updatePerson(Person newPerson) {
-//        int idToUpdate = 0;
-//        for (int i = 0; i < persons.size(); i++) {
-//            if (persons.get(i).getId() == newPerson.getId()){
-//                idToUpdate = i;
-//            }
-//        }
-//        persons.remove(persons.get(idToUpdate));
-//        persons.add(idToUpdate, newPerson);
-//    }
-
-//    public void createNewPerson() throws SQLException {
-////        newPerson.setId(counter++);
-//       personDao.createPerson();
-//    }
-
-//    public boolean deleteById(long id) {
-//        Person personToDelete = persons.stream().filter(person -> id == person.getId()).findFirst().orElse(null);
-//        return persons.remove(personToDelete);
-//    }
 //
 //    public void updatePerson(Person newPerson) {
 //        int idToUpdate = 0;

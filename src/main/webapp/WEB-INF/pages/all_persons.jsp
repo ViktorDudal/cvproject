@@ -25,7 +25,7 @@
         }
         h3 {
             display: block;
-            background-color: yellow;
+            background-color: darkgrey;
             padding-top: 50px;
             padding-bottom: 50px;
             height: fit-content;
