@@ -35,5 +35,5 @@ dependencies {
 }
 
 war {
-    archiveName = 'cvproject.war'
+    archiveName = 'cvproject_vdudal.war'
 }

@@ -1,9 +1,11 @@
 package com.gmail.viktordudal.service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.gmail.viktordudal.dao.PersonDao;
+import com.gmail.viktordudal.model.Company;
 import com.gmail.viktordudal.model.Contact;
 import com.gmail.viktordudal.model.Person;
 import com.gmail.viktordudal.model.Specialization;
@@ -29,8 +31,8 @@ public class PersonService {
     }
 
 
-    public Person insertNewPerson(Person newPerson, Contact newContact) {
-        return personDao.insertPerson(newPerson, newContact);
+    public Person insertNewPerson(Person newPerson, Contact newContact, Set<String> skills) {
+        return personDao.insertPerson(newPerson, newContact, skills);
     }
 //
     public boolean deleteById(long id) {

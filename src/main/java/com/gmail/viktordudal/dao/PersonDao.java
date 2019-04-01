@@ -6,11 +6,9 @@ import com.gmail.viktordudal.model.Person;
 import com.gmail.viktordudal.model.Specialization;
 
 import java.sql.*;
+import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class PersonDao extends AbstractDao<Person> {
 
@@ -20,9 +18,10 @@ public class PersonDao extends AbstractDao<Person> {
     private static final String DELETE_JOB_BY_ID = "delete from jobs WHERE person_id = ?;";
     private static final String DELETE_SKILLS_BY_ID = "delete from skills WHERE person_id = ?;";
     private static final String DELETE_PERSON_BY_ID = "delete from person WHERE id = ?;";
-    private static final String INSERT_NEW_PERSON = "insert into person (surname, name, date_of_birth, specialization) values (?,?,?,?);";
-    private static final String INSERT_NEW_CONTACT = "insert into contact (city, address, phone_number, email) values (?,?,?,?);";
-//    private static final String CREATE_NEW_JOB = "insert into jobs (person_id, company_name, position, worked_from, worked_till) values (?,?,?,?,?);";
+    private static final String INSERT_NEW_PERSON = "insert into person (surname, name, date_of_birth, specialization) values (?,?,?,?) RETURNING id;";
+    private static final String INSERT_NEW_CONTACT = "insert into contact (person_id, city, address, phone_number, email) values (?,?,?,?,?);";
+    private static final String INSERT_NEW_SKILLS = "insert into skills (person_id, skill) values (?,?);";
+    private static final String INSERT_NEW_JOB = "insert into jobs (person_id, company_name, position, worked_from, worked_till) values (?,?,?,?,?);";
 
     @Override
     public List<Person> getAll() {
@@ -75,8 +74,9 @@ public class PersonDao extends AbstractDao<Person> {
     }
 
     @Override
-    public Person insertPerson(Person person, Contact contact) {
+    public Person insertPerson(Person person, Contact contact, Set<String> skills) {
         Connection connection = null;
+        long person_id = 0;
         try {
             connection = DatabaseConnection.getConnection();
         } catch (SQLException e) {
@@ -87,16 +87,35 @@ public class PersonDao extends AbstractDao<Person> {
             statement.setString(2, person.getName());
             statement.setDate(3, Date.valueOf(person.getDateOfBirth()));
             statement.setString(4, person.getSpecialization().getName());
-            statement.executeUpdate();
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                person_id = resultSet.getLong("id");
+            } else {
+                System.out.println("TABLE IS EMPTY");
+            }
+
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
         try (PreparedStatement statement = connection.prepareStatement(INSERT_NEW_CONTACT)) {
-            statement.setString(1, contact.getCity());
-            statement.setString(2, contact.getAddress());
-            statement.setString(3, contact.getPhoneNumber());
-            statement.setString(4, contact.getEmail());
+            statement.setLong(1, person_id);
+            statement.setString(2, contact.getCity());
+            statement.setString(3, contact.getAddress());
+            statement.setString(4, contact.getPhoneNumber());
+            statement.setString(5, contact.getEmail());
             statement.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        try (PreparedStatement statement = connection.prepareStatement(INSERT_NEW_SKILLS)) {
+            statement.setLong(1, person_id);
+            Iterator<String> itr = skills.iterator();
+            while(itr.hasNext()){
+                statement.setString(2, itr.next());
+                statement.executeUpdate();
+            }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }

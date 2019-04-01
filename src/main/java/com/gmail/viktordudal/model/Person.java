@@ -179,7 +179,7 @@ public class Person {
                 Objects.equals(contact, person.contact) &&
                 Objects.equals(companies, person.companies) &&
                 Objects.equals(skills, person.skills) &&
-                Objects.equals(specialization, person.specialization);
+                specialization == person.specialization;
     }
 
     @Override

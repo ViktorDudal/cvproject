@@ -84,6 +84,7 @@ public class PersonController extends HttpServlet {
             } else {
                 Person person = new Person();
                 Contact contact = new Contact();
+                Set<String> skills = new TreeSet<>();
                 person.setSurname(req.getParameter("surname"));
                 person.setName(req.getParameter("name"));
                 person.setDateOfBirth(LocalDate.parse(req.getParameter("dateOfBirth")));
@@ -92,7 +93,18 @@ public class PersonController extends HttpServlet {
                 contact.setAddress(req.getParameter("address"));
                 contact.setPhoneNumber(req.getParameter("phoneNumber"));
                 contact.setEmail(req.getParameter("email"));
-                personService.insertNewPerson(person, contact);
+
+                int index = 1;
+                String[] skillValues = req.getParameterValues("skill" + index);
+                while (skillValues != null && skillValues.length != 0){
+                for (String skill: skillValues) {
+                    skills.add(skill);
+                    }
+                skillValues = req.getParameterValues("skill" + ++index);
+                }
+                person.setSkills(skills);
+
+                personService.insertNewPerson(person, contact, skills);
             }
 
         req.setAttribute("specializations", Specialization.values());
@@ -100,4 +112,52 @@ public class PersonController extends HttpServlet {
 
         req.getRequestDispatcher("/WEB-INF/pages/all_persons.jsp").forward(req, resp);
     }
+
+
+    //    private Set<Company> getCompanies(HttpServletRequest req) {
+//        Set<Company> companies = new HashSet<>();
+//        int index = 0;
+//        String companyName = req.getParameter("companyName" + index);
+//        while (companyName != null && !companyName.isEmpty()){
+//            companies.add(Company.builder()
+//                    .companyName(companyName)
+//                    .position(req.getParameter("position" + index))
+//                    .workedFrom(getLocalDate(req.getParameter("workedFrom" + index)))
+//                    .workedTill(getLocalDate(req.getParameter("workedTill" + index)))
+//                    .build());
+//            companyName = req.getParameter("companyName" + ++index);
+//        }
+//        return companies;
+//    }
+//
+//    private LocalDate getLocalDate(String value) {
+//        try {
+//            return LocalDate.parse(value, DATE_TIME_FORMATTER);
+//        } catch (Exception e){
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
+//
+
+//
+//    private Contact getContact(HttpServletRequest req) {
+//        return Contact.builder()
+//                .city(req.getParameter("city"))
+//                .address(req.getParameter("address"))
+//                .phoneNumber(req.getParameter("phoneNumber"))
+//                .email(req.getParameter("email"))
+//                .build();
+//    }
+//
+//    private Person createPerson(HttpServletRequest req) {
+//        Person person = new Person();
+//        person.setName(req.getParameter("name"));
+//        person.setSurname(req.getParameter("surname"));
+//        person.setSpecialization(Specialization.getByName(req.getParameter("specializ")));
+//        if (req.getParameter("dateOfBirth") != null) {
+//            person.setDateOfBirth(LocalDate.parse(req.getParameter("dateOfBirth"), DATE_TIME_FORMATTER));
+//        }
+//        return person;
+//    }
 }

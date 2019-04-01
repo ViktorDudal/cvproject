@@ -136,22 +136,22 @@
             <tr id="newJob_1">
                 <td>
                     <div class="input-group mb-3">
-                        <input value="${company.companyName}" type="text" name = "companyName0" class="form-control" placeholder="Company user" aria-label="Company user" aria-describedby="basic-addon1">
+                        <input value="${company.companyName}" type="text" name = "companyName1" class="form-control" placeholder="Company user" aria-label="Company user" aria-describedby="basic-addon1">
                     </div>
                 </td>
                 <td>
                     <div class="input-group mb-3">
-                        <input value="${company.position}" type="text" name ="position0" class="form-control" placeholder="Position user" aria-label="Position user" aria-describedby="basic-addon1">
+                        <input value="${company.position}" type="text" name ="position1" class="form-control" placeholder="Position user" aria-label="Position user" aria-describedby="basic-addon1">
                     </div>
                 </td>
                 <td>
                     <div class="input-group mb-3">
-                        <input value="${company.workedFrom}" type="text" name ="workedFrom0" class="form-control" placeholder="uuuu-MM-dd" aria-label="From user" aria-describedby="basic-addon1">
+                        <input value="${company.workedFrom}" type="text" name ="workedFrom1" class="form-control" placeholder="uuuu-MM-dd" aria-label="From user" aria-describedby="basic-addon1">
                     </div>
                 </td>
                 <td>
                     <div class="input-group mb-3">
-                        <input value="${company.workedTill}" type="text" name ="workedTill0" class="form-control" placeholder="uuuu-MM-dd" aria-label="To user" aria-describedby="basic-addon1">
+                        <input value="${company.workedTill}" type="text" name ="workedTill1" class="form-control" placeholder="uuuu-MM-dd" aria-label="To user" aria-describedby="basic-addon1">
                     </div>
                 </td>
             </tr>
@@ -190,7 +190,7 @@
             <tr>
                 <td>
                     <div class="input-group mb-1">
-                        <input value="${skill}"type="text" name="skill" class="form-control" placeholder="Skills user" aria-label="Skills user" aria-describedby="basic-addon1">
+                        <input value="${skill}"type="text" name="skill1" class="form-control" placeholder="Skills user" aria-label="Skills user" aria-describedby="basic-addon1">
                     </div>
                 </td>
             </tr>

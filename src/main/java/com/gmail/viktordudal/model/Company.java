@@ -11,6 +11,7 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.Objects;
 
 public class Company {
