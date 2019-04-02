@@ -9,20 +9,18 @@
         <phoneNumber>380661234567</phoneNumber>
         <email>qwerty@gmail.com</email>
     </contact>
-    <jobs>
+    <companies>
         <job>
             <companyName>Global World</companyName>
             <position>Engineer</position>
             <workedFrom>11-05-2013</workedFrom>
             <workedTill>23-07-2017</workedTill>
         </job>
-    </jobs>
+    </companies>
     <skills>
         <skill>C</skill>
         <skill>Java</skill>
         <skill>Python</skill>
     </skills>
-    <specialization>
-        <spec>Java</spec>
-    </specialization>
+    <specialization>JAVA</specialization>
 </root>

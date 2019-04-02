@@ -11,7 +11,6 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.Iterator;
 import java.util.Objects;
 
 public class Company {
@@ -19,7 +18,6 @@ public class Company {
     @Size(min = 2, max = 25, message = "Field 'companyName' must be between 2 and 25 characters")
     private String companyName;
 
-//    @Size(min = 2, max = 15, message = "Field 'position' must be between 2 and 15 characters")
     private String position;
 
     @JsonDeserialize(using = LocalDateDeserializer.class)

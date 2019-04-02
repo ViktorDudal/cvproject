@@ -4,6 +4,7 @@ import com.gmail.viktordudal.service.ValidatorModel;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 
 public class Contact {
 
@@ -91,6 +92,22 @@ public class Contact {
             new ValidatorModel().validate(newContact);
             return newContact;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Contact contact = (Contact) o;
+        return Objects.equals(city, contact.city) &&
+                Objects.equals(address, contact.address) &&
+                Objects.equals(phoneNumber, contact.phoneNumber) &&
+                Objects.equals(email, contact.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(city, address, phoneNumber, email);
     }
 
     @Override

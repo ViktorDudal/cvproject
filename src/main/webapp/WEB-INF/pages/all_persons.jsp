@@ -46,6 +46,12 @@
             margin-left: 40px;
             margin-right: 40px;
         }
+        .col-md-4 .custom-file-input {
+            margin-left: 200px;
+            padding: 15px;
+            width: 1000px;
+        }
+
     </style>
 
 </head>
@@ -54,9 +60,6 @@
 <div class="input-group mb-3">
     <a class="btn btn-info" href="${pageContext.request.contextPath}/person?action=create" role="button">Create new CV</a>
     <%--<span></span>--%>
-    <div class="input-group-prepend">
-        <span class="input-group-text" id="inputGroupFileAddon01">Upload file CV</span>
-    </div>
     <form action="upload" method="post" enctype="multipart/form-data" class="form-inline">
         <div class="col-md-4">
             <input type="file" class="custom-file-input" name="file" accept="text/xml, text/plain, application/json" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">

@@ -5,7 +5,7 @@
 -- Dumped from database version 10.7
 -- Dumped by pg_dump version 10.7
 
--- Started on 2019-04-01 20:28:52
+-- Started on 2019-04-02 10:44:08
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -39,7 +39,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- TOC entry 199 (class 1259 OID 25234)
+-- TOC entry 199 (class 1259 OID 25434)
 -- Name: contact; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -56,7 +56,7 @@ CREATE TABLE public.contact (
 ALTER TABLE public.contact OWNER TO postgres;
 
 --
--- TOC entry 198 (class 1259 OID 25232)
+-- TOC entry 198 (class 1259 OID 25432)
 -- Name: contact_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -81,7 +81,7 @@ ALTER SEQUENCE public.contact_id_seq OWNED BY public.contact.id;
 
 
 --
--- TOC entry 201 (class 1259 OID 25247)
+-- TOC entry 201 (class 1259 OID 25447)
 -- Name: jobs; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -98,7 +98,7 @@ CREATE TABLE public.jobs (
 ALTER TABLE public.jobs OWNER TO postgres;
 
 --
--- TOC entry 200 (class 1259 OID 25245)
+-- TOC entry 200 (class 1259 OID 25445)
 -- Name: jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -123,7 +123,7 @@ ALTER SEQUENCE public.jobs_id_seq OWNED BY public.jobs.id;
 
 
 --
--- TOC entry 197 (class 1259 OID 25226)
+-- TOC entry 197 (class 1259 OID 25426)
 -- Name: person; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -139,7 +139,7 @@ CREATE TABLE public.person (
 ALTER TABLE public.person OWNER TO postgres;
 
 --
--- TOC entry 196 (class 1259 OID 25224)
+-- TOC entry 196 (class 1259 OID 25424)
 -- Name: person_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -164,7 +164,7 @@ ALTER SEQUENCE public.person_id_seq OWNED BY public.person.id;
 
 
 --
--- TOC entry 203 (class 1259 OID 25260)
+-- TOC entry 203 (class 1259 OID 25460)
 -- Name: skills; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -178,7 +178,7 @@ CREATE TABLE public.skills (
 ALTER TABLE public.skills OWNER TO postgres;
 
 --
--- TOC entry 202 (class 1259 OID 25258)
+-- TOC entry 202 (class 1259 OID 25458)
 -- Name: skills_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -203,7 +203,7 @@ ALTER SEQUENCE public.skills_id_seq OWNED BY public.skills.id;
 
 
 --
--- TOC entry 2689 (class 2604 OID 25237)
+-- TOC entry 2689 (class 2604 OID 25437)
 -- Name: contact id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -211,7 +211,7 @@ ALTER TABLE ONLY public.contact ALTER COLUMN id SET DEFAULT nextval('public.cont
 
 
 --
--- TOC entry 2690 (class 2604 OID 25250)
+-- TOC entry 2690 (class 2604 OID 25450)
 -- Name: jobs id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -219,7 +219,7 @@ ALTER TABLE ONLY public.jobs ALTER COLUMN id SET DEFAULT nextval('public.jobs_id
 
 
 --
--- TOC entry 2688 (class 2604 OID 25229)
+-- TOC entry 2688 (class 2604 OID 25429)
 -- Name: person id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -227,7 +227,7 @@ ALTER TABLE ONLY public.person ALTER COLUMN id SET DEFAULT nextval('public.perso
 
 
 --
--- TOC entry 2691 (class 2604 OID 25263)
+-- TOC entry 2691 (class 2604 OID 25463)
 -- Name: skills id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -235,18 +235,20 @@ ALTER TABLE ONLY public.skills ALTER COLUMN id SET DEFAULT nextval('public.skill
 
 
 --
--- TOC entry 2827 (class 0 OID 25234)
+-- TOC entry 2827 (class 0 OID 25434)
 -- Dependencies: 199
 -- Data for Name: contact; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.contact (id, person_id, city, address, phone_number, email) VALUES (1, 1, 'Kolomiya', 'Sichinskogo 12', '380660142900', 'viktordudal@gmail.com');
-INSERT INTO public.contact (id, person_id, city, address, phone_number, email) VALUES (2, 2, 'Kolomiya', 'Sichinskogo 12', '380991234567', 'valentindudal@gmail.com');
+INSERT INTO public.contact (id, person_id, city, address, phone_number, email) VALUES (1, 1, 'Kolomiya', 'Sichinskogo 12', '380660987456', 'viktordudal@gmail.com');
+INSERT INTO public.contact (id, person_id, city, address, phone_number, email) VALUES (2, 2, 'Romnu', 'Sichinskogo 27', '380991234567', 'vgromko@gmail.com');
 INSERT INTO public.contact (id, person_id, city, address, phone_number, email) VALUES (3, 3, 'Chernivtsi', 'Holovna 25, 34', '380971258764', 'vladdanilov@ukr.net');
+INSERT INTO public.contact (id, person_id, city, address, phone_number, email) VALUES (4, 4, 'Odessa', 'Shuberta 15, 18', '380991234567', 'promanov@gmail.com');
+INSERT INTO public.contact (id, person_id, city, address, phone_number, email) VALUES (5, 5, 'Chernivtsi', 'Holovna 25, 34', '380971258764', 'shmara@ukr.net');
 
 
 --
--- TOC entry 2829 (class 0 OID 25247)
+-- TOC entry 2829 (class 0 OID 25447)
 -- Dependencies: 201
 -- Data for Name: jobs; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -256,22 +258,27 @@ INSERT INTO public.jobs (id, person_id, company_name, "position", worked_from, w
 INSERT INTO public.jobs (id, person_id, company_name, "position", worked_from, worked_till) VALUES (3, 2, 'ITE NAS & MES', 'Engineer', '2006-08-01', '2012-07-15');
 INSERT INTO public.jobs (id, person_id, company_name, "position", worked_from, worked_till) VALUES (4, 2, 'SoftServe', 'Junior developer', '2012-07-18', '2014-09-16');
 INSERT INTO public.jobs (id, person_id, company_name, "position", worked_from, worked_till) VALUES (5, 2, 'Global IT', 'Middle developer', '2014-09-17', '2019-02-25');
-INSERT INTO public.jobs (id, person_id, company_name, "position", worked_from, worked_till) VALUES (6, 3, 'Techno world', 'Engineer', '2008-07-01', '2019-01-24');
+INSERT INTO public.jobs (id, person_id, company_name, "position", worked_from, worked_till) VALUES (6, 3, 'MES Ukraine', 'Engineer', '2007-01-09', '2018-06-14');
+INSERT INTO public.jobs (id, person_id, company_name, "position", worked_from, worked_till) VALUES (7, 4, 'Allogomora comp', 'Cashier', '2009-08-11', '2016-03-21');
+INSERT INTO public.jobs (id, person_id, company_name, "position", worked_from, worked_till) VALUES (8, 4, 'Corp comp.', 'Cashier', '2010-09-05', '2018-05-12');
+INSERT INTO public.jobs (id, person_id, company_name, "position", worked_from, worked_till) VALUES (9, 5, 'Techno world', 'Engineer', '2008-07-01', '2019-01-24');
 
 
 --
--- TOC entry 2825 (class 0 OID 25226)
+-- TOC entry 2825 (class 0 OID 25426)
 -- Dependencies: 197
 -- Data for Name: person; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 INSERT INTO public.person (id, surname, name, date_of_birth, specialization) VALUES (1, 'Dudal', 'Viktor', '1984-10-03', 'Java');
-INSERT INTO public.person (id, surname, name, date_of_birth, specialization) VALUES (2, 'Dudal', 'Valentin', '1987-01-24', 'Python');
+INSERT INTO public.person (id, surname, name, date_of_birth, specialization) VALUES (2, 'Gromko', 'Valentin', '1987-01-24', 'Python');
 INSERT INTO public.person (id, surname, name, date_of_birth, specialization) VALUES (3, 'Danilov', 'Vladimir', '1978-09-11', 'DevOps');
+INSERT INTO public.person (id, surname, name, date_of_birth, specialization) VALUES (4, 'Romanov', 'Petr', '1986-11-07', 'WebUI');
+INSERT INTO public.person (id, surname, name, date_of_birth, specialization) VALUES (5, 'Hmara', 'Stepan', '1983-01-14', 'ATQC');
 
 
 --
--- TOC entry 2831 (class 0 OID 25260)
+-- TOC entry 2831 (class 0 OID 25460)
 -- Dependencies: 203
 -- Data for Name: skills; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -285,6 +292,10 @@ INSERT INTO public.skills (id, person_id, skill) VALUES (6, 2, 'DevOps');
 INSERT INTO public.skills (id, person_id, skill) VALUES (7, 2, 'WebUI');
 INSERT INTO public.skills (id, person_id, skill) VALUES (8, 3, 'HTML');
 INSERT INTO public.skills (id, person_id, skill) VALUES (9, 3, 'CSS');
+INSERT INTO public.skills (id, person_id, skill) VALUES (10, 4, 'HTML');
+INSERT INTO public.skills (id, person_id, skill) VALUES (11, 4, 'CSS');
+INSERT INTO public.skills (id, person_id, skill) VALUES (12, 5, 'HTML');
+INSERT INTO public.skills (id, person_id, skill) VALUES (13, 5, 'CSS');
 
 
 --
@@ -293,7 +304,7 @@ INSERT INTO public.skills (id, person_id, skill) VALUES (9, 3, 'CSS');
 -- Name: contact_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.contact_id_seq', 3, true);
+SELECT pg_catalog.setval('public.contact_id_seq', 5, true);
 
 
 --
@@ -302,7 +313,7 @@ SELECT pg_catalog.setval('public.contact_id_seq', 3, true);
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.jobs_id_seq', 6, true);
+SELECT pg_catalog.setval('public.jobs_id_seq', 9, true);
 
 
 --
@@ -311,7 +322,7 @@ SELECT pg_catalog.setval('public.jobs_id_seq', 6, true);
 -- Name: person_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.person_id_seq', 3, true);
+SELECT pg_catalog.setval('public.person_id_seq', 5, true);
 
 
 --
@@ -320,11 +331,11 @@ SELECT pg_catalog.setval('public.person_id_seq', 3, true);
 -- Name: skills_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.skills_id_seq', 9, true);
+SELECT pg_catalog.setval('public.skills_id_seq', 13, true);
 
 
 --
--- TOC entry 2695 (class 2606 OID 25239)
+-- TOC entry 2695 (class 2606 OID 25439)
 -- Name: contact contact_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -333,7 +344,7 @@ ALTER TABLE ONLY public.contact
 
 
 --
--- TOC entry 2697 (class 2606 OID 25252)
+-- TOC entry 2697 (class 2606 OID 25452)
 -- Name: jobs jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -342,7 +353,7 @@ ALTER TABLE ONLY public.jobs
 
 
 --
--- TOC entry 2693 (class 2606 OID 25231)
+-- TOC entry 2693 (class 2606 OID 25431)
 -- Name: person person_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -351,7 +362,7 @@ ALTER TABLE ONLY public.person
 
 
 --
--- TOC entry 2699 (class 2606 OID 25265)
+-- TOC entry 2699 (class 2606 OID 25465)
 -- Name: skills skills_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -360,7 +371,7 @@ ALTER TABLE ONLY public.skills
 
 
 --
--- TOC entry 2700 (class 2606 OID 25240)
+-- TOC entry 2700 (class 2606 OID 25440)
 -- Name: contact contact_person_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -369,7 +380,7 @@ ALTER TABLE ONLY public.contact
 
 
 --
--- TOC entry 2701 (class 2606 OID 25253)
+-- TOC entry 2701 (class 2606 OID 25453)
 -- Name: jobs jobs_person_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -378,7 +389,7 @@ ALTER TABLE ONLY public.jobs
 
 
 --
--- TOC entry 2702 (class 2606 OID 25266)
+-- TOC entry 2702 (class 2606 OID 25466)
 -- Name: skills skills_person_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -386,7 +397,7 @@ ALTER TABLE ONLY public.skills
     ADD CONSTRAINT skills_person_id_fkey FOREIGN KEY (person_id) REFERENCES public.person(id);
 
 
--- Completed on 2019-04-01 20:28:53
+-- Completed on 2019-04-02 10:44:08
 
 --
 -- PostgreSQL database dump complete

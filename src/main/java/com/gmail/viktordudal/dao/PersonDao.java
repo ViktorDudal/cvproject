@@ -22,6 +22,10 @@ public class PersonDao extends AbstractDao<Person> {
     private static final String INSERT_NEW_CONTACT = "insert into contact (person_id, city, address, phone_number, email) values (?,?,?,?,?);";
     private static final String INSERT_NEW_SKILLS = "insert into skills (person_id, skill) values (?,?);";
     private static final String INSERT_NEW_JOB = "insert into jobs (person_id, company_name, position, worked_from, worked_till) values (?,?,?,?,?);";
+    private static final String UPDATE_PERSON = "update person set surname = ?, name = ?, date_of_birth = ?, specialization = ? where id = ?;";
+    private static final String UPDATE_CONTACT = "update contact set city = ?, address = ?, phone_number = ?, email = ? where person_id = ?;";
+    private static final String UPDATE_JOB = "update jobs set company_name = ?, position = ?, worked_from = ?, worked_till = ? where person_id = 1;";
+    private static final String UPDATE_SKILLS = "update skills set skill = ? where person_id = ?;";
 
     @Override
     public List<Person> getAll() {
@@ -74,7 +78,7 @@ public class PersonDao extends AbstractDao<Person> {
     }
 
     @Override
-    public Person insertPerson(Person person, Contact contact, Set<String> skills) {
+    public Person insertPerson(Person person, Contact contact, Set<String> skills, Set<Company> companies) {
         Connection connection = null;
         long person_id = 0;
         try {
@@ -92,7 +96,7 @@ public class PersonDao extends AbstractDao<Person> {
             if (resultSet.next()) {
                 person_id = resultSet.getLong("id");
             } else {
-                System.out.println("TABLE IS EMPTY");
+                System.out.println("Table is empty!");
             }
 
         } catch (SQLException ex) {
@@ -109,6 +113,21 @@ public class PersonDao extends AbstractDao<Person> {
             System.out.println(ex.getMessage());
         }
 
+        try (PreparedStatement statement = connection.prepareStatement(INSERT_NEW_JOB)) {
+            statement.setLong(1, person_id);
+
+            for (Company job: companies) {
+                statement.setString(2, job.getCompanyName());
+                statement.setString(3, job.getPosition());
+                statement.setDate(4, Date.valueOf(job.getWorkedFrom()));
+                statement.setDate(5, Date.valueOf(job.getWorkedTill()));
+                statement.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        person.setCompanies(companies);
+
         try (PreparedStatement statement = connection.prepareStatement(INSERT_NEW_SKILLS)) {
             statement.setLong(1, person_id);
             Iterator<String> itr = skills.iterator();
@@ -123,8 +142,62 @@ public class PersonDao extends AbstractDao<Person> {
         return person;
     }
 
-    @Override public Person update(Person entity) {
-        return null;
+    @Override public Person updatePerson(Long id, Person person, Contact contact, Set<String> skills, Set<Company> companies) {
+        Connection connection = null;
+        try {
+            connection = DatabaseConnection.getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try (PreparedStatement statement = connection.prepareStatement(UPDATE_PERSON)) {
+            statement.setString(1, person.getSurname());
+            statement.setString(2, person.getName());
+            statement.setDate(3, Date.valueOf(person.getDateOfBirth()));
+            statement.setString(4, person.getSpecialization().getName());
+            statement.setLong(5, id);
+           statement.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        try (PreparedStatement statement = connection.prepareStatement(UPDATE_CONTACT)) {
+            statement.setString(1, contact.getCity());
+            statement.setString(2, contact.getAddress());
+            statement.setString(3, contact.getPhoneNumber());
+            statement.setString(4, contact.getEmail());
+            statement.setLong(5, id);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        try (PreparedStatement statement = connection.prepareStatement(UPDATE_JOB)) {
+            for (int i = 0; i < companies.size(); i++){
+                for (Company job: companies) {
+                    statement.setString(1, job.getCompanyName());
+                    statement.setString(2, job.getPosition());
+                    statement.setDate(3, Date.valueOf(job.getWorkedFrom()));
+                    statement.setDate(4, Date.valueOf(job.getWorkedTill()));
+                    statement.setLong(5, id);
+                    statement.executeUpdate();
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        person.setCompanies(companies);
+
+        try (PreparedStatement statement = connection.prepareStatement(UPDATE_SKILLS)) {
+            Iterator<String> itr = skills.iterator();
+            while(itr.hasNext()){
+                statement.setString(1, itr.next());
+                statement.setLong(2, id);
+                statement.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        person.setContact(contact);
+        return person;
     }
 
 

@@ -268,13 +268,6 @@
         document.getElementById("skillTable").appendChild(trNode);
     }
 
-    // <button type="button" id="closeRowSkill" class="close" aria-label="Close" >
-    //     <span>&times;</span>
-    // </button>
-
-
-
-
     function addJob () {
 
         console.log("add new job table row");

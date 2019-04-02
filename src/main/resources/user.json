@@ -8,7 +8,7 @@
     "phoneNumber": "380992389456",
     "email": "gfjkjf@gmail.com"
   },
-  "jobs": {
+  "companies": {
     "companyName": "Test In",
     "position": "QA",
     "workedFrom": "14-07-2010",
@@ -19,7 +19,5 @@
     "Java",
     "Ruby"
   ],
-  "specialization": [
-    "Python"
-  ]
+  "specialization": "JAVA"
 }

@@ -14,8 +14,6 @@ public class PersonService {
 
     private PersonDao personDao = new PersonDao();
 
-    private static long counter = 1;
-
     public List<Person> getAll() {
         return personDao.getAll();
     }
@@ -31,27 +29,19 @@ public class PersonService {
     }
 
 
-    public Person insertNewPerson(Person newPerson, Contact newContact, Set<String> skills) {
-        return personDao.insertPerson(newPerson, newContact, skills);
+    public Person insertNewPerson(Person newPerson, Contact newContact, Set<String> skills, Set<Company> companies) {
+        return personDao.insertPerson(newPerson, newContact, skills, companies);
     }
-//
+
     public boolean deleteById(long id) {
         return personDao.deleteById(id);
     }
-//
-//    public void updatePerson(Person newPerson) {
-//        int idToUpdate = 0;
-//        for (int i = 0; i < persons.size(); i++) {
-//            if (persons.get(i).getId() == newPerson.getId()){
-//                idToUpdate = i;
-//            }
-//        }
-//        persons.remove(persons.get(idToUpdate));
-//        persons.add(idToUpdate, newPerson);
-//    }
+
+    public Person updatePerson(Long id, Person person, Contact contact, Set<String> skills, Set<Company> companies) {
+        return personDao.updatePerson(id, person, contact, skills, companies);
+    }
 
     public boolean addPersonFromFile(String absolutePath) {
-        //use parser to parse file and add to DB
         return true;
     }
 }
