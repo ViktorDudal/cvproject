@@ -24,7 +24,7 @@ public class PersonDao extends AbstractDao<Person> {
     private static final String INSERT_NEW_JOB = "insert into jobs (person_id, company_name, position, worked_from, worked_till) values (?,?,?,?,?);";
     private static final String UPDATE_PERSON = "update person set surname = ?, name = ?, date_of_birth = ?, specialization = ? where id = ?;";
     private static final String UPDATE_CONTACT = "update contact set city = ?, address = ?, phone_number = ?, email = ? where person_id = ?;";
-    private static final String UPDATE_JOB = "update jobs set company_name = ?, position = ?, worked_from = ?, worked_till = ? where person_id = 1;";
+    private static final String UPDATE_JOB = "update jobs set company_name = ?, position = ?, worked_from = ?, worked_till = ? where person_id = ?;";
     private static final String UPDATE_SKILLS = "update skills set skill = ? where person_id = ?;";
 
     @Override
@@ -170,16 +170,16 @@ public class PersonDao extends AbstractDao<Person> {
             System.out.println(ex.getMessage());
         }
 
-        try (PreparedStatement statement = connection.prepareStatement(UPDATE_JOB)) {
-            for (int i = 0; i < companies.size(); i++){
-                for (Company job: companies) {
-                    statement.setString(1, job.getCompanyName());
-                    statement.setString(2, job.getPosition());
-                    statement.setDate(3, Date.valueOf(job.getWorkedFrom()));
-                    statement.setDate(4, Date.valueOf(job.getWorkedTill()));
-                    statement.setLong(5, id);
-                    statement.executeUpdate();
-                }
+        deleteByIdByJob(id);
+        try (PreparedStatement statement = connection.prepareStatement(INSERT_NEW_JOB)) {
+            statement.setLong(1, id);
+
+            for (Company job: companies) {
+                statement.setString(2, job.getCompanyName());
+                statement.setString(3, job.getPosition());
+                statement.setDate(4, Date.valueOf(job.getWorkedFrom()));
+                statement.setDate(5, Date.valueOf(job.getWorkedTill()));
+                statement.executeUpdate();
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());

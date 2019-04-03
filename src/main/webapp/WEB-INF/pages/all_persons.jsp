@@ -87,9 +87,9 @@
         <th scope="col">Specialization
             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Filter by</button>
             <ul class="dropdown-menu">
-                <li><a href="/persons">All</a></li>
+                <li><a href="/">All</a></li>
                 <c:forEach var="specialization" items="${specializations}">
-                    <li><a href="/persons?specId=${specialization.name}">${specialization.name}</a></li>
+                    <li><a href="/?specId=${specialization.name}">${specialization.name}</a></li>
                 </c:forEach>
             </ul>
         </th>

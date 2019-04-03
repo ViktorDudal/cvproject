@@ -39,7 +39,7 @@
     </c:otherwise>
 </c:choose>
 
-<form method="post" action="/person">
+<form method="post" action="/">
     <c:if test="${person!=null}">
         <input type="number" hidden name="personId" value="${person.id}">
     </c:if>
@@ -66,7 +66,7 @@
             </td>
             <td>
                 <div class="input-group mb-3">
-                    <input value="${person.dateOfBirth}" type="text" name = "dateOfBirth" class="form-control" placeholder="uuuu-MM-dd" aria-label="Date of birth user" aria-describedby="basic-addon1">
+                    <input value="${person.dateOfBirth}" type="text" name = "dateOfBirth" class="form-control" placeholder="yyyy-MM-dd" aria-label="Date of birth user" aria-describedby="basic-addon1">
                 </div>
             </td>
             <td>
@@ -132,32 +132,32 @@
         </thead>
         <div class="btn btn-info btn-sm" id="addNewJobs">Add job</div>
         <tbody id="jobTable">
-        <c:if test="${empty person.companies}">
-            <tr id="newJob_1">
-                <td>
-                    <div class="input-group mb-3">
-                        <input value="${company.companyName}" type="text" name = "companyName1" class="form-control" placeholder="Company user" aria-label="Company user" aria-describedby="basic-addon1">
-                    </div>
-                </td>
-                <td>
-                    <div class="input-group mb-3">
-                        <input value="${company.position}" type="text" name ="position1" class="form-control" placeholder="Position user" aria-label="Position user" aria-describedby="basic-addon1">
-                    </div>
-                </td>
-                <td>
-                    <div class="input-group mb-3">
-                        <input value="${company.workedFrom}" type="text" name ="workedFrom1" class="form-control" placeholder="uuuu-MM-dd" aria-label="From user" aria-describedby="basic-addon1">
-                    </div>
-                </td>
-                <td>
-                    <div class="input-group mb-3">
-                        <input value="${company.workedTill}" type="text" name ="workedTill1" class="form-control" placeholder="uuuu-MM-dd" aria-label="To user" aria-describedby="basic-addon1">
-                    </div>
-                </td>
-            </tr>
-        </c:if>
+        <%--<c:if test="${empty person.companies}">--%>
+            <%--<tr id="newJob_1">--%>
+                <%--<td>--%>
+                    <%--<div class="input-group mb-3">--%>
+                        <%--<input value="${company.companyName}" type="text" name = "companyName0" class="form-control" placeholder="Company user" aria-label="Company user" aria-describedby="basic-addon1">--%>
+                    <%--</div>--%>
+                <%--</td>--%>
+                <%--<td>--%>
+                    <%--<div class="input-group mb-3">--%>
+                        <%--<input value="${company.position}" type="text" name ="position0" class="form-control" placeholder="Position user" aria-label="Position user" aria-describedby="basic-addon1">--%>
+                    <%--</div>--%>
+                <%--</td>--%>
+                <%--<td>--%>
+                    <%--<div class="input-group mb-3">--%>
+                        <%--<input value="${company.workedFrom}" type="text" name ="workedFrom0" class="form-control" placeholder="yyyy-MM-dd" aria-label="From user" aria-describedby="basic-addon1">--%>
+                    <%--</div>--%>
+                <%--</td>--%>
+                <%--<td>--%>
+                    <%--<div class="input-group mb-3">--%>
+                        <%--<input value="${company.workedTill}" type="text" name ="workedTill0" class="form-control" placeholder="yyyy-MM-dd" aria-label="To user" aria-describedby="basic-addon1">--%>
+                    <%--</div>--%>
+                <%--</td>--%>
+            <%--</tr>--%>
+        <%--</c:if>--%>
         <c:forEach var="company" items="${person.companies}" varStatus="loop">
-        <tr id="newJob_1">
+        <tr>
             <td>
                 <div class="input-group mb-3">
                     <input value="${company.companyName}" type="text" name = "companyName${loop.index}" class="form-control" placeholder="Company user" aria-label="Company user" aria-describedby="basic-addon1">
@@ -186,15 +186,15 @@
     <table class="table table-striped table-bordered table-hover">
         <div class="btn btn-info btn-sm" id="addNewSkill">Add skill</div>
         <tbody id="skillTable">
-        <c:if test="${empty person.skills}">
-            <tr>
-                <td>
-                    <div class="input-group mb-1">
-                        <input value="${skill}"type="text" name="skill1" class="form-control" placeholder="Skills user" aria-label="Skills user" aria-describedby="basic-addon1">
-                    </div>
-                </td>
-            </tr>
-        </c:if>
+        <%--<c:if test="${empty person.skills}">--%>
+            <%--<tr>--%>
+                <%--<td>--%>
+                    <%--<div class="input-group mb-1">--%>
+                        <%--<input value="${skill}"type="text" name="skill0" class="form-control" placeholder="Skills user" aria-label="Skills user" aria-describedby="basic-addon1">--%>
+                    <%--</div>--%>
+                <%--</td>--%>
+            <%--</tr>--%>
+        <%--</c:if>--%>
         <c:forEach var="skill" items="${person.skills}" varStatus="loop">
     <tr>
             <td>
@@ -219,8 +219,8 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script>
     window.addEventListener("load", init, false);
-    var skill_index = 2;
-    var job_index = 2;
+    var skill_index = 1;
+    var job_index = 1;
     function init () {
         console.log('init');console.log('init');
         addNewSkill.addEventListener("click", addSkill, false);
