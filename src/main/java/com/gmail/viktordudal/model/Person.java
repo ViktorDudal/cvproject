@@ -109,6 +109,7 @@ public class Person {
     public static class PersonBuilder {
         private Person newPerson;
 
+        private Set<Company> newCompany = new HashSet<>();
         private Set<String> newSkils = new HashSet<>();
 
         private PersonBuilder() {
@@ -145,6 +146,11 @@ public class Person {
             return this;
         }
 
+        public PersonBuilder company(Set<Company> job){
+            newCompany.addAll(job);
+            return this;
+        }
+
         public PersonBuilder skills(Set<String> skills){
             newSkils.addAll(skills);
             return this;
@@ -161,6 +167,7 @@ public class Person {
         }
 
         public Person build(){
+            newPerson.setCompanies(newCompany);
             newPerson.setSkills(newSkils);
             new ValidatorModel().validate(newPerson);
             return newPerson;

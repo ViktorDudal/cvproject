@@ -78,7 +78,7 @@ public class PersonDao extends AbstractDao<Person> {
     }
 
     @Override
-    public Person insertPerson(Person person, Contact contact, Set<String> skills, Set<Company> companies) {
+    public Person insertPerson(Person person) {
         Connection connection = null;
         long person_id = 0;
         try {
@@ -104,10 +104,10 @@ public class PersonDao extends AbstractDao<Person> {
         }
         try (PreparedStatement statement = connection.prepareStatement(INSERT_NEW_CONTACT)) {
             statement.setLong(1, person_id);
-            statement.setString(2, contact.getCity());
-            statement.setString(3, contact.getAddress());
-            statement.setString(4, contact.getPhoneNumber());
-            statement.setString(5, contact.getEmail());
+            statement.setString(2, person.getContact().getCity());
+            statement.setString(3, person.getContact().getAddress());
+            statement.setString(4, person.getContact().getPhoneNumber());
+            statement.setString(5, person.getContact().getEmail());
             statement.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -116,7 +116,7 @@ public class PersonDao extends AbstractDao<Person> {
         try (PreparedStatement statement = connection.prepareStatement(INSERT_NEW_JOB)) {
             statement.setLong(1, person_id);
 
-            for (Company job: companies) {
+            for (Company job: person.getCompanies()) {
                 statement.setString(2, job.getCompanyName());
                 statement.setString(3, job.getPosition());
                 statement.setDate(4, Date.valueOf(job.getWorkedFrom()));
@@ -126,11 +126,10 @@ public class PersonDao extends AbstractDao<Person> {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        person.setCompanies(companies);
 
         try (PreparedStatement statement = connection.prepareStatement(INSERT_NEW_SKILLS)) {
             statement.setLong(1, person_id);
-            Iterator<String> itr = skills.iterator();
+            Iterator<String> itr = person.getSkills().iterator();
             while(itr.hasNext()){
                 statement.setString(2, itr.next());
                 statement.executeUpdate();
@@ -138,11 +137,10 @@ public class PersonDao extends AbstractDao<Person> {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        person.setContact(contact);
         return person;
     }
 
-    @Override public Person updatePerson(Long id, Person person, Contact contact, Set<String> skills, Set<Company> companies) {
+    @Override public Person updatePerson(Long id, Person person) {
         Connection connection = null;
         try {
             connection = DatabaseConnection.getConnection();
@@ -160,21 +158,24 @@ public class PersonDao extends AbstractDao<Person> {
             System.out.println(ex.getMessage());
         }
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_CONTACT)) {
-            statement.setString(1, contact.getCity());
-            statement.setString(2, contact.getAddress());
-            statement.setString(3, contact.getPhoneNumber());
-            statement.setString(4, contact.getEmail());
+            statement.setString(1, person.getContact().getCity());
+            statement.setString(2, person.getContact().getAddress());
+            statement.setString(3, person.getContact().getPhoneNumber());
+            statement.setString(4, person.getContact().getEmail());
             statement.setLong(5, id);
             statement.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-
-        deleteByIdByJob(id);
+        try (PreparedStatement statementJobs = connection.prepareStatement(DELETE_JOB_BY_ID);) {
+            statementJobs.setLong(1, id);
+            statementJobs.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         try (PreparedStatement statement = connection.prepareStatement(INSERT_NEW_JOB)) {
-            statement.setLong(1, id);
-
-            for (Company job: companies) {
+            for (Company job: person.getCompanies()) {
+                statement.setLong(1, id);
                 statement.setString(2, job.getCompanyName());
                 statement.setString(3, job.getPosition());
                 statement.setDate(4, Date.valueOf(job.getWorkedFrom()));
@@ -184,24 +185,25 @@ public class PersonDao extends AbstractDao<Person> {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        person.setCompanies(companies);
-
-        try (PreparedStatement statement = connection.prepareStatement(UPDATE_SKILLS)) {
-            Iterator<String> itr = skills.iterator();
+        try (PreparedStatement statementSkills = connection.prepareStatement(DELETE_SKILLS_BY_ID);) {
+            statementSkills.setLong(1, id);
+            statementSkills.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try (PreparedStatement statement = connection.prepareStatement(INSERT_NEW_SKILLS)) {
+            statement.setLong(1, id);
+            Iterator<String> itr = person.getSkills().iterator();
             while(itr.hasNext()){
-                statement.setString(1, itr.next());
-                statement.setLong(2, id);
+                statement.setString(2, itr.next());
                 statement.executeUpdate();
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        person.setContact(contact);
+
         return person;
     }
-
-
-
 
     @Override
     public boolean deleteById(Long id) {

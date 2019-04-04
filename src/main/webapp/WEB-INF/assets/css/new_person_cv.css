@@ -1,0 +1,12 @@
+body {
+    width: 100%;
+    margin: auto;
+    max-width: 1400px;
+}
+h3 {
+    display: block;
+    background-color: darkgray;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    height: fit-content;
+}

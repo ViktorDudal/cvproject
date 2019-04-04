@@ -56,96 +56,66 @@ public class PersonsController extends HttpServlet {
 
 
         if (personId != null){
-            Person person = new Person();
-            Contact contact = new Contact();
-            Set<Company> companies = new HashSet<>();
-            Set<String> skills = new TreeSet<>();
-            person.setSurname(req.getParameter("surname"));
-            person.setName(req.getParameter("name"));
-            person.setDateOfBirth(LocalDate.parse(req.getParameter("dateOfBirth")));
-            person.setSpecialization(Specialization.getByName(req.getParameter("specializ")));
-            contact.setCity(req.getParameter("city"));
-            contact.setAddress(req.getParameter("address"));
-            contact.setPhoneNumber(req.getParameter("phoneNumber"));
-            contact.setEmail(req.getParameter("email"));
-
-            int index_company = 0;
-            String companyName = req.getParameter("companyName" + index_company);
-            while (companyName != null && !companyName.isEmpty()){
-                companies.add(Company.builder()
-                        .companyName(companyName)
-                        .position(req.getParameter("position" + index_company))
-                        .workedFrom(LocalDate.parse(req.getParameter("workedFrom" + index_company)))
-                        .workedTill(LocalDate.parse(req.getParameter("workedTill" + index_company)))
-                        .build());
-//                if (index_company == 0){
-//                    index_company += 2;
-//                } else {
-//                    index_company += 1;
-//                }
-                companyName = req.getParameter("companyName" + ++index_company);
-            }
-            person.setCompanies(companies);
-
-            int index = 0;
-            String[] skillValues = req.getParameterValues("skill" + index);
-            while (skillValues != null && skillValues.length != 0){
-                for (String skill: skillValues) {
-                    skills.add(skill);
-                }
-//                if (index == 0){
-//                    index += 2;
-//                } else {
-//                    index += 1;
-//                }
-                skillValues = req.getParameterValues("skill" + ++index);
-            }
-            person.setSkills(skills);
-
-            personService.updatePerson(Long.parseLong(personId), person, contact, skills, companies);
+            personService.updatePerson(Long.parseLong(personId), setPersonByRequest(req));
         } else {
-            Person person = new Person();
-            Contact contact = new Contact();
-            Set<Company> companies = new HashSet<>();
-            Set<String> skills = new TreeSet<>();
-            person.setSurname(req.getParameter("surname"));
-            person.setName(req.getParameter("name"));
-            person.setDateOfBirth(LocalDate.parse(req.getParameter("dateOfBirth")));
-            person.setSpecialization(Specialization.getByName(req.getParameter("specializ")));
-            contact.setCity(req.getParameter("city"));
-            contact.setAddress(req.getParameter("address"));
-            contact.setPhoneNumber(req.getParameter("phoneNumber"));
-            contact.setEmail(req.getParameter("email"));
-
-            int index_company = 1;
-            String companyName = req.getParameter("companyName" + index_company);
-            while (companyName != null && !companyName.isEmpty()){
-                companies.add(Company.builder()
-                        .companyName(companyName)
-                        .position(req.getParameter("position" + index_company))
-                        .workedFrom(LocalDate.parse(req.getParameter("workedFrom" + index_company)))
-                        .workedTill(LocalDate.parse(req.getParameter("workedTill" + index_company)))
-                        .build());
-                companyName = req.getParameter("companyName" + ++index_company);
-            }
-            person.setCompanies(companies);
-
-            int index = 1;
-            String[] skillValues = req.getParameterValues("skill" + index);
-            while (skillValues != null && skillValues.length != 0){
-                for (String skill: skillValues) {
-                    skills.add(skill);
-                }
-                skillValues = req.getParameterValues("skill" + ++index);
-            }
-            person.setSkills(skills);
-
-            personService.insertNewPerson(person, contact, skills, companies);
+            personService.insertNewPerson(setPersonByRequest(req));
         }
 
         req.setAttribute("specializations", Specialization.values());
         req.setAttribute("persons", personService.getAll());
 
         req.getRequestDispatcher("/WEB-INF/pages/all_persons.jsp").forward(req, resp);
+    }
+
+    private Contact setContactByRequest(HttpServletRequest req){
+        Contact contact = new Contact();
+        return contact.builder()
+                       .city(req.getParameter("city"))
+                       .address(req.getParameter("address"))
+                       .phoneNumber(req.getParameter("phoneNumber"))
+                       .email(req.getParameter("email"))
+                       .build();
+    }
+
+    private Set<Company> setCompanyByRequest(HttpServletRequest req) {
+        Set<Company> companies = new HashSet<>();
+        int index = 0;
+        String companyName = req.getParameter("companyName" + index);
+        while (companyName != null && !companyName.isEmpty()){
+            companies.add(Company.builder()
+                    .companyName(companyName)
+                    .position(req.getParameter("position" + index))
+                    .workedFrom(LocalDate.parse(req.getParameter("workedFrom" + index)))
+                    .workedTill(LocalDate.parse(req.getParameter("workedTill" + index)))
+                    .build());
+            companyName = req.getParameter("companyName" + ++index);
+        }
+        return companies;
+    }
+
+    private Set<String> setSkillsByRequest(HttpServletRequest req) {
+        Set<String> skills = new TreeSet<>();
+        int index = 0;
+        String[] skillValues = req.getParameterValues("skill" + index);
+        while (skillValues != null && skillValues.length != 0){
+            for (String skill: skillValues) {
+                skills.add(skill);
+            }
+            skillValues = req.getParameterValues("skill" + ++index);
+        }
+        return skills;
+    }
+
+    private Person setPersonByRequest(HttpServletRequest req) {
+        Person person = new Person();
+        return person.builder()
+                     .surname(req.getParameter("surname"))
+                     .name(req.getParameter("name"))
+                     .dateOfBirth(LocalDate.parse(req.getParameter("dateOfBirth")))
+                     .specialization(Specialization.getByName(req.getParameter("specializ")))
+                     .contact(setContactByRequest(req))
+                     .company(setCompanyByRequest(req))
+                     .skills(setSkillsByRequest(req))
+                     .build();
     }
 }

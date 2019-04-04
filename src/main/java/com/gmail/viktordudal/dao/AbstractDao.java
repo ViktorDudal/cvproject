@@ -13,9 +13,9 @@ public abstract class AbstractDao<E> {
 
     public abstract E getById(long id);
 
-    public abstract Person insertPerson(Person person, Contact contact, Set<String> skills, Set<Company> companies);
+    public abstract Person insertPerson(Person person);
 
-    public abstract Person updatePerson(Long id, Person person, Contact contact, Set<String> skills, Set<Company> companies);
+    public abstract Person updatePerson(Long id, Person person);
 
     public abstract boolean deleteById(Long id);
 

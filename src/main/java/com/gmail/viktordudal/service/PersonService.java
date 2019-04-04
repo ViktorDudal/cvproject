@@ -29,16 +29,16 @@ public class PersonService {
     }
 
 
-    public Person insertNewPerson(Person newPerson, Contact newContact, Set<String> skills, Set<Company> companies) {
-        return personDao.insertPerson(newPerson, newContact, skills, companies);
+    public Person insertNewPerson(Person newPerson) {
+        return personDao.insertPerson(newPerson);
     }
 
     public boolean deleteById(long id) {
         return personDao.deleteById(id);
     }
 
-    public Person updatePerson(Long id, Person person, Contact contact, Set<String> skills, Set<Company> companies) {
-        return personDao.updatePerson(id, person, contact, skills, companies);
+    public Person updatePerson(Long id, Person person) {
+        return personDao.updatePerson(id, person);
     }
 
     public boolean addPersonFromFile(String absolutePath) {
