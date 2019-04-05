@@ -16,7 +16,7 @@ public class ParseFile {
     private static XmlMapper xmlMapper;
     private static final Logger LOGGER = Logger.getLogger(ParseFile.class.getName());
 
-    public static Person parseFile(String file) throws FileNotFoundException {
+    public static Person parseFile(String file) throws IOException {
 
         Person user = null;
         mapper = new ObjectMapper(new YAMLFactory());

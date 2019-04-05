@@ -51,6 +51,10 @@
             padding: 15px;
             width: 1000px;
         }
+        #uploadFile {
+            margin-left: 30px;
+            cursor: pointer;
+        }
 
     </style>
 
@@ -59,15 +63,9 @@
 <h3 align="center">CV in Database</h3>
 <div class="input-group mb-3">
     <a class="btn btn-info" href="${pageContext.request.contextPath}/person?action=create" role="button">Create new CV</a>
-    <%--<span></span>--%>
-    <form action="upload" method="post" enctype="multipart/form-data" class="form-inline">
-        <div class="col-md-4">
-            <input type="file" class="custom-file-input" name="file" accept="text/xml, text/plain, application/json" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-        </div>
-        <div class="col-md-4">
-            <input type="submit" value=" Add to DB"  class="input-group-prepend" id = "addFile"/>
-        </div>
+    <form action="${pageContext.request.contextPath}/upload" method="post" enctype="multipart/form-data">
+        <input id="uploadFile" class="btn btn-info" value="Input" name="data" type="file" accept=".json, .xml, .txt">
+        <input class="button" type="submit" value="Add to Database"> <br>
     </form>
 </div>
 <c:if test="${message!=null}">

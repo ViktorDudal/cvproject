@@ -1,5 +1,6 @@
 package com.gmail.viktordudal.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -9,6 +10,8 @@ import com.gmail.viktordudal.model.Company;
 import com.gmail.viktordudal.model.Contact;
 import com.gmail.viktordudal.model.Person;
 import com.gmail.viktordudal.model.Specialization;
+
+import static com.gmail.viktordudal.service.ParseFile.parseFile;
 
 public class PersonService {
 
@@ -41,7 +44,8 @@ public class PersonService {
         return personDao.updatePerson(id, person);
     }
 
-    public boolean addPersonFromFile(String absolutePath) {
+    public boolean addPersonFromFile(String absolutePath) throws IOException {
+        insertNewPerson(parseFile(absolutePath));
         return true;
     }
 }

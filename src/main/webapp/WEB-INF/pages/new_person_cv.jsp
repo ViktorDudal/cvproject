@@ -11,6 +11,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <%--<link rel="stylesheet" type="text/css" href="../assets/css/new_person_cv.css">--%>
+    <%--<link  rel="stylesheet" href="<c:url value="../assets/css/new_person_cv.css"/>">--%>
     <style>
         body {
             width: 100%;
@@ -199,7 +200,7 @@
     <tr>
             <td>
                 <div class="input-group mb-1">
-                    <input value="${skill}"type="text" name="skill${loop}" class="form-control" placeholder="Skills user" aria-label="Skills user" aria-describedby="basic-addon1">
+                    <input id="row_skill" value="${skill}"type="text" name="skill${loop}" class="form-control" placeholder="Skills user" aria-label="Skills user" aria-describedby="basic-addon1">
                 </div>
             </td>
         </tr>
@@ -219,11 +220,10 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script>
     window.addEventListener("load", init, false);
-    var skill_index = 1;
+    var skill_index = $('#row_skill').attr('name');
     var job_index = 1;
     function init () {
         console.log('init');
-        console.log(job_index);
         addNewSkill.addEventListener("click", addSkill, false);
         addNewJobs.addEventListener("click", addJob, false);
         // closeRowSkill.addEventListener("click", closeSkill, false);
@@ -238,6 +238,8 @@
     function addSkill () {
 
         console.log("add new skill table row");
+
+        console.log(skill_index);
 
         var trNode = document.createElement('TR');
         trNode.id = "rowSkill" + skill_index;
@@ -262,8 +264,8 @@
 
         skill_index++;
         divNode.appendChild(input);
-        tdNode.appendChild(divNode);
         tdNode1.appendChild(closeButton);
+        tdNode.appendChild(divNode);
         trNode.appendChild(tdNode);
         trNode.appendChild(tdNode1);
         document.getElementById("skillTable").appendChild(trNode);
@@ -273,7 +275,10 @@
 
         console.log("add new job table row");
 
+        console.log(job_index);
+
         var trNode = document.createElement('TR');
+        trNode.id = "rowJob" + job_index;
 
         var tdNode = document.createElement('TD');
         var divNode = document.createElement("div");
@@ -310,9 +315,23 @@
         input4.className = "form-control";
         input4.name = "workedTill" + job_index;
         input4.placeholder = "To user";
+        input4.style.width = "180px";
+
+        var tdNode5 = document.createElement('TD');
+        var divNode5 = document.createElement("div");
+        divNode5.className = "input-group mb-3";
+        var closeButton = document.createElement("button");
+        closeButton.className = "close";
+        closeButton.type = "button";
+        closeButton.setAttribute("onclick", "document.getElementById('rowJob" + job_index + "' ).remove()");
+
+        var closeText = document.createTextNode("x");
+        closeButton.appendChild(closeText);
 
         job_index++;
 
+        divNode5.appendChild(closeButton);
+        tdNode5.appendChild(divNode5);
         divNode4.appendChild(input4);
         tdNode4.appendChild(divNode4);
         divNode3.appendChild(input3);
@@ -325,6 +344,7 @@
         trNode.appendChild(tdNode2);
         trNode.appendChild(tdNode3);
         trNode.appendChild(tdNode4);
+        trNode.appendChild(tdNode5);
         document.getElementById("jobTable").appendChild(trNode);
     }
 </script>

@@ -1,6 +1,8 @@
 package com.gmail.viktordudal.controler;
 
+import com.gmail.viktordudal.model.Person;
 import com.gmail.viktordudal.model.Specialization;
+import com.gmail.viktordudal.service.ParseFile;
 import com.gmail.viktordudal.service.PersonService;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
