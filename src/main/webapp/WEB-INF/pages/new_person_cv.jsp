@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="static com.gmail.viktordudal.dao.PersonDao.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!doctype html>
@@ -220,7 +221,12 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script>
     window.addEventListener("load", init, false);
-    var skill_index = $('#row_skill').attr('name');
+    // var int = new java.lang.Integer("1");
+    // var jobCounter = ;
+    // var jsIntValue = jobCounter.intValue();
+    <%--var jsvarlist = <%=request.getAttribute("jobAmount")%>;--%>
+
+    var skill_index = 1;
     var job_index = 1;
     function init () {
         console.log('init');

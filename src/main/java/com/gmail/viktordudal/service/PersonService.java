@@ -1,15 +1,12 @@
 package com.gmail.viktordudal.service;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import com.gmail.viktordudal.dao.PersonDao;
-import com.gmail.viktordudal.model.Company;
-import com.gmail.viktordudal.model.Contact;
 import com.gmail.viktordudal.model.Person;
 import com.gmail.viktordudal.model.Specialization;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.gmail.viktordudal.service.ParseFile.parseFile;
 

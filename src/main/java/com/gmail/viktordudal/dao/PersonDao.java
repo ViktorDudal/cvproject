@@ -12,6 +12,8 @@ import java.util.*;
 
 public class PersonDao extends AbstractDao<Person> {
 
+    public static int jobCounter = 0;
+
     private static final String SELECT_ALL = "SELECT * FROM person;";
     private static final String SELECT_BY_ID = "select * from person p join contact c on p.id = c.person_id join jobs j on p.id = j.person_id join skills s on p.id = s.person_id where p.id = ?;";
     private static final String DELETE_CONTACT_BY_ID = "delete from contact WHERE person_id = ?;";
@@ -121,6 +123,7 @@ public class PersonDao extends AbstractDao<Person> {
                 statement.setString(3, job.getPosition());
                 statement.setDate(4, Date.valueOf(job.getWorkedFrom()));
                 statement.setDate(5, Date.valueOf(job.getWorkedTill()));
+                jobCounter++;
                 statement.executeUpdate();
             }
         } catch (SQLException ex) {

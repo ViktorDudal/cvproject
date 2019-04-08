@@ -1,9 +1,6 @@
 package com.gmail.viktordudal.controler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gmail.viktordudal.model.Company;
-import com.gmail.viktordudal.model.Contact;
-import com.gmail.viktordudal.model.Person;
 import com.gmail.viktordudal.model.Specialization;
 import com.gmail.viktordudal.service.PersonService;
 
@@ -13,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @WebServlet(urlPatterns = "/person")
 public class PersonController extends HttpServlet {

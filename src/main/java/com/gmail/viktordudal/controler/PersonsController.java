@@ -19,6 +19,8 @@ import com.gmail.viktordudal.model.Person;
 import com.gmail.viktordudal.model.Specialization;
 import com.gmail.viktordudal.service.PersonService;
 
+import static com.gmail.viktordudal.dao.PersonDao.jobCounter;
+
 @WebServlet(urlPatterns = "/")
 public class PersonsController extends HttpServlet {
 
@@ -44,6 +46,7 @@ public class PersonsController extends HttpServlet {
                 req.setAttribute("message", "There are no CV in DB");
             }
         }
+        req.setAttribute("jobAmount", jobCounter);
         req.setAttribute("specializations", Specialization.values());
         req.getRequestDispatcher("/WEB-INF/pages/all_persons.jsp").forward(req, resp);
     }
@@ -53,7 +56,6 @@ public class PersonsController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
         String personId = req.getParameter("personId");
-
 
         if (personId != null){
             personService.updatePerson(Long.parseLong(personId), setPersonByRequest(req));
